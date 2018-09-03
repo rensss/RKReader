@@ -1,0 +1,12 @@
+PODS:
+  - R_category (0.0.5)
+
+DEPENDENCIES:
+  - R_category
+
+SPEC CHECKSUMS:
+  R_category: c06a3be4abd38049092574ac8ddb7a75e08e088a
+
+PODFILE CHECKSUM: bcde32b0dedee3613a9017b99687334d3f44464b
+
+COCOAPODS: 1.4.0
