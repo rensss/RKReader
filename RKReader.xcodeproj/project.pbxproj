@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
-		109C98C5213CE8DE0018DB5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C3213CE8DE0018DB5F /* Main.storyboard */; };
 		109C98C7213CE8E00018DB5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C6213CE8E00018DB5F /* Assets.xcassets */; };
-		109C98CA213CE8E00018DB5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C8213CE8E00018DB5F /* LaunchScreen.storyboard */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
 		109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */; };
 		109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */; };
+		109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E6213D256F0018DB5F /* RKSetttingViewController.m */; };
 		810C9F6A9B719B7FDB95FC3C /* libPods-RKReader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */; };
 /* End PBXBuildFile section */
 
@@ -22,9 +21,7 @@
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		109C98C4213CE8DE0018DB5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		109C98C6213CE8E00018DB5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		109C98C9213CE8E00018DB5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		109C98CB213CE8E00018DB5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		109C98CC213CE8E00018DB5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		109C98D9213CF4390018DB5F /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -34,6 +31,8 @@
 		109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKNavigationViewController.m; sourceTree = "<group>"; };
 		109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBookListViewController.h; sourceTree = "<group>"; };
 		109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookListViewController.m; sourceTree = "<group>"; };
+		109C98E5213D256F0018DB5F /* RKSetttingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKSetttingViewController.h; sourceTree = "<group>"; };
+		109C98E6213D256F0018DB5F /* RKSetttingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKSetttingViewController.m; sourceTree = "<group>"; };
 		584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.release.xcconfig"; sourceTree = "<group>"; };
 		AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RKReader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +100,8 @@
 			children = (
 				109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */,
 				109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */,
+				109C98E5213D256F0018DB5F /* RKSetttingViewController.h */,
+				109C98E6213D256F0018DB5F /* RKSetttingViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -111,9 +112,7 @@
 				109C98D9213CF4390018DB5F /* PrefixHeader.pch */,
 				109C98BD213CE8DE0018DB5F /* AppDelegate.h */,
 				109C98BE213CE8DE0018DB5F /* AppDelegate.m */,
-				109C98C3213CE8DE0018DB5F /* Main.storyboard */,
 				109C98C6213CE8E00018DB5F /* Assets.xcassets */,
-				109C98C8213CE8E00018DB5F /* LaunchScreen.storyboard */,
 				109C98CB213CE8E00018DB5F /* Info.plist */,
 				109C98CC213CE8E00018DB5F /* main.m */,
 			);
@@ -217,9 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				109C98CA213CE8E00018DB5F /* LaunchScreen.storyboard in Resources */,
 				109C98C7213CE8E00018DB5F /* Assets.xcassets in Resources */,
-				109C98C5213CE8DE0018DB5F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,29 +286,11 @@
 				109C98CD213CE8E00018DB5F /* main.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
+				109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		109C98C3213CE8DE0018DB5F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				109C98C4213CE8DE0018DB5F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		109C98C8213CE8E00018DB5F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				109C98C9213CE8E00018DB5F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		109C98CE213CE8E00018DB5F /* Debug */ = {
@@ -429,6 +408,7 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
@@ -447,6 +427,7 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";

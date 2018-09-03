@@ -1,42 +1,26 @@
 //
-//  RKBookListViewController.m
+//  RKSetttingViewController.m
 //  RKReader
 //
 //  Created by MBP on 2018/9/3.
 //  Copyright © 2018年 Rzk. All rights reserved.
 //
 
-#import "RKBookListViewController.h"
 #import "RKSetttingViewController.h"
 
-@interface RKBookListViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface RKSetttingViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView; /**< 列表*/
-@property (nonatomic, strong) NSMutableArray *dataArray; /**< 数据源*/
+@property (nonatomic, strong) NSMutableArray *dataArray; /**< 列表标题*/
 
 @end
 
-@implementation RKBookListViewController
+@implementation RKSetttingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initUI];
-}
-
-#pragma mark - 函数
-/// 布局UI
-- (void)initUI {
-    // 设置按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
-    
     [self.view addSubview:self.tableView];
-}
-
-#pragma mark - 点击事件
-- (void)settingClick {
-    RKSetttingViewController *settingVC = [[RKSetttingViewController alloc] init];
-    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 #pragma mark - 代理
@@ -74,6 +58,13 @@
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
+}
+
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray arrayWithObjects:@"",@"", nil];
+    }
+    return _dataArray;
 }
 
 @end
