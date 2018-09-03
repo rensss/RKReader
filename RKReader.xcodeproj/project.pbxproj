@@ -3,16 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
-		109C98C2213CE8DE0018DB5F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98C1213CE8DE0018DB5F /* ViewController.m */; };
 		109C98C5213CE8DE0018DB5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C3213CE8DE0018DB5F /* Main.storyboard */; };
 		109C98C7213CE8E00018DB5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C6213CE8E00018DB5F /* Assets.xcassets */; };
 		109C98CA213CE8E00018DB5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C8213CE8E00018DB5F /* LaunchScreen.storyboard */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
+		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
+		109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */; };
+		109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */; };
 		810C9F6A9B719B7FDB95FC3C /* libPods-RKReader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */; };
 /* End PBXBuildFile section */
 
@@ -20,13 +22,18 @@
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		109C98C0213CE8DE0018DB5F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		109C98C1213CE8DE0018DB5F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		109C98C4213CE8DE0018DB5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		109C98C6213CE8E00018DB5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		109C98C9213CE8E00018DB5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		109C98CB213CE8E00018DB5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		109C98CC213CE8E00018DB5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		109C98D9213CF4390018DB5F /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		109C98DC213D0C840018DB5F /* RKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKViewController.h; sourceTree = "<group>"; };
+		109C98DD213D0C840018DB5F /* RKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKViewController.m; sourceTree = "<group>"; };
+		109C98DF213D0CD30018DB5F /* RKNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKNavigationViewController.h; sourceTree = "<group>"; };
+		109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKNavigationViewController.m; sourceTree = "<group>"; };
+		109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBookListViewController.h; sourceTree = "<group>"; };
+		109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookListViewController.m; sourceTree = "<group>"; };
 		584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.release.xcconfig"; sourceTree = "<group>"; };
 		AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RKReader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,17 +72,70 @@
 		109C98BC213CE8DE0018DB5F /* RKReader */ = {
 			isa = PBXGroup;
 			children = (
+				109C98DB213D0C6A0018DB5F /* Base */,
+				109C98D5213CEC530018DB5F /* Models */,
+				109C98D6213CEC5D0018DB5F /* Views */,
+				109C98D7213CEC6E0018DB5F /* Controllers */,
+				109C98DA213CF4460018DB5F /* Utills */,
+				109C98D8213CEE3F0018DB5F /* Supporting Files */,
+			);
+			path = RKReader;
+			sourceTree = "<group>";
+		};
+		109C98D5213CEC530018DB5F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		109C98D6213CEC5D0018DB5F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		109C98D7213CEC6E0018DB5F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */,
+				109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		109C98D8213CEE3F0018DB5F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				109C98D9213CF4390018DB5F /* PrefixHeader.pch */,
 				109C98BD213CE8DE0018DB5F /* AppDelegate.h */,
 				109C98BE213CE8DE0018DB5F /* AppDelegate.m */,
-				109C98C0213CE8DE0018DB5F /* ViewController.h */,
-				109C98C1213CE8DE0018DB5F /* ViewController.m */,
 				109C98C3213CE8DE0018DB5F /* Main.storyboard */,
 				109C98C6213CE8E00018DB5F /* Assets.xcassets */,
 				109C98C8213CE8E00018DB5F /* LaunchScreen.storyboard */,
 				109C98CB213CE8E00018DB5F /* Info.plist */,
 				109C98CC213CE8E00018DB5F /* main.m */,
 			);
-			path = RKReader;
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		109C98DA213CF4460018DB5F /* Utills */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utills;
+			sourceTree = "<group>";
+		};
+		109C98DB213D0C6A0018DB5F /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				109C98DC213D0C840018DB5F /* RKViewController.h */,
+				109C98DD213D0C840018DB5F /* RKViewController.m */,
+				109C98DF213D0CD30018DB5F /* RKNavigationViewController.h */,
+				109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		9AB68488A0147C63229FFDFE /* Pods */ = {
@@ -124,16 +184,18 @@
 		109C98B2213CE8DE0018DB5F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = RK;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Rzk;
 				TargetAttributes = {
 					109C98B9213CE8DE0018DB5F = {
 						CreatedOnToolsVersion = 9.4;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
 			buildConfigurationList = 109C98B5213CE8DE0018DB5F /* Build configuration list for PBXProject "RKReader" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -185,9 +247,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-resources.sh",
+				"${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GCDWebUploader.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -219,9 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				109C98C2213CE8DE0018DB5F /* ViewController.m in Sources */,
+				109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */,
+				109C98DE213D0C840018DB5F /* RKViewController.m in Sources */,
 				109C98CD213CE8E00018DB5F /* main.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
+				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,11 +429,15 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RKReader/Info.plist;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
+				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1c5bcc17-aaa1-4e01-bf22-04aff8ec2597";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -376,11 +447,15 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = RKReader/Info.plist;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
+				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1c5bcc17-aaa1-4e01-bf22-04aff8ec2597";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

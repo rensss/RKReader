@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  RKNavigationViewController.h
 //  RKReader
 //
 //  Created by MBP on 2018/9/3.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface RKNavigationViewController : UINavigationController
 
 @end
-
