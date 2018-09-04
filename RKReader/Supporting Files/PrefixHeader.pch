@@ -31,7 +31,10 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #import "RKNavigationViewController.h" // 导航控制器
 #import "RKAlertMessage.h"// 弹窗
 #import "RKLoadingView.h"// loadingView
+#import "RKFileManager.h"// 文件管理
 
+#pragma mark - 宏
+#define kBookSavePath [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"/Books"]
 
 
 #endif /* PrefixHeader_pch */

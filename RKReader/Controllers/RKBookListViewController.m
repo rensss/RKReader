@@ -22,13 +22,15 @@
     [super viewDidLoad];
     
     [self initUI];
+    
+    [RKFileManager sharedInstance];
 }
 
 #pragma mark - 函数
 /// 布局UI
 - (void)initUI {
     // 设置按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"设置"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
     
     [self.view addSubview:self.tableView];
 }

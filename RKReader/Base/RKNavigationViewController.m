@@ -59,7 +59,7 @@
     if (self.childViewControllers.count > 0) { // 非根控制器
         
         // 设置返回按钮
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(THNvigationBarLeftButtonItemClick)];
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStylePlain target:self action:@selector(THNvigationBarLeftButtonItemClick)];
         viewController.navigationItem.leftBarButtonItem.tag = 1;
     }
     

@@ -7,6 +7,7 @@
 //
 
 #import "RKSetttingViewController.h"
+#import "RKImportViewController.h"
 
 @interface RKSetttingViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -29,6 +30,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RKLog(@"%@",indexPath);
+    // 导入
+    if ([self.dataArray[indexPath.row] isEqualToString:self.dataArray[0]]) {
+        RKImportViewController *importVC = [[RKImportViewController alloc] init];
+        [self.navigationController pushViewController:importVC animated:YES];
+    }
+    
+    
 }
 
 #pragma mark -- UITableViewDataSource
@@ -41,9 +49,11 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([UITableViewCell class])];
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    cell.detailTextLabel.text = self.dataArray[indexPath.row];
+    cell.textLabel.text = self.dataArray[indexPath.row];
     
     return cell;
 }
@@ -64,7 +74,7 @@
 
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects:@"删除全部书籍",@"设置", nil];
+        _dataArray = [NSMutableArray arrayWithObjects:@"局域网导入",@"删除全部书籍",@"设置", nil];
     }
     return _dataArray;
 }
