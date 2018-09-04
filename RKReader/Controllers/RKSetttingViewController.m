@@ -43,6 +43,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([UITableViewCell class])];
     }
     
+    cell.detailTextLabel.text = self.dataArray[indexPath.row];
+    
     return cell;
 }
 
@@ -62,7 +64,7 @@
 
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects:@"",@"", nil];
+        _dataArray = [NSMutableArray arrayWithObjects:@"删除全部书籍",@"设置", nil];
     }
     return _dataArray;
 }

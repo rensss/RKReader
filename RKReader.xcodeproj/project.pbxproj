@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1037E448213E2A3100B5CF0E /* RKAlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E447213E2A3100B5CF0E /* RKAlertMessage.m */; };
+		1037E44B213E2A4200B5CF0E /* RKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E44A213E2A4200B5CF0E /* RKLoadingView.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98C7213CE8E00018DB5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 109C98C6213CE8E00018DB5F /* Assets.xcassets */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1037E446213E2A3100B5CF0E /* RKAlertMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKAlertMessage.h; sourceTree = "<group>"; };
+		1037E447213E2A3100B5CF0E /* RKAlertMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKAlertMessage.m; sourceTree = "<group>"; };
+		1037E449213E2A4200B5CF0E /* RKLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKLoadingView.h; sourceTree = "<group>"; };
+		1037E44A213E2A4200B5CF0E /* RKLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKLoadingView.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -50,6 +56,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1037E444213E29E300B5CF0E /* RKFileManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RKFileManager;
+			sourceTree = "<group>";
+		};
+		1037E445213E2A0A00B5CF0E /* RKAlertMeassge */ = {
+			isa = PBXGroup;
+			children = (
+				1037E446213E2A3100B5CF0E /* RKAlertMessage.h */,
+				1037E447213E2A3100B5CF0E /* RKAlertMessage.m */,
+				1037E449213E2A4200B5CF0E /* RKLoadingView.h */,
+				1037E44A213E2A4200B5CF0E /* RKLoadingView.m */,
+			);
+			path = RKAlertMeassge;
+			sourceTree = "<group>";
+		};
 		109C98B1213CE8DE0018DB5F = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +146,8 @@
 		109C98DA213CF4460018DB5F /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				1037E445213E2A0A00B5CF0E /* RKAlertMeassge */,
+				1037E444213E29E300B5CF0E /* RKFileManager */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -281,8 +307,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1037E44B213E2A4200B5CF0E /* RKLoadingView.m in Sources */,
 				109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */,
 				109C98DE213D0C840018DB5F /* RKViewController.m in Sources */,
+				1037E448213E2A3100B5CF0E /* RKAlertMessage.m in Sources */,
 				109C98CD213CE8E00018DB5F /* main.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
