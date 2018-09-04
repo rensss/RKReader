@@ -224,6 +224,10 @@
     if (!_webUploader) {
         _webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:kBookSavePath];
         _webUploader.delegate = self;
+        _webUploader.allowedFileExtensions = @[@"txt",@"epub"];
+        _webUploader.prologue = @"点击Upload Files... 选择上传文件 ps:仅支持txt/epub格式文件";
+        _webUploader.epilogue = @"直接拖拽文件到此处上传";
+        _webUploader.footer = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey];
     }
     return _webUploader;
 }
