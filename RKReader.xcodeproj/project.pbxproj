@@ -14,6 +14,10 @@
 		1037E454213E39D400B5CF0E /* RKBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E453213E39D400B5CF0E /* RKBook.m */; };
 		1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E456213E5D2500B5CF0E /* RKImportViewController.m */; };
 		1037E459213E65DA00B5CF0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1037E458213E65DA00B5CF0E /* Assets.xcassets */; };
+		1037E45C213E740900B5CF0E /* RKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E45B213E740900B5CF0E /* RKFile.m */; };
+		1037E45E213E79D400B5CF0E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037E45D213E79D300B5CF0E /* libz.tbd */; };
+		1037E460213E7AD800B5CF0E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037E45F213E7AD800B5CF0E /* libxml2.tbd */; };
+		1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -37,6 +41,12 @@
 		1037E455213E5D2500B5CF0E /* RKImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKImportViewController.h; sourceTree = "<group>"; };
 		1037E456213E5D2500B5CF0E /* RKImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKImportViewController.m; sourceTree = "<group>"; };
 		1037E458213E65DA00B5CF0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1037E45A213E740900B5CF0E /* RKFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKFile.h; sourceTree = "<group>"; };
+		1037E45B213E740900B5CF0E /* RKFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKFile.m; sourceTree = "<group>"; };
+		1037E45D213E79D300B5CF0E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1037E45F213E7AD800B5CF0E /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		1037E461213E7F8E00B5CF0E /* RKHomeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKHomeListTableViewCell.h; sourceTree = "<group>"; };
+		1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListTableViewCell.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1037E460213E7AD800B5CF0E /* libxml2.tbd in Frameworks */,
+				1037E45E213E79D400B5CF0E /* libz.tbd in Frameworks */,
 				810C9F6A9B719B7FDB95FC3C /* libPods-RKReader.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +138,8 @@
 				1037E450213E39A200B5CF0E /* RKModel.m */,
 				1037E452213E39D400B5CF0E /* RKBook.h */,
 				1037E453213E39D400B5CF0E /* RKBook.m */,
+				1037E45A213E740900B5CF0E /* RKFile.h */,
+				1037E45B213E740900B5CF0E /* RKFile.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -133,6 +147,8 @@
 		109C98D6213CEC5D0018DB5F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1037E461213E7F8E00B5CF0E /* RKHomeListTableViewCell.h */,
+				1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +211,8 @@
 		B77768837B3246CE052EFECD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1037E45F213E7AD800B5CF0E /* libxml2.tbd */,
+				1037E45D213E79D300B5CF0E /* libz.tbd */,
 				B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */,
 			);
 			name = Frameworks;
@@ -338,7 +356,9 @@
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
 				1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */,
+				1037E45C213E740900B5CF0E /* RKFile.m in Sources */,
 				109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */,
+				1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +484,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GCDWebServer\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/R_category\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
@@ -483,6 +511,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GCDWebServer\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/R_category\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;

@@ -41,10 +41,12 @@
     BOOL isDir;
     // 先判断目录是否存在，不存在才创建
     if  (![fileManager fileExistsAtPath:kBookSavePath isDirectory:&isDir]) {
-        BOOL res=[fileManager createDirectoryAtPath:kBookSavePath withIntermediateDirectories:YES attributes:nil error:nil];
+        BOOL res = [fileManager createDirectoryAtPath:kBookSavePath withIntermediateDirectories:YES attributes:nil error:nil];
         return res;
-    } else
-        return NO;
+    } else {
+        // 文件已存在
+        return YES;
+    }
 }
 
 #pragma mark - 函数

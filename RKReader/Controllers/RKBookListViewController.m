@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"首页";
+    
     [self initUI];
     
     [RKFileManager sharedInstance];

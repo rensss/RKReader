@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationItem.title = @"设置";
     [self.view addSubview:self.tableView];
 }
 
@@ -35,7 +35,6 @@
         RKImportViewController *importVC = [[RKImportViewController alloc] init];
         [self.navigationController pushViewController:importVC animated:YES];
     }
-    
     
 }
 

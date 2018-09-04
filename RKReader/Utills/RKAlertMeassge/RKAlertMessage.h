@@ -14,15 +14,15 @@
 /**
  *  自定义弹出提醒 (不带回调)
  *  @param message 提示文字
- *  @return THAlertMessage
+ *  @return RKAlertMessage
  */
-#define THAlertMessageShowInWindow(message) THAlertMessage *alertMessage = [[THAlertMessage alloc] initWithMessage:message];\
+#define RKAlertMessageShowInWindow(message) RKAlertMessage *alertMessage = [[RKAlertMessage alloc] initWithMessage:message];\
 [alertMessage showInView:[[UIApplication sharedApplication].delegate window] dismiss:nil];
 
-#define THAlertMessage(message,view) THAlertMessage *alertMessage = [[THAlertMessage alloc] initWithMessage:message];\
+#define RKAlertMessage(message,view) RKAlertMessage *alertMessage = [[RKAlertMessage alloc] initWithMessage:message];\
 [alertMessage showInView:view dismiss:nil];
 
-#define THAlertAttributeMessage(message,view) THAlertMessage *alertMessage = [[THAlertMessage alloc] initWithAttributeMessage:message];\
+#define RKAlertAttributeMessage(message,view) RKAlertMessage *alertMessage = [[RKAlertMessage alloc] initWithAttributeMessage:message];\
 [alertMessage showInView:view dismiss:nil];
 
 @interface RKAlertMessage : NSObject
