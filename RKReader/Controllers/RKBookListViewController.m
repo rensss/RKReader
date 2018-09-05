@@ -9,6 +9,9 @@
 #import "RKBookListViewController.h"
 #import "RKSetttingViewController.h"
 
+#import "RKHomeListTableViewCell.h"// 书籍cell
+
+
 @interface RKBookListViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView; /**< 列表*/
@@ -57,11 +60,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
+    RKHomeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RKHomeListTableViewCell class])];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([UITableViewCell class])];
+        cell = [[RKHomeListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([RKHomeListTableViewCell class])];
     }
+    
+    RKBook *book = self.dataArray[indexPath.row];
+    cell.book = book;
     
     return cell;
 }
@@ -75,9 +81,25 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
+        _tableView.rowHeight = 342;
+        
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
+}
+
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+        NSArray *array = [[RKFileManager sharedInstance] getBookList];
+        for (RKFile *file in array) {
+            RKBook *book = [RKBook new];
+            book.name = file.fileName;
+            book.progress = 0.0;
+            [_dataArray addObject:book];
+        }
+    }
+    return _dataArray;
 }
 
 @end

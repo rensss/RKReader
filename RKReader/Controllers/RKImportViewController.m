@@ -8,7 +8,6 @@
 
 #import "RKImportViewController.h"
 #import "GCDWebUploader.h"
-#import "RKFile.h"
 
 @interface RKImportViewController () <GCDWebUploaderDelegate,UITableViewDelegate,UITableViewDataSource>
 

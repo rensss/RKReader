@@ -11,8 +11,7 @@
 @interface RKBook : RKModel
 
 @property (nonatomic, copy) NSString *name; /**< 书名*/
-@property (nonatomic, strong) NSURL *bookPath; /**< 书籍路径*/
 @property (nonatomic, assign) CGFloat progress; /**< 阅读进度*/
-@property (nonatomic, assign) CGFloat fileSize; /**< 文件大小*/
+@property (nonatomic, strong) RKFile *fileInfo; /**< 文件信息*/
 
 @end

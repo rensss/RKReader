@@ -53,9 +53,27 @@
 - (NSArray *)getBookList {
     NSMutableArray *array = [NSMutableArray array];
     
+    NSFileManager *manager = [NSFileManager defaultManager];
+    //获取数据
+    //①只获取文件名
+    NSArray *fileNameArray = [NSMutableArray arrayWithArray:[manager contentsOfDirectoryAtPath:kBookSavePath error:nil]];
     
+    for (NSString *fileName in fileNameArray) {
+        RKFile *file = [RKFile new];
+        file.fileName = fileName;
+        file.filePath = [NSString stringWithFormat:@"%@/%@",kBookSavePath,fileName];
+        file.fileType = [[fileName componentsSeparatedByString:@"."] lastObject];
+        file.fileSize = [self fileSize:[NSURL URLWithString:file.filePath]];
+
+        [array addObject:file];
+    }
     
     return array;
+}
+
+/// 计算文件的大小，单位为 M
+- (CGFloat)fileSize:(NSURL *)url {
+    return [[NSData dataWithContentsOfURL:url] length] / 1024.00 / 1024.00;
 }
 
 @end
