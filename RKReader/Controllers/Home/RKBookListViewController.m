@@ -32,6 +32,16 @@
     [RKFileManager sharedInstance];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	// 更新列表
+	if (self.dataArray.count != [[RKFileManager sharedInstance] getBookList].count) {
+		self.dataArray = nil;
+		[self.tableView reloadData];
+	}
+}
+
 #pragma mark - 函数
 /// 布局UI
 - (void)initUI {
@@ -100,7 +110,7 @@
             RKBook *book = [RKBook new];
             book.name = file.fileName;
             book.progress = 0.0;
-            book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%12+1];
+            book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
             book.fileInfo = file;
             [_dataArray addObject:book];
         }

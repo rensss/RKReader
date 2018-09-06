@@ -281,7 +281,6 @@
 				109C98B6213CE8DE0018DB5F /* Sources */,
 				109C98B7213CE8DE0018DB5F /* Frameworks */,
 				109C98B8213CE8DE0018DB5F /* Resources */,
-				1AF387EFE4F30351A8DD1BF1 /* [CP] Embed Pods Frameworks */,
 				50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -339,21 +338,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1AF387EFE4F30351A8DD1BF1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -549,6 +533,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -576,6 +561,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "RKReader/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";

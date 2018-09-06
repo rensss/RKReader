@@ -11,6 +11,15 @@
 
 @implementation RKReadView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	if (self) {
+		self.backgroundColor = [UIColor clearColor];
+	}
+	return self;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
@@ -26,7 +35,7 @@
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, self.bounds);
     // 步骤 4
-    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:@"Hello World!"];
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:self.content];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attString);
     CTFrameRef frame = CTFramesetterCreateFrame(framesetter,
                              CFRangeMake(0, [attString length]), path, NULL);

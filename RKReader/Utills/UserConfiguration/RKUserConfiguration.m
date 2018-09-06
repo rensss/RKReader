@@ -43,9 +43,9 @@
             self.navigationOrientation = UIPageViewControllerNavigationOrientationHorizontal;
         }
         if ([[dict allKeys] containsObject:kUserConfigBottomStatusHeight]) {
-            self.topPadding = [dict[kUserConfigBottomStatusHeight] floatValue];
+            self.bottomPadding = [dict[kUserConfigBottomStatusHeight] floatValue];
         }else {
-            self.topPadding = 10.0f;
+            self.bottomPadding = 10.0f;
         }
         if ([[dict allKeys] containsObject:kUserConfigTopPadding]) {
             self.topPadding = [dict[kUserConfigTopPadding] floatValue];
@@ -53,19 +53,19 @@
             self.topPadding = 10.0f;
         }
         if ([[dict allKeys] containsObject:kUserConfigLeftPadding]) {
-            self.topPadding = [dict[kUserConfigLeftPadding] floatValue];
+            self.leftPadding = [dict[kUserConfigLeftPadding] floatValue];
         }else {
-            self.topPadding = 10.0f;
+            self.leftPadding = 10.0f;
         }
         if ([[dict allKeys] containsObject:kUserConfigBottomPadding]) {
-            self.topPadding = [dict[kUserConfigBottomPadding] floatValue];
+            self.bottomPadding = [dict[kUserConfigBottomPadding] floatValue];
         }else {
-            self.topPadding = 10.0f;
+            self.bottomPadding = 10.0f;
         }
         if ([[dict allKeys] containsObject:kUserConfigRightPadding]) {
-            self.topPadding = [dict[kUserConfigRightPadding] floatValue];
+            self.rightPadding = [dict[kUserConfigRightPadding] floatValue];
         }else {
-            self.topPadding = 10.0f;
+            self.rightPadding = 10.0f;
         }
         
         // 保存默认值
