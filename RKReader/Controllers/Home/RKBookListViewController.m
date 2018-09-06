@@ -8,6 +8,7 @@
 
 #import "RKBookListViewController.h"
 #import "RKSetttingViewController.h"
+#import "RKReadPageViewController.h"
 
 #import "RKHomeListTableViewCell.h"// 书籍cell
 
@@ -52,6 +53,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RKLog(@"%@",indexPath);
+    
+    RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+    [self.navigationController pushViewController:readPageVC animated:YES];
 }
 
 #pragma mark -- UITableViewDataSource

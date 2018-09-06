@@ -40,10 +40,9 @@
     self.nameLabel.frame = CGRectMake(self.coverImage.maxX + 5, 5, self.bgView.width - 10 - self.coverImage.maxX, 45);
 
     self.progressLabel.x = self.nameLabel.x;
-    self.progressLabel.y = self.nameLabel.maxY + 5;
-    
     self.sizeLabel.x = self.progressLabel.x;
     self.sizeLabel.maxY = self.bgView.height - 5;
+    self.progressLabel.maxY = self.sizeLabel.y - 5;
 }
 
 #pragma mark - 函数
@@ -58,8 +57,8 @@
     _book = book;
     self.nameLabel.text = book.name;
     self.coverImage.image = [UIImage imageNamed:book.coverName];
-    self.progressLabel.text = [NSString stringWithFormat:@"进度:%0.2f%%",book.progress];
-    self.sizeLabel.text = [NSString stringWithFormat:@"%0.2f M",book.fileInfo.fileSize];
+    self.progressLabel.text = [NSString stringWithFormat:@"进度: %0.2f%%",book.progress];
+    self.sizeLabel.text = [NSString stringWithFormat:@"大小: %0.2f M",book.fileInfo.fileSize];
 }
 
 #pragma mark - getting

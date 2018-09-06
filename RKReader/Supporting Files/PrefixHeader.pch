@@ -44,8 +44,21 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define kCoverImageWidth 236
 #define kCoverImageHeight 337
 
-// 首页封面用户配置key
-#define kUserConfigHomeCoverKey @"kUserConfigHomeCoverKey"
+#pragma mark -- 用户配置
+// 首页封面宽度
+#define kUserConfigHomeCoverWidth @"kUserConfigHomeCoverWidth"
+// 翻页模式
+#define kUserConfigTransitionStyle @"kUserConfigTransitionStyle"
+// 上下/左右翻页
+#define kUserConfigNavigationOrientation @"kUserConfigNavigationOrientation"
+// 底部状态栏高度
+#define kUserConfigBottomStatusHeight @"kUserConfigBottomStatusHeight"
+
+#pragma mark -- 上左下右 边距
+#define kUserConfigTopPadding @"kUserConfigTopPadding"
+#define kUserConfigLeftPadding @"kUserConfigLeftPadding"
+#define kUserConfigBottomPadding @"kUserConfigBottomPadding"
+#define kUserConfigRightPadding @"kUserConfigRightPadding"
 
 #pragma mark -- 文件路径
 // 书籍存放文件夹路径

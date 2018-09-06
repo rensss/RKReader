@@ -19,6 +19,9 @@
 		1037E460213E7AD800B5CF0E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037E45F213E7AD800B5CF0E /* libxml2.tbd */; };
 		1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */; };
 		103A68E42140C14700F008C3 /* RKUserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68E32140C14700F008C3 /* RKUserConfiguration.m */; };
+		103A68EA2140F98600F008C3 /* RKReadPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68E92140F98600F008C3 /* RKReadPageViewController.m */; };
+		103A68ED2140FDC900F008C3 /* RKReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68EC2140FDC900F008C3 /* RKReadViewController.m */; };
+		103A68F42141203700F008C3 /* RKReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68F32141203700F008C3 /* RKReadView.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -50,6 +53,12 @@
 		1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListTableViewCell.m; sourceTree = "<group>"; };
 		103A68E22140C14700F008C3 /* RKUserConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKUserConfiguration.h; sourceTree = "<group>"; };
 		103A68E32140C14700F008C3 /* RKUserConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKUserConfiguration.m; sourceTree = "<group>"; };
+		103A68E82140F98600F008C3 /* RKReadPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadPageViewController.h; sourceTree = "<group>"; };
+		103A68E92140F98600F008C3 /* RKReadPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadPageViewController.m; sourceTree = "<group>"; };
+		103A68EB2140FDC900F008C3 /* RKReadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadViewController.h; sourceTree = "<group>"; };
+		103A68EC2140FDC900F008C3 /* RKReadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadViewController.m; sourceTree = "<group>"; };
+		103A68F22141203700F008C3 /* RKReadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadView.h; sourceTree = "<group>"; };
+		103A68F32141203700F008C3 /* RKReadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadView.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,6 +121,37 @@
 			path = UserConfiguration;
 			sourceTree = "<group>";
 		};
+		103A68E52140F92300F008C3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */,
+				109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		103A68E62140F93500F008C3 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				109C98E5213D256F0018DB5F /* RKSetttingViewController.h */,
+				109C98E6213D256F0018DB5F /* RKSetttingViewController.m */,
+				1037E455213E5D2500B5CF0E /* RKImportViewController.h */,
+				1037E456213E5D2500B5CF0E /* RKImportViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		103A68E72140F94200F008C3 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				103A68E82140F98600F008C3 /* RKReadPageViewController.h */,
+				103A68E92140F98600F008C3 /* RKReadPageViewController.m */,
+				103A68EB2140FDC900F008C3 /* RKReadViewController.h */,
+				103A68EC2140FDC900F008C3 /* RKReadViewController.m */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
 		109C98B1213CE8DE0018DB5F = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +201,8 @@
 			children = (
 				1037E461213E7F8E00B5CF0E /* RKHomeListTableViewCell.h */,
 				1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */,
+				103A68F22141203700F008C3 /* RKReadView.h */,
+				103A68F32141203700F008C3 /* RKReadView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,12 +210,9 @@
 		109C98D7213CEC6E0018DB5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				109C98E2213D0F0F0018DB5F /* RKBookListViewController.h */,
-				109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */,
-				109C98E5213D256F0018DB5F /* RKSetttingViewController.h */,
-				109C98E6213D256F0018DB5F /* RKSetttingViewController.m */,
-				1037E455213E5D2500B5CF0E /* RKImportViewController.h */,
-				1037E456213E5D2500B5CF0E /* RKImportViewController.m */,
+				103A68E52140F92300F008C3 /* Home */,
+				103A68E72140F94200F008C3 /* Text */,
+				103A68E62140F93500F008C3 /* Setting */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -362,17 +401,20 @@
 				109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */,
 				109C98DE213D0C840018DB5F /* RKViewController.m in Sources */,
 				1037E44E213E2E8D00B5CF0E /* RKFileManager.m in Sources */,
+				103A68ED2140FDC900F008C3 /* RKReadViewController.m in Sources */,
 				1037E448213E2A3100B5CF0E /* RKAlertMessage.m in Sources */,
 				109C98CD213CE8E00018DB5F /* main.m in Sources */,
 				1037E451213E39A200B5CF0E /* RKModel.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
+				103A68EA2140F98600F008C3 /* RKReadPageViewController.m in Sources */,
 				1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */,
 				103A68E42140C14700F008C3 /* RKUserConfiguration.m in Sources */,
 				1037E45C213E740900B5CF0E /* RKFile.m in Sources */,
 				109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */,
 				1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */,
+				103A68F42141203700F008C3 /* RKReadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
