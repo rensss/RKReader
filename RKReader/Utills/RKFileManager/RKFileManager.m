@@ -34,6 +34,7 @@
     return self;
 }
 
+#pragma mark - 函数
 /// 创建书籍存放文件夹
 - (BOOL)createDir {
     
@@ -48,8 +49,7 @@
         return YES;
     }
 }
-
-#pragma mark - 函数
+#pragma mark -- 公用函数
 - (NSArray *)getBookList {
     NSMutableArray *array = [NSMutableArray array];
     
@@ -63,7 +63,7 @@
         file.fileName = fileName;
         file.filePath = [NSString stringWithFormat:@"%@/%@",kBookSavePath,fileName];
         file.fileType = [[fileName componentsSeparatedByString:@"."] lastObject];
-        file.fileSize = [self fileSize:[NSURL URLWithString:file.filePath]];
+        file.fileSize = [self getFileSize:file.filePath];
 
         [array addObject:file];
     }
@@ -72,8 +72,15 @@
 }
 
 /// 计算文件的大小，单位为 M
-- (CGFloat)fileSize:(NSURL *)url {
-    return [[NSData dataWithContentsOfURL:url] length] / 1024.00 / 1024.00;
+- (CGFloat)getFileSize:(NSString *)path {
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    float filesize = -1.0;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:path error:nil];//获取文件的属性
+        unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
+        filesize = size/1000.0/1000.0;
+    }
+    return filesize;
 }
 
 @end

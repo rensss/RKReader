@@ -18,6 +18,7 @@
 		1037E45E213E79D400B5CF0E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037E45D213E79D300B5CF0E /* libz.tbd */; };
 		1037E460213E7AD800B5CF0E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037E45F213E7AD800B5CF0E /* libxml2.tbd */; };
 		1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */; };
+		103A68E42140C14700F008C3 /* RKUserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68E32140C14700F008C3 /* RKUserConfiguration.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -47,6 +48,8 @@
 		1037E45F213E7AD800B5CF0E /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		1037E461213E7F8E00B5CF0E /* RKHomeListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKHomeListTableViewCell.h; sourceTree = "<group>"; };
 		1037E462213E7F8E00B5CF0E /* RKHomeListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListTableViewCell.m; sourceTree = "<group>"; };
+		103A68E22140C14700F008C3 /* RKUserConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKUserConfiguration.h; sourceTree = "<group>"; };
+		103A68E32140C14700F008C3 /* RKUserConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKUserConfiguration.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -98,6 +101,15 @@
 				1037E44A213E2A4200B5CF0E /* RKLoadingView.m */,
 			);
 			path = RKAlertMeassge;
+			sourceTree = "<group>";
+		};
+		103A68E12140C11600F008C3 /* UserConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				103A68E22140C14700F008C3 /* RKUserConfiguration.h */,
+				103A68E32140C14700F008C3 /* RKUserConfiguration.m */,
+			);
+			path = UserConfiguration;
 			sourceTree = "<group>";
 		};
 		109C98B1213CE8DE0018DB5F = {
@@ -182,6 +194,7 @@
 		109C98DA213CF4460018DB5F /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				103A68E12140C11600F008C3 /* UserConfiguration */,
 				1037E445213E2A0A00B5CF0E /* RKAlertMeassge */,
 				1037E444213E29E300B5CF0E /* RKFileManager */,
 			);
@@ -356,6 +369,7 @@
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
 				1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */,
+				103A68E42140C14700F008C3 /* RKUserConfiguration.m in Sources */,
 				1037E45C213E740900B5CF0E /* RKFile.m in Sources */,
 				109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */,
 				1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */,

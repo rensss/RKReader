@@ -22,5 +22,11 @@
  */
 - (NSArray *)getBookList;
 
+/**
+ 计算文件的大小，单位为 M
+ @param path 文件路径
+ @return 文件大小
+ */
+- (CGFloat)getFileSize:(NSString *)path;
 
 @end

@@ -37,10 +37,10 @@
     
     self.bgView.frame = CGRectMake(5, 5, self.width - 10, self.height - 5);
     
-    self.nameLabel.frame = CGRectMake(self.coverImage.maxX + 5, 5, self.bgView.width - 10 - self.coverImage.maxX, 40);
+    self.nameLabel.frame = CGRectMake(self.coverImage.maxX + 5, 5, self.bgView.width - 10 - self.coverImage.maxX, 45);
 
     self.progressLabel.x = self.nameLabel.x;
-    self.progressLabel.centerY = self.bgView.height / 2;
+    self.progressLabel.y = self.nameLabel.maxY + 5;
     
     self.sizeLabel.x = self.progressLabel.x;
     self.sizeLabel.maxY = self.bgView.height - 5;
@@ -57,6 +57,7 @@
 - (void)setBook:(RKBook *)book {
     _book = book;
     self.nameLabel.text = book.name;
+    self.coverImage.image = [UIImage imageNamed:book.coverName];
     self.progressLabel.text = [NSString stringWithFormat:@"进度:%0.2f%%",book.progress];
     self.sizeLabel.text = [NSString stringWithFormat:@"%0.2f M",book.fileInfo.fileSize];
 }
@@ -71,10 +72,10 @@
         _bgView.layer.borderColor = [UIColor colorWithHexString:@"333333"].CGColor;
         _bgView.clipsToBounds = YES;
 
-        _bgView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-        _bgView.layer.shadowOffset = CGSizeMake(5,5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-        _bgView.layer.shadowOpacity = 0.8;//阴影透明度，默认0
-        _bgView.layer.shadowRadius = 4;//阴影半径，默认3
+//        _bgView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+//        _bgView.layer.shadowOffset = CGSizeMake(5,5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+//        _bgView.layer.shadowOpacity = 0.8;//阴影透明度，默认0
+//        _bgView.layer.shadowRadius = 4;//阴影半径，默认3
         
         [_bgView addSubview:self.coverImage];
         [_bgView addSubview:self.nameLabel];
@@ -86,14 +87,16 @@
 
 - (UIImageView *)coverImage {
     if (!_coverImage) {
-        _coverImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kCoverImageWidth, kCoverImageHeight)];
+        CGFloat width = [RKUserConfiguration sharedInstance].homeCoverWidth;
+        _coverImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, kCoverImageHeight*width/kCoverImageWidth)];
+        
     }
     return _coverImage;
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bgView.width, 40)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bgView.width, 45)];
         _nameLabel.textColor = [UIColor blackColor];
         _nameLabel.font = [UIFont systemFontOfSize:18];
         _nameLabel.numberOfLines = 2;

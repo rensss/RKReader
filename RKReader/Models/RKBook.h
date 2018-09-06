@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *name; /**< 书名*/
 @property (nonatomic, assign) CGFloat progress; /**< 阅读进度*/
+@property (nonatomic, copy) NSString *coverName; /**< 封面图*/
 @property (nonatomic, strong) RKFile *fileInfo; /**< 文件信息*/
 
 @end

@@ -81,7 +81,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        _tableView.rowHeight = 342;
+        _tableView.rowHeight = kCoverImageHeight*[RKUserConfiguration sharedInstance].homeCoverWidth/kCoverImageWidth + 5;
         
         _tableView.tableFooterView = [UIView new];
     }
@@ -96,6 +96,8 @@
             RKBook *book = [RKBook new];
             book.name = file.fileName;
             book.progress = 0.0;
+            book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%12+1];
+            book.fileInfo = file;
             [_dataArray addObject:book];
         }
     }
