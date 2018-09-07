@@ -11,7 +11,10 @@
 
 @interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-@property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) UIPageViewController *pageViewController; /**< 显示内容的VC*/
+
+@property (nonatomic, assign) NSInteger currentPage; /**< 当前页码*/
+
 
 @end
 
@@ -87,7 +90,8 @@
     /*返回的ViewController，将被添加到相应的UIPageViewController对象上。
      UIPageViewController对象会根据UIPageViewControllerDataSource协议方法,自动来维护次序
      不用我们去操心每个ViewController的顺序问题*/
-    return [self viewControllerAtIndex:index];
+    self.currentPage --;
+    return [self viewControllerAtIndex:self.currentPage];
 }
 
 #pragma mark -- 返回下一个ViewController对象
@@ -101,17 +105,38 @@
 //    if (index == [self.dataArray count]) {
 //        return nil;
 //    }
-    return [self viewControllerAtIndex:index];
+    
+    self.currentPage ++;
+    return [self viewControllerAtIndex:self.currentPage];
+}
+
+// 页面跳转回调
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    RKLog(@"didFinishAnimating -- %@ -- completed:%@",finished?@YES:@NO,completed?@YES:@NO);
+    
+    if (completed) {
+        
+    } else {
+        
+    }
+}
+
+// 页面将要跳转
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+    RKLog(@"willTransitionToViewControllers");
 }
 
 #pragma mark - 根据index得到对应的UIViewController
-- (RKReadViewController *)viewControllerAtIndex:(NSUInteger)index {
+- (RKReadViewController *)viewControllerAtIndex:(NSInteger)index {
 //    if (([self.dataArray count] == 0) || (index >= [self.dataArray count])) {
 //        return nil;
 //    }
-
+    if (index < 0) {
+        return nil;
+    }
     // 创建一个新的控制器类，并且分配给相应的数据
     RKReadViewController *readVC = [[RKReadViewController alloc] init];
+    readVC.content = [NSString stringWithFormat:@"index_%ld",index];
 //    contentVC.shortVideo = self.dataArray[index];
 //    contentVC.currentIndex = index;
 

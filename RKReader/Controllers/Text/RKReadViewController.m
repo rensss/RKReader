@@ -31,12 +31,14 @@
     self.navigationController.delegate = self;
 }
 
+#pragma mark - 代理
+
 #pragma mark - 函数
 - (RKReadView *)readView {
     if (!_readView) {
         RKUserConfiguration *userConfig = [RKUserConfiguration sharedInstance];
         _readView = [[RKReadView alloc] initWithFrame:CGRectMake(userConfig.leftPadding, self.statusBarHeight + userConfig.topPadding, self.view.width - userConfig.leftPadding - userConfig.rightPadding, self.view.height - self.statusBarHeight - userConfig.bottomPadding - userConfig.bottomStatusHeight)];
-		
+        _readView.content = self.content;
     }
     return _readView;
 }

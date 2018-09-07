@@ -77,7 +77,14 @@
 
 #pragma mark - 函数
 /**
- 保存当前用户配置
+ * 保存当前用户配置
+ *
+ * @exception NSException 可能抛出的异常.
+ *
+ * @see init
+ * @sa init
+ * @warning 警告:
+ * @bug 问题:
  */
 - (void)saveUserConfig {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];

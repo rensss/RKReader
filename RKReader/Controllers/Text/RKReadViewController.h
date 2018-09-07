@@ -10,4 +10,6 @@
 
 @interface RKReadViewController : RKViewController
 
+@property (nonatomic, copy) NSString *content; /**< 显示内容*/
+
 @end

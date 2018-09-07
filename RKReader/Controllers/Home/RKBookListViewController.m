@@ -65,6 +65,8 @@
     RKLog(@"%@",indexPath);
     
     RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+    // 默认为第一页
+    readPageVC.selectIndex = 0;
     [self.navigationController pushViewController:readPageVC animated:YES];
 }
 
