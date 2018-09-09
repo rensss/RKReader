@@ -10,6 +10,6 @@
 
 @interface RKReadPageViewController : RKViewController
 
-@property (nonatomic, assign) NSInteger selectIndex; /**< 当前索引*/
+@property (nonatomic, strong) RKBook *book; /**< 当前书籍*/
 
 @end

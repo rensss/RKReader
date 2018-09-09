@@ -7,7 +7,12 @@
 //
 
 #import "RKReadView.h"
-#import "CoreText/CoreText.h"
+
+@interface RKReadView ()
+
+@property (nonatomic,assign) CTFrameRef frameRef;
+
+@end
 
 @implementation RKReadView
 
@@ -20,6 +25,14 @@
 	return self;
 }
 
+- (void)dealloc {
+	if (_frameRef) {
+		CFRelease(_frameRef);
+		_frameRef = nil;
+	}
+}
+
+#pragma mark - drawRect
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
@@ -32,20 +45,36 @@
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     // 步骤 3
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.bounds);
+//    CGMutablePathRef path = CGPathCreateMutable();
+//    CGPathAddRect(path, NULL, self.bounds);
     // 步骤 4
-    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:self.content];
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attString);
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter,
-                             CFRangeMake(0, [attString length]), path, NULL);
+//    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:self.content];
+//    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attString);
+//    CTFrameRef frame = CTFramesetterCreateFrame(framesetter,
+//                             CFRangeMake(0, [attString length]), path, NULL);
     // 步骤 5
-    CTFrameDraw(frame, context);
+//    CTFrameDraw(frame, context);
+	CTFrameDraw(_frameRef, context);
     // 步骤 6
-    CFRelease(frame);
-    CFRelease(path);
-    CFRelease(framesetter);
+//    CFRelease(frame);
+//    CFRelease(path);
+//    CFRelease(framesetter);
 }
 
+#pragma mark - setting
+- (void)setFrameRef:(CTFrameRef)frameRef {
+	if (_frameRef != frameRef) {
+		if (_frameRef) {
+			CFRelease(_frameRef);
+			_frameRef = nil;
+		}
+		_frameRef = frameRef;
+	}
+}
+
+- (void)setContent:(NSString *)content {
+	_content = content;
+	self.frameRef = [RKFileManager parserContent:self.content];
+}
 
 @end

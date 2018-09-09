@@ -11,6 +11,19 @@
 
 @implementation RKModel
 
+#pragma mark - 编码/解码
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	self = [super init];
+	if (self) {
+		
+	}
+	return self;
+}
+
 /**
  描述对象
  

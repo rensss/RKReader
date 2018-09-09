@@ -11,5 +11,7 @@
 @interface RKReadViewController : RKViewController
 
 @property (nonatomic, copy) NSString *content; /**< 显示内容*/
+@property (nonatomic, assign) NSInteger chapter; /**< 章节*/
+@property (nonatomic, assign) NSInteger page; /**< 页码*/
 
 @end

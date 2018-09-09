@@ -7,6 +7,7 @@
 //
 
 #import "RKFileManager.h"
+#import "RKBookChapter.h"
 
 @implementation RKFileManager
 
@@ -81,6 +82,107 @@
         filesize = size/1000.0/1000.0;
     }
     return filesize;
+}
+
+#pragma mark -- 类函数
++ (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content {
+	[*chapters removeAllObjects];
+	
+	// 正则匹配
+	NSString *parten = @"[?【]*第[0-9一二三四五六七八九十百千]*[章回节].*";
+	NSError *error = NULL;
+	NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:&error];
+	
+	NSArray* match = [reg matchesInString:content options:NSMatchingReportCompletion range:NSMakeRange(0, [content length])];
+	
+	if (match.count != 0) {
+		__block NSRange lastRange = NSMakeRange(0, 0);
+		[match enumerateObjectsUsingBlock:^(NSTextCheckingResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+			NSRange range = [obj range];
+			NSInteger local = range.location;
+			if (idx == 0) {
+				RKBookChapter *model = [[RKBookChapter alloc] init];
+				model.title = @"开始";
+				NSUInteger len = local;
+				model.contentFrame = [RKUserConfiguration sharedInstance].readViewFrame;
+				model.content = [content substringWithRange:NSMakeRange(0, len)];
+				[*chapters addObject:model];
+			}
+			
+			if (idx > 0 ) {
+				RKBookChapter *model = [[RKBookChapter alloc] init];
+				model.title = [content substringWithRange:lastRange];
+				NSUInteger len = local-lastRange.location;
+				model.contentFrame = [RKUserConfiguration sharedInstance].readViewFrame;
+				model.content = [content substringWithRange:NSMakeRange(lastRange.location, len)];
+				[*chapters addObject:model];
+			}
+			
+			if (idx == match.count-1) {
+				RKBookChapter *model = [[RKBookChapter alloc] init];
+				model.title = [content substringWithRange:range];
+				model.contentFrame = [RKUserConfiguration sharedInstance].readViewFrame;
+				model.content = [content substringWithRange:NSMakeRange(local, content.length-local)];
+				[*chapters addObject:model];
+			}
+			lastRange = range;
+		}];
+	} else {// 没找出章节
+		RKBookChapter *model = [[RKBookChapter alloc] init];
+		model.content = content;
+		[*chapters addObject:model];
+	}
+}
+
++ (NSString *)encodeWithURL:(NSURL *)url {
+	if (!url) {
+		return @"";
+	}
+	
+	NSError *error = NULL;
+	NSString *content = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+	if (!content) {
+		if (error) {
+			RKLog(@"NSUTF8StringEncoding -- 解码错误 -- %@",error.domain);
+			content = nil;
+			error = NULL;
+		}
+	}
+	if (!content) {
+		content = [NSString stringWithContentsOfURL:url encoding:0x80000632 error:&error];
+		if (error) {
+			RKLog(@"GBK -- 解码错误 -- %@",error.domain);
+			content = nil;
+			error = NULL;
+		}
+	}
+	if (!content) {
+		NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+		//文件内容转换成字符串类型
+		content = [[NSString alloc] initWithContentsOfFile:url.path encoding:enc error:&error];
+		if (error) {
+			RKLog(@"kCFStringEncodingGB_18030_2000 -- 解码错误 -- %@",error.domain);
+			content = nil;
+			error = NULL;
+		}
+	}
+//	NSLog(@"内容30个字符 \n%@\n",[content substringToIndex:30]);
+	if (!content) {
+		return @"";
+	}
+	return content;
+}
+
++ (CTFrameRef)parserContent:(NSString *)content {
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:content];
+	NSDictionary *attribute = [[RKUserConfiguration sharedInstance] parserAttribute];
+	[attributedString setAttributes:attribute range:NSMakeRange(0, content.length)];
+	CTFramesetterRef setterRef = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attributedString);
+	CGPathRef pathRef = CGPathCreateWithRect([RKUserConfiguration sharedInstance].readViewFrame, NULL);
+	CTFrameRef frameRef = CTFramesetterCreateFrame(setterRef, CFRangeMake(0, 0), pathRef, NULL);
+	CFRelease(setterRef);
+	CFRelease(pathRef);
+	return frameRef;
 }
 
 @end

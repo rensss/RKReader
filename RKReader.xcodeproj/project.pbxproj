@@ -28,6 +28,7 @@
 		109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E0213D0CD30018DB5F /* RKNavigationViewController.m */; };
 		109C98E4213D0F0F0018DB5F /* RKBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */; };
 		109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E6213D256F0018DB5F /* RKSetttingViewController.m */; };
+		1A2D86532143AD230006421D /* RKBookChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D86522143AD230006421D /* RKBookChapter.m */; };
 		810C9F6A9B719B7FDB95FC3C /* libPods-RKReader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,8 @@
 		109C98E3213D0F0F0018DB5F /* RKBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookListViewController.m; sourceTree = "<group>"; };
 		109C98E5213D256F0018DB5F /* RKSetttingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKSetttingViewController.h; sourceTree = "<group>"; };
 		109C98E6213D256F0018DB5F /* RKSetttingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKSetttingViewController.m; sourceTree = "<group>"; };
+		1A2D86512143AD230006421D /* RKBookChapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBookChapter.h; sourceTree = "<group>"; };
+		1A2D86522143AD230006421D /* RKBookChapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookChapter.m; sourceTree = "<group>"; };
 		584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.release.xcconfig"; sourceTree = "<group>"; };
 		AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RKReader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,10 +191,12 @@
 			children = (
 				1037E44F213E39A200B5CF0E /* RKModel.h */,
 				1037E450213E39A200B5CF0E /* RKModel.m */,
-				1037E452213E39D400B5CF0E /* RKBook.h */,
-				1037E453213E39D400B5CF0E /* RKBook.m */,
 				1037E45A213E740900B5CF0E /* RKFile.h */,
 				1037E45B213E740900B5CF0E /* RKFile.m */,
+				1037E452213E39D400B5CF0E /* RKBook.h */,
+				1037E453213E39D400B5CF0E /* RKBook.m */,
+				1A2D86512143AD230006421D /* RKBookChapter.h */,
+				1A2D86522143AD230006421D /* RKBookChapter.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */,
 				103A68E42140C14700F008C3 /* RKUserConfiguration.m in Sources */,
 				1037E45C213E740900B5CF0E /* RKFile.m in Sources */,
+				1A2D86532143AD230006421D /* RKBookChapter.m in Sources */,
 				109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */,
 				1037E463213E7F8E00B5CF0E /* RKHomeListTableViewCell.m in Sources */,
 				103A68F42141203700F008C3 /* RKReadView.m in Sources */,

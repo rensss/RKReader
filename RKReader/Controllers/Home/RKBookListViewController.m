@@ -63,11 +63,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RKLog(@"%@",indexPath);
-    
-    RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
-    // 默认为第一页
-    readPageVC.selectIndex = 0;
-    [self.navigationController pushViewController:readPageVC animated:YES];
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
+	[indicator startAnimating];
+//	__weak typeof(self) weakSelf = self;
+//	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+		readPageVC.book = self.dataArray[indexPath.row];
+//		dispatch_async(dispatch_get_main_queue(), ^{
+			[indicator stopAnimating];
+			[self.navigationController pushViewController:readPageVC animated:YES];
+//		});
+//	});
 }
 
 #pragma mark -- UITableViewDataSource
@@ -80,6 +87,8 @@
     
     if (!cell) {
         cell = [[RKHomeListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([RKHomeListTableViewCell class])];
+		UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		cell.accessoryView = indicator;
     }
     
     RKBook *book = self.dataArray[indexPath.row];
@@ -88,12 +97,15 @@
     return cell;
 }
 
-
 #pragma mark - getting
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        
+		
+		if (@available(iOS 11.0, *)) {
+			_tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+		}
+		
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -109,11 +121,10 @@
         _dataArray = [NSMutableArray array];
         NSArray *array = [[RKFileManager sharedInstance] getBookList];
         for (RKFile *file in array) {
-            RKBook *book = [RKBook new];
-            book.name = file.fileName;
-            book.progress = 0.0;
-            book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
-            book.fileInfo = file;
+			NSString *fileURL = [file.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			RKBook *book = [RKBook getLocalModelWithURL:[NSURL URLWithString:fileURL]];
+			book.name = file.fileName;
+			book.fileInfo = file;
             [_dataArray addObject:book];
         }
     }

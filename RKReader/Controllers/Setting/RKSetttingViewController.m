@@ -62,7 +62,11 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        
+		
+		if (@available(iOS 11.0, *)) {
+			_tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+		}
+		
         _tableView.delegate = self;
         _tableView.dataSource = self;
         

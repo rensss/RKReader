@@ -9,12 +9,15 @@
 #import "RKReadPageViewController.h"
 #import "RKReadViewController.h"
 
-@interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIPageViewController *pageViewController; /**< 显示内容的VC*/
 
+@property (nonatomic, assign) NSInteger currentChapter; /**< 当前章节*/
 @property (nonatomic, assign) NSInteger currentPage; /**< 当前页码*/
 
+@property (nonatomic, assign) NSInteger chapterNext; /**< 上/下 一章节*/
+@property (nonatomic, assign) NSInteger pageNext; /**< 上/下 一页*/
 
 @end
 
@@ -22,11 +25,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+	
+	// 添加点击手势
+	[self.view addGestureRecognizer:({
+		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showToolMenu)];
+		tap.delegate = self;
+		tap;
+	})];
+	
     // 设置UIPageViewController的配置项
     NSDictionary *options = @{UIPageViewControllerOptionInterPageSpacingKey : @(20)};
-    //    NSDictionary *options = @{UIPageViewControllerOptionSpineLocationKey : @(UIPageViewControllerSpineLocationMin)};
-    
+//        NSDictionary *options = @{UIPageViewControllerOptionSpineLocationKey : @(UIPageViewControllerSpineLocationMin)};
+	
     // 根据给定的属性实例化UIPageViewController
     _pageViewController = [[UIPageViewController alloc]
                            initWithTransitionStyle:[RKUserConfiguration sharedInstance].transitionStyle navigationOrientation:[RKUserConfiguration sharedInstance].navigationOrientation
@@ -44,7 +54,7 @@
     // 设置UIPageViewController初始化数据, 将数据放在NSArray里面
     // 如果 options 设置了 UIPageViewControllerSpineLocationMid,注意viewControllers至少包含两个数据,且 doubleSided = YES
     
-    RKReadViewController *readVC = [self viewControllerAtIndex:self.selectIndex];// 得到第一页
+    RKReadViewController *readVC = [self viewControllerChapter:self.currentChapter andPage:self.currentPage];// 得到第一页
     NSArray *viewControllers = [NSArray arrayWithObject:readVC];
 
     [_pageViewController setViewControllers:viewControllers
@@ -77,37 +87,55 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
-#pragma mark - UIPageViewControllerDataSource And UIPageViewControllerDelegate
+#pragma mark - 代理
+#pragma mark -- UIGestureRecognizerDelegate
+#pragma mark -  UIGestureRecognizer Delegate
+//解决TabView与Tap手势冲突
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+//	if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//		return NO;
+//	}
+	return  YES;
+}
+
+#pragma mark -- UIPageViewControllerDataSource And UIPageViewControllerDelegate
 #pragma mark -- 返回上一个ViewController对象
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-
-//    NSUInteger index = ((RKReadViewController *)viewController).currentIndex;
-//
-//    if ((index == 0) || (index == NSNotFound)) {
-//        return nil;
-//    }
-//    index--;
-    /*返回的ViewController，将被添加到相应的UIPageViewController对象上。
-     UIPageViewController对象会根据UIPageViewControllerDataSource协议方法,自动来维护次序
-     不用我们去操心每个ViewController的顺序问题*/
-    self.currentPage --;
-    return [self viewControllerAtIndex:self.currentPage];
+	
+	self.pageNext = self.currentPage;
+	self.chapterNext = self.currentChapter;
+	
+	if (self.pageNext==0 && self.chapterNext == 0) {
+		return nil;
+	}
+	if (self.pageNext == 0) {
+		self.chapterNext--;
+		self.pageNext = self.book.chapters[self.chapterNext].pageCount - 1;
+	}else {
+		self.pageNext--;
+	}
+	
+	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+    return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
 #pragma mark -- 返回下一个ViewController对象
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-
-//    NSUInteger index = ((RKReadViewController *)viewController).currentIndex;
-//    if (index == NSNotFound) {
-//        return nil;
-//    }
-//    index++;
-//    if (index == [self.dataArray count]) {
-//        return nil;
-//    }
-    
-    self.currentPage ++;
-    return [self viewControllerAtIndex:self.currentPage];
+	
+	self.pageNext = self.currentPage;
+	self.chapterNext = self.currentChapter;
+	if (self.pageNext == self.book.chapters.lastObject.pageCount - 1 && self.chapterNext == self.book.chapters.count - 1) {
+		return nil;
+	}
+	if (self.pageNext == self.book.chapters[self.chapterNext].pageCount - 1) {
+		self.chapterNext ++;
+		self.pageNext = 0;
+	}else {
+		self.pageNext ++;
+	}
+	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+	return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
 // 页面跳转回调
@@ -115,36 +143,47 @@
     RKLog(@"didFinishAnimating -- %@ -- completed:%@",finished?@YES:@NO,completed?@YES:@NO);
     
     if (completed) {
-        
+		self.currentChapter = self.chapterNext;
+		self.currentPage = self.pageNext;
     } else {
-        
+		RKReadViewController *readViewVC = (RKReadViewController *)previousViewControllers.firstObject;
+		self.currentPage = readViewVC.page;
+		self.currentChapter = readViewVC.chapter;
     }
 }
 
 // 页面将要跳转
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
     RKLog(@"willTransitionToViewControllers");
+	self.currentChapter = self.chapterNext;
+	self.currentPage = self.pageNext;
 }
 
-#pragma mark - 根据index得到对应的UIViewController
-- (RKReadViewController *)viewControllerAtIndex:(NSInteger)index {
-//    if (([self.dataArray count] == 0) || (index >= [self.dataArray count])) {
-//        return nil;
-//    }
-    if (index < 0) {
-        return nil;
-    }
+#pragma mark - 函数
+#pragma mark -- 根据index得到对应的UIViewController
+- (RKReadViewController *)viewControllerChapter:(NSInteger)chapter andPage:(NSInteger)page {
+	
     // 创建一个新的控制器类，并且分配给相应的数据
     RKReadViewController *readVC = [[RKReadViewController alloc] init];
-    readVC.content = [NSString stringWithFormat:@"index_%ld",index];
-//    contentVC.shortVideo = self.dataArray[index];
-//    contentVC.currentIndex = index;
-
-//    if (index == self.dataArray.count - 1) {
-//
-//    }
-
+	readVC.content = [self.book.chapters[chapter] stringOfPage:page];
+	readVC.chapter = self.currentPage;
+	readVC.page = self.currentPage;
+	
     return readVC;
+}
+
+#pragma mark -- 手势事件
+- (void)showToolMenu {
+	RKLog(@"点击屏幕")
+//	[_readView.readView cancelSelected];
+//	NSString * key = [NSString stringWithFormat:@"%d_%d",(int)_model.record.chapter,(int)_model.record.page];
+//
+//	id state = _model.marksRecord[key];
+//	state?(_menuView.topView.state=1): (_menuView.topView.state=0);
+//	[self.menuView showAnimation:YES];
+	
+	[self.navigationController popViewControllerAnimated:YES];
+	
 }
 
 

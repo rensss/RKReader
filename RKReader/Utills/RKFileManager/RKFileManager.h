@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreText/CoreText.h>
 
 @interface RKFileManager : NSObject
 
@@ -16,6 +17,7 @@
  */
 + (instancetype)sharedInstance;
 
+#pragma mark - 函数
 /**
  返回书籍列表
  @return 书籍数组
@@ -29,4 +31,28 @@
  */
 - (CGFloat)getFileSize:(NSString *)path;
 
+#pragma mark - 类函数
+
+/**
+ 给书籍分出章节
+ @param chapters 章节数组
+ @param content 书籍内容
+ */
++ (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content;
+
+/**
+ 根据地址解码
+ @param url 地址
+ @return 内容
+ */
++ (NSString *)encodeWithURL:(NSURL *)url;
+
+
+/**
+ 根据内容返回CTFrameRef
+
+ @param content 内容
+ @return CTFrameRef
+ */
++ (CTFrameRef)parserContent:(NSString *)content;
 @end
