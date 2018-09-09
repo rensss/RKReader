@@ -67,14 +67,10 @@
 	NSString *key = [url.path lastPathComponent];
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	if (!data) {
-		if ([[key pathExtension] isEqualToString:@"txt"]) {
-			RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:url]];
-			book.progress = 0.0;
-			book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
-			return book;
-		} else {
-			@throw [NSException exceptionWithName:@"FileException" reason:@"文件格式错误" userInfo:nil];
-		}
+		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:url]];
+		book.progress = 0.0;
+		book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
+		return book;
 	}
 	NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
 	//主线程操作
