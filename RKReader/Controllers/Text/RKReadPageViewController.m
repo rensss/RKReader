@@ -174,16 +174,10 @@
 
 #pragma mark -- 手势事件
 - (void)showToolMenu {
-	RKLog(@"点击屏幕")
-//	[_readView.readView cancelSelected];
-//	NSString * key = [NSString stringWithFormat:@"%d_%d",(int)_model.record.chapter,(int)_model.record.page];
-//
-//	id state = _model.marksRecord[key];
-//	state?(_menuView.topView.state=1): (_menuView.topView.state=0);
-//	[self.menuView showAnimation:YES];
+	RKLog(@"点击屏幕");
 	
-	[self.navigationController popViewControllerAnimated:YES];
-	
+//	[self.navigationController popViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

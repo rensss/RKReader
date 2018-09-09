@@ -63,18 +63,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RKLog(@"%@",indexPath);
-	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
-	[indicator startAnimating];
-//	__weak typeof(self) weakSelf = self;
-//	dispatch_async(dispatch_get_global_queue(0, 0), ^{
-		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
-		readPageVC.book = self.dataArray[indexPath.row];
-//		dispatch_async(dispatch_get_main_queue(), ^{
-			[indicator stopAnimating];
-			[self.navigationController pushViewController:readPageVC animated:YES];
-//		});
-//	});
+//	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
+//	[indicator startAnimating];
+//	[indicator stopAnimating];
+	
+	RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+	readPageVC.book = self.dataArray[indexPath.row];
+//	[self.navigationController pushViewController:readPageVC animated:YES];
+	RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
+	[self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark -- UITableViewDataSource
