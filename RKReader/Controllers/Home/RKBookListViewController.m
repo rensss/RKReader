@@ -71,8 +71,7 @@
 	dispatch_async(dispatch_get_global_queue(0, 0), ^{
 		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
 		RKBook *cellBook = weakSelf.dataArray[indexPath.row];
-		NSString *fileURL = [cellBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		RKBook *book = [RKBook getLocalModelWithURL:[NSURL URLWithString:fileURL]];
+		RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
 		readPageVC.book = book;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[indicator stopAnimating];

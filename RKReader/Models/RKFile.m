@@ -29,4 +29,9 @@
 	return self;
 }
 
+#pragma mark - setting
+- (void)setFilePath:(NSString *)filePath {
+	_filePath = filePath;
+}
+
 @end

@@ -30,10 +30,10 @@
 
 /**
  根据初始化
- @param url 地址
+ @param file 文件信息
  @return 书籍对象
  */
-+ (instancetype)getLocalModelWithURL:(NSURL *)url;
++ (instancetype)getLocalModelWithFileInfo:(RKFile *)file;
 
 
 @end

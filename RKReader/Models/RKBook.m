@@ -42,6 +42,7 @@
 	self = [super init];
 	if (self) {
 		self.name = [aDecoder decodeObjectForKey:@"name"];
+		self.content = [aDecoder decodeObjectForKey:@"content"];
 		self.progress = [[aDecoder decodeObjectForKey:@"progress"] floatValue];
 		self.coverName = [aDecoder decodeObjectForKey:@"coverName"];
 		self.chapters = [aDecoder decodeObjectForKey:@"chapters"];
@@ -64,19 +65,39 @@
 }
 
 #pragma mark - 类方法
-+ (instancetype)getLocalModelWithURL:(NSURL *)url {
-	NSString *key = [url.path lastPathComponent];
++ (instancetype)getLocalModelWithFileInfo:(RKFile *)file {
+	
+	NSString *fileURL = [file.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *key = [fileURL lastPathComponent];
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	
 	if (!data) {
-		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:url]];
-		book.progress = 0.0;
+		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:[NSURL URLWithString:fileURL]]];
+		book.name = file.fileName;
+		book.progress = 0.0f;
 		book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
+		book.fileInfo = file;
+		// 保存到本地
+		[RKBook archiverBookData:book];
 		return book;
 	}
 	NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
 	//主线程操作
 	RKBook *model = [unarchive decodeObjectForKey:key];
 	return model;
+}
+
++ (void)archiverBookData:(RKBook *)book {
+	
+	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		NSString *fileURL = [book.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *key = [fileURL lastPathComponent];
+		NSMutableData *data = [[NSMutableData alloc] init];
+		NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+		[archiver encodeObject:book forKey:key];
+		[archiver finishEncoding];
+		[[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
+	});
 }
 
 @end
