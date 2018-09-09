@@ -57,6 +57,7 @@
     }
     return _fileInfo;
 }
+
 #pragma mark - setting
 - (void)setFileInfo:(RKFile *)fileInfo {
 	_fileInfo = fileInfo;
