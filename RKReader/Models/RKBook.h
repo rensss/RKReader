@@ -8,14 +8,15 @@
 
 #import "RKModel.h"
 #import "RKBookChapter.h"
+#import "RKReadProgress.h"
 
 @interface RKBook : RKModel
 
 @property (nonatomic, copy) NSString *name; /**< 书名*/
 @property (nonatomic, copy) NSString *content; /**< 内容*/
-@property (nonatomic, assign) CGFloat progress; /**< 阅读进度*/
 @property (nonatomic, copy) NSString *coverName; /**< 封面图*/
 @property (nonatomic, strong) RKFile *fileInfo; /**< 文件信息*/
+@property (nonatomic, strong) RKReadProgress *readProgress; /**< 阅读进度*/
 @property (nonatomic, strong) NSMutableArray <RKBookChapter *>*chapters; /**< 章节数据*/
 
 /**
@@ -35,5 +36,10 @@
  */
 + (instancetype)getLocalModelWithFileInfo:(RKFile *)file;
 
+/**
+ 保存book信息
+ @param book 书籍数据
+ */
++ (void)archiverBookData:(RKBook *)book;
 
 @end

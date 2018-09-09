@@ -38,8 +38,14 @@
 	// 更新列表
 	if (self.dataArray.count != [[RKFileManager sharedInstance] getBookList].count) {
 		self.dataArray = nil;
-		[self.tableView reloadData];
 	}
+	[self.tableView reloadData];
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	
+	self.tableView.frame = self.view.bounds;
 }
 
 #pragma mark - 函数
@@ -61,25 +67,31 @@
 #pragma mark -- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    RKLog(@"%@",indexPath);
-	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
-	[indicator startAnimating];
+	RKBook *cellBook = self.dataArray[indexPath.row];
+	RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+	RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
+
+	NSString *fileURL = [cellBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *key = [fileURL lastPathComponent];
+	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	
-	__weak typeof(self) weakSelf = self;
-	dispatch_async(dispatch_get_global_queue(0, 0), ^{
-		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
-		RKBook *cellBook = weakSelf.dataArray[indexPath.row];
-		RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
-		readPageVC.book = book;
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[indicator stopAnimating];
-			RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
-			[weakSelf presentViewController:nav animated:YES completion:nil];
+	if (data) {
+		readPageVC.book = self.dataArray[indexPath.row];
+		[self presentViewController:nav animated:YES completion:nil];
+	}else {
+		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
+		[indicator startAnimating];
+		__weak typeof(self) weakSelf = self;
+		dispatch_async(dispatch_get_global_queue(0, 0), ^{
+			RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
+			readPageVC.book = book;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[indicator stopAnimating];
+				[weakSelf presentViewController:nav animated:YES completion:nil];
+			});
 		});
-	});
-	
+	}
 }
 
 #pragma mark -- UITableViewDataSource
@@ -125,14 +137,31 @@
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
         NSArray *array = [[RKFileManager sharedInstance] getBookList];
+		//计算代码运行时间
+		CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+
         for (RKFile *file in array) {
 			RKBook *book = [RKBook new];
-			book.name = file.fileName;
-			book.progress = 0.0f;
-			book.coverName = [NSString stringWithFormat:@"cover%u",arc4random()%10+1];
-			book.fileInfo = file;
-            [_dataArray addObject:book];
+			
+			NSString *fileURL = [file.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *key = [fileURL lastPathComponent];
+			NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+			if (data) {
+				NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+				// 主线程操作
+				book = [unarchive decodeObjectForKey:key];
+				[_dataArray addObject:book];
+			}else {
+				book.name = file.fileName;
+				book.readProgress = [RKReadProgress new];
+				book.coverName = [NSString stringWithFormat:@"cover%u",arc4random()%10+1];
+				book.fileInfo = file;
+				[_dataArray addObject:book];
+			}
         }
+		CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
+		// 打印运行时间
+		RKLog(@"Linked in %f ms", linkTime *1000.0);
     }
     return _dataArray;
 }

@@ -89,7 +89,7 @@
 	[*chapters removeAllObjects];
 	
 	// 正则匹配
-	NSString *parten = @"[?【]*第[0-9一二三四五六七八九十百千]*[章回节].*";
+	NSString *parten = @"[?「][?【]*第[0-9一二三四五六七八九十百千]*[章回节].*";
 	NSError *error = NULL;
 	NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:&error];
 	

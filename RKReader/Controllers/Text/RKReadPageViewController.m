@@ -54,7 +54,7 @@
     // 设置UIPageViewController初始化数据, 将数据放在NSArray里面
     // 如果 options 设置了 UIPageViewControllerSpineLocationMid,注意viewControllers至少包含两个数据,且 doubleSided = YES
     
-    RKReadViewController *readVC = [self viewControllerChapter:self.currentChapter andPage:self.currentPage];// 得到第一页
+    RKReadViewController *readVC = [self viewControllerChapter:self.book.readProgress.chapter andPage:self.book.readProgress.page];// 得到第一页
     NSArray *viewControllers = [NSArray arrayWithObject:readVC];
 
     [_pageViewController setViewControllers:viewControllers
@@ -85,6 +85,13 @@
 - (void)dealloc {
     // 侧滑返回
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)setBook:(RKBook *)book {
+	_book = book;
+	
+	self.currentChapter = self.book.readProgress.chapter;
+	self.currentPage = self.book.readProgress.page;
 }
 
 #pragma mark - 代理
@@ -145,6 +152,7 @@
     if (completed) {
 		self.currentChapter = self.chapterNext;
 		self.currentPage = self.pageNext;
+		[self updateLocalBookData];
     } else {
 //		RKReadViewController *readViewVC = (RKReadViewController *)previousViewControllers.firstObject;
 //		RKLog(@"%ld -- %ld -|- %ld -- %ld",self.currentChapter,self.currentPage,readViewVC.chapter,readViewVC.page);
@@ -174,7 +182,16 @@
     return readVC;
 }
 
-#pragma mark -- 手势事件
+- (void)updateLocalBookData {
+	
+	self.book.readProgress.chapter = self.currentChapter;
+	self.book.readProgress.page = self.currentPage;
+	self.book.readProgress.progress = self.currentChapter*1.0f/self.book.chapters.count;
+	self.book.readProgress.title = self.book.chapters[self.currentChapter].title;
+	[RKBook archiverBookData:self.book];
+}
+
+#pragma mark - 手势事件
 - (void)showToolMenu {
 	RKLog(@"点击屏幕");
 	

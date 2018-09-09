@@ -57,7 +57,7 @@
     _book = book;
     self.nameLabel.text = book.name;
     self.coverImage.image = [UIImage imageNamed:book.coverName];
-    self.progressLabel.text = [NSString stringWithFormat:@"进度: %0.2f%%",book.progress];
+    self.progressLabel.text = [NSString stringWithFormat:@"进度: %0.2f%%",book.readProgress.progress];
     self.sizeLabel.text = [NSString stringWithFormat:@"大小: %0.2f M",book.fileInfo.fileSize];
 }
 
@@ -67,9 +67,9 @@
         _bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, self.width - 10, self.height - 5)];
         _bgView.backgroundColor = [UIColor whiteColor];
 
-        _bgView.layer.cornerRadius = 5;
+//        _bgView.layer.cornerRadius = 5;
         _bgView.layer.borderColor = [UIColor colorWithHexString:@"333333"].CGColor;
-        _bgView.clipsToBounds = YES;
+//        _bgView.clipsToBounds = YES;
 
 //        _bgView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
 //        _bgView.layer.shadowOffset = CGSizeMake(5,5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用

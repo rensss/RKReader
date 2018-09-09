@@ -32,10 +32,10 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeObject:self.name forKey:@"name"];
 	[aCoder encodeObject:self.content forKey:@"content"];
-	[aCoder encodeObject:@(self.progress) forKey:@"progress"];
 	[aCoder encodeObject:self.coverName forKey:@"coverName"];
 	[aCoder encodeObject:self.chapters forKey:@"chapters"];
 	[aCoder encodeObject:self.fileInfo forKey:@"fileInfo"];
+	[aCoder encodeObject:self.readProgress forKey:@"readProgress"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -43,10 +43,10 @@
 	if (self) {
 		self.name = [aDecoder decodeObjectForKey:@"name"];
 		self.content = [aDecoder decodeObjectForKey:@"content"];
-		self.progress = [[aDecoder decodeObjectForKey:@"progress"] floatValue];
 		self.coverName = [aDecoder decodeObjectForKey:@"coverName"];
 		self.chapters = [aDecoder decodeObjectForKey:@"chapters"];
 		self.fileInfo = [aDecoder decodeObjectForKey:@"fileInfo"];
+		self.readProgress = [aDecoder decodeObjectForKey:@"readProgress"];
 	}
 	return self;
 }
@@ -57,6 +57,13 @@
         _fileInfo = [RKFile new];
     }
     return _fileInfo;
+}
+
+- (RKReadProgress *)readProgress {
+	if (!_readProgress) {
+		_readProgress = [RKReadProgress new];
+	}
+	return _readProgress;
 }
 
 #pragma mark - setting
@@ -74,7 +81,11 @@
 	if (!data) {
 		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:[NSURL URLWithString:fileURL]]];
 		book.name = file.fileName;
-		book.progress = 0.0f;
+		RKReadProgress *readProgress = [RKReadProgress new];
+		readProgress.progress = 0.0f;
+		readProgress.chapter = 0;
+		readProgress.page = 0;
+		book.readProgress = readProgress;
 		book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
 		book.fileInfo = file;
 		// 保存到本地
