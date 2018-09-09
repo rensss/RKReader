@@ -84,17 +84,38 @@
     return filesize;
 }
 
+/**
+ 删除全部书籍
+ */
+- (void)clearAllBooks {
+	[[NSFileManager defaultManager] removeItemAtPath:kBookSavePath error:nil];
+	[self clearAllUserDefaultsData];
+}
+
+/**
+ *  清除所有的存储本地的数据
+ */
+- (void)clearAllUserDefaultsData {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	
+	NSDictionary *dic = [userDefaults dictionaryRepresentation];
+	for (id  key in dic) {
+		[userDefaults removeObjectForKey:key];
+	}
+	[userDefaults synchronize];
+}
+
 #pragma mark -- 类函数
 + (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content {
 	[*chapters removeAllObjects];
 	
 	// 正则匹配
-	NSString *parten = @"[?「][?【]*第[0-9一二三四五六七八九十百千]*[章回节].*";
+	NSString *parten = @"(\\s)+[第]{0,1}[0-9一二三四五六七八九十百千万]+[章回节卷集幕计][ \t]*(\\S)*";
 	NSError *error = NULL;
 	NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:&error];
 	
 	NSArray* match = [reg matchesInString:content options:NSMatchingReportCompletion range:NSMakeRange(0, [content length])];
-	
+	RKLog(@"章节个数 -- %lu",(unsigned long)match.count);
 	if (match.count != 0) {
 		__block NSRange lastRange = NSMakeRange(0, 0);
 		[match enumerateObjectsUsingBlock:^(NSTextCheckingResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -129,6 +150,8 @@
 		}];
 	} else {// 没找出章节
 		RKBookChapter *model = [[RKBookChapter alloc] init];
+		model.title = @"开始";
+		model.contentFrame = [RKUserConfiguration sharedInstance].readViewFrame;
 		model.content = content;
 		[*chapters addObject:model];
 	}
@@ -166,7 +189,6 @@
 			error = NULL;
 		}
 	}
-//	NSLog(@"内容30个字符 \n%@\n",[content substringToIndex:30]);
 	if (!content) {
 		return @"";
 	}

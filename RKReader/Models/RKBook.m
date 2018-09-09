@@ -80,6 +80,7 @@
 	
 	if (!data) {
 		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:[NSURL URLWithString:fileURL]]];
+		
 		book.name = file.fileName;
 		RKReadProgress *readProgress = [RKReadProgress new];
 		readProgress.progress = 0.0f;

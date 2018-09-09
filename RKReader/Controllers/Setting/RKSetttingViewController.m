@@ -29,13 +29,46 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    RKLog(@"%@",indexPath);
+	__weak typeof(self) weakSelf = self;
     // 导入
     if ([self.dataArray[indexPath.row] isEqualToString:self.dataArray[0]]) {
         RKImportViewController *importVC = [[RKImportViewController alloc] init];
         [self.navigationController pushViewController:importVC animated:YES];
     }
-    
+	// 清空所有书籍
+	if ([self.dataArray[indexPath.row] isEqualToString:self.dataArray[1]]) {
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否删除全部数据"  message:@"将会清空书籍和阅读记录!"	preferredStyle:UIAlertControllerStyleAlert];
+		
+		// 创建并添加按钮
+		UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+			[[RKFileManager sharedInstance] clearAllBooks];
+			RKAlertMessage(@"删除成功", weakSelf.view);
+		}];
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+		
+		[alertController addAction:okAction];           // A
+		[alertController addAction:cancelAction];       // B
+		
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
+	
+	// 清空缓存
+	if ([self.dataArray[indexPath.row] isEqualToString:self.dataArray[2]]) {
+		
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否删除全部缓存数据"  message:@"将会清空阅读记录!"	preferredStyle:UIAlertControllerStyleAlert];
+		
+		// 创建并添加按钮
+		UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+			[[RKFileManager sharedInstance] clearAllUserDefaultsData];
+			RKAlertMessage(@"清除成功", weakSelf.view);
+		}];
+		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+		
+		[alertController addAction:okAction];           // A
+		[alertController addAction:cancelAction];       // B
+		
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
 }
 
 #pragma mark -- UITableViewDataSource
@@ -77,7 +110,7 @@
 
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithObjects:@"局域网导入",@"删除全部书籍",@"设置", nil];
+        _dataArray = [NSMutableArray arrayWithObjects:@"局域网导入",@"删除全部书籍",@"清空缓存数据", nil];
     }
     return _dataArray;
 }

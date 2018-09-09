@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithRandom];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"bcf2cc"];
     
     [self.view addSubview:self.readView];
 }
