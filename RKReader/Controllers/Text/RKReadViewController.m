@@ -12,6 +12,7 @@
 @interface RKReadViewController ()
 
 @property (nonatomic, strong) RKReadView *readView; /**< 文字内容view*/
+@property (nonatomic, strong) UIImageView *bgImageView; /**< 背景底图*/
 
 @end
 
@@ -20,8 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithHexString:@"bcf2cc"];
-    
+	[self.view addSubview:self.bgImageView];
     [self.view addSubview:self.readView];
 }
 
@@ -34,6 +34,14 @@
 #pragma mark - 代理
 
 #pragma mark - 函数
+- (UIImageView *)bgImageView {
+	if (!_bgImageView) {
+		_bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+		_bgImageView.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"bcf2cc"]];
+	}
+	return _bgImageView;
+}
+
 - (RKReadView *)readView {
     if (!_readView) {
         _readView = [[RKReadView alloc] initWithFrame:[RKUserConfiguration sharedInstance].readViewFrame];
