@@ -146,17 +146,19 @@
 		self.currentChapter = self.chapterNext;
 		self.currentPage = self.pageNext;
     } else {
-		RKReadViewController *readViewVC = (RKReadViewController *)previousViewControllers.firstObject;
-		self.currentPage = readViewVC.page;
-		self.currentChapter = readViewVC.chapter;
+//		RKReadViewController *readViewVC = (RKReadViewController *)previousViewControllers.firstObject;
+//		RKLog(@"%ld -- %ld -|- %ld -- %ld",self.currentChapter,self.currentPage,readViewVC.chapter,readViewVC.page);
+//		self.currentPage = readViewVC.page;
+//		self.currentChapter = readViewVC.chapter;
     }
 }
 
 // 页面将要跳转
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
     RKLog(@"willTransitionToViewControllers");
-	self.currentChapter = self.chapterNext;
-	self.currentPage = self.pageNext;
+//	self.currentChapter = self.chapterNext;
+//	self.currentPage = self.pageNext;
+	RKLog(@"%ld -|- %ld",self.currentChapter,self.currentPage);
 }
 
 #pragma mark - 函数
