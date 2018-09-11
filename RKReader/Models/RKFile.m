@@ -16,7 +16,7 @@
     
     // 子线程获取文件大小
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        self.fileSize = [[RKFileManager sharedInstance] getFileSize:filePath];
+        self.fileSize = [RKFileManager getFileSize:filePath];
     });
 }
 

@@ -11,37 +11,41 @@
 
 @interface RKFileManager : NSObject
 
+#pragma mark - init
 /**
- 文件管理
- @return 单例
+ 初始化
  */
-+ (instancetype)sharedInstance;
++ (void)fileManagerInit;
+
+/**
+ 创建书籍存放文件夹
+ @return 是否成功
+ */
++ (BOOL)createDir;
 
 #pragma mark - 函数
 /**
  返回书籍列表
  @return 书籍数组
  */
-- (NSArray *)getBookList;
++ (NSArray *)getBookList;
 
 /**
  计算文件的大小，单位为 M
  @param path 文件路径
  @return 文件大小
  */
-- (CGFloat)getFileSize:(NSString *)path;
++ (CGFloat)getFileSize:(NSString *)path;
 
 /**
  删除全部书籍
  */
-- (void)clearAllBooks;
++ (void)clearAllBooks;
 
 /**
  *  清除所有的存储本地的数据
  */
-- (void)clearAllUserDefaultsData;
-
-#pragma mark - 类函数
++ (void)clearAllUserDefaultsData;
 
 /**
  给书籍分出章节
@@ -56,7 +60,6 @@
  @return 内容
  */
 + (NSString *)encodeWithURL:(NSURL *)url;
-
 
 /**
  根据内容返回CTFrameRef

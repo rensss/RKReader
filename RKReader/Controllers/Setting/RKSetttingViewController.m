@@ -41,7 +41,7 @@
 		
 		// 创建并添加按钮
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-			[[RKFileManager sharedInstance] clearAllBooks];
+			[RKFileManager clearAllBooks];
 			RKAlertMessage(@"删除成功", weakSelf.view);
 		}];
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -59,7 +59,7 @@
 		
 		// 创建并添加按钮
 		UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-			[[RKFileManager sharedInstance] clearAllUserDefaultsData];
+			[RKFileManager clearAllUserDefaultsData];
 			RKAlertMessage(@"清除成功", weakSelf.view);
 		}];
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];

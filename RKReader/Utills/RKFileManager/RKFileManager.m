@@ -10,34 +10,18 @@
 #import "RKBookChapter.h"
 
 @implementation RKFileManager
-
-+ (instancetype)sharedInstance
-{
-    static id sharedInstance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        BOOL isSuccess = [self createDir];
-        if (!isSuccess) {
-            RKLog(@"文件创建失败!  path=%@",kBookSavePath);
-        }else {
-            RKLog(@"文件创建成功!  path=%@",kBookSavePath);
-        }
++ (void)fileManagerInit {
+    BOOL isSuccess = [RKFileManager createDir];
+    if (!isSuccess) {
+        RKLog(@"文件创建失败!  path=%@",kBookSavePath);
+    }else {
+        RKLog(@"文件创建成功!  path=%@",kBookSavePath);
     }
-    return self;
 }
 
 #pragma mark - 函数
 /// 创建书籍存放文件夹
-- (BOOL)createDir {
++ (BOOL)createDir {
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir;
@@ -50,8 +34,8 @@
         return YES;
     }
 }
-#pragma mark -- 公用函数
-- (NSArray *)getBookList {
+
++ (NSArray *)getBookList {
     NSMutableArray *array = [NSMutableArray array];
     
     NSFileManager *manager = [NSFileManager defaultManager];
@@ -71,7 +55,7 @@
 }
 
 /// 计算文件的大小，单位为 M
-- (CGFloat)getFileSize:(NSString *)path {
++ (CGFloat)getFileSize:(NSString *)path {
     // 转码
     NSString *filePath = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     RKLog(@"转码/n%@/n%@",path,filePath);
@@ -88,7 +72,7 @@
 /**
  删除全部书籍
  */
-- (void)clearAllBooks {
++ (void)clearAllBooks {
 	[[NSFileManager defaultManager] removeItemAtPath:kBookSavePath error:nil];
 	[self clearAllUserDefaultsData];
 }
@@ -96,7 +80,7 @@
 /**
  *  清除所有的存储本地的数据
  */
-- (void)clearAllUserDefaultsData {
++ (void)clearAllUserDefaultsData {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	
 	NSDictionary *dic = [userDefaults dictionaryRepresentation];

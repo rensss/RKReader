@@ -29,14 +29,14 @@
     
     [self initUI];
     
-    [RKFileManager sharedInstance];
+    [RKFileManager fileManagerInit];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
 	// 更新列表
-	if (self.dataArray.count != [[RKFileManager sharedInstance] getBookList].count) {
+	if (self.dataArray.count != [RKFileManager getBookList].count) {
 		self.dataArray = nil;
 	}
 	[self.tableView reloadData];
@@ -145,7 +145,7 @@
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
-        NSArray *array = [[RKFileManager sharedInstance] getBookList];
+        NSArray *array = [RKFileManager getBookList];
 		//计算代码运行时间
 		CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
 
