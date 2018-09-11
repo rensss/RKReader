@@ -130,7 +130,8 @@
     if (isAdd) {
         
     }else {
-        
+        // 删除文件
+        [RKFileManager deleteFileWithFilePath:filePath];
     }
 }
 
