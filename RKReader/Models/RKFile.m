@@ -10,28 +10,14 @@
 
 @implementation RKFile
 
-#pragma mark - 编码/解码
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-	[aCoder encodeObject:self.fileName forKey:@"name"];
-	[aCoder encodeObject:self.filePath forKey:@"filePath"];
-	[aCoder encodeObject:self.fileType forKey:@"fileType"];
-	[aCoder encodeObject:@(self.fileSize) forKey:@"fileSize"];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	self = [super init];
-	if (self) {
-		self.fileName = [aDecoder decodeObjectForKey:@"fileName"];
-		self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
-		self.fileType = [aDecoder decodeObjectForKey:@"fileType"];
-		self.fileSize = [[aDecoder decodeObjectForKey:@"fileSize"] floatValue];
-	}
-	return self;
-}
-
 #pragma mark - setting
 - (void)setFilePath:(NSString *)filePath {
 	_filePath = filePath;
+    
+    // 子线程获取文件大小
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        self.fileSize = [[RKFileManager sharedInstance] getFileSize:filePath];
+    });
 }
 
 @end

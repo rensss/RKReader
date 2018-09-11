@@ -22,6 +22,7 @@
 		103A68EA2140F98600F008C3 /* RKReadPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68E92140F98600F008C3 /* RKReadPageViewController.m */; };
 		103A68ED2140FDC900F008C3 /* RKReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68EC2140FDC900F008C3 /* RKReadViewController.m */; };
 		103A68F42141203700F008C3 /* RKReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68F32141203700F008C3 /* RKReadView.m */; };
+		103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E0BB32147A67A002D2271 /* RKHomeListBooks.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -61,6 +62,8 @@
 		103A68EC2140FDC900F008C3 /* RKReadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadViewController.m; sourceTree = "<group>"; };
 		103A68F22141203700F008C3 /* RKReadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadView.h; sourceTree = "<group>"; };
 		103A68F32141203700F008C3 /* RKReadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadView.m; sourceTree = "<group>"; };
+		103E0BB22147A67A002D2271 /* RKHomeListBooks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKHomeListBooks.h; sourceTree = "<group>"; };
+		103E0BB32147A67A002D2271 /* RKHomeListBooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListBooks.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 				1037E450213E39A200B5CF0E /* RKModel.m */,
 				1037E45A213E740900B5CF0E /* RKFile.h */,
 				1037E45B213E740900B5CF0E /* RKFile.m */,
+				103E0BB22147A67A002D2271 /* RKHomeListBooks.h */,
+				103E0BB32147A67A002D2271 /* RKHomeListBooks.m */,
 				1037E452213E39D400B5CF0E /* RKBook.h */,
 				1037E453213E39D400B5CF0E /* RKBook.m */,
 				1A2D86512143AD230006421D /* RKBookChapter.h */,
@@ -292,6 +297,7 @@
 				109C98B7213CE8DE0018DB5F /* Frameworks */,
 				109C98B8213CE8DE0018DB5F /* Resources */,
 				50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */,
+				1136D6D0178E4C6460798DE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -314,7 +320,7 @@
 				TargetAttributes = {
 					109C98B9213CE8DE0018DB5F = {
 						CreatedOnToolsVersion = 9.4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -348,6 +354,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1136D6D0178E4C6460798DE1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -402,6 +423,7 @@
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				1A2D86562144FC690006421D /* RKReadProgress.m in Sources */,
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
+				103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
 				103A68EA2140F98600F008C3 /* RKReadPageViewController.m in Sources */,
 				1037E457213E5D2500B5CF0E /* RKImportViewController.m in Sources */,
@@ -534,8 +556,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2MC8B96QW9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -550,8 +572,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c5bcc17-aaa1-4e01-bf22-04aff8ec2597";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -563,8 +585,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2MC8B96QW9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -579,8 +601,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c5bcc17-aaa1-4e01-bf22-04aff8ec2597";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

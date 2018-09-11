@@ -12,17 +12,8 @@
 @implementation RKModel
 
 #pragma mark - 编码/解码
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-	
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	self = [super init];
-	if (self) {
-		
-	}
-	return self;
-}
+- (void)encodeWithCoder:(NSCoder *)aCoder { [self yy_modelEncodeWithCoder:aCoder]; }
+- (id)initWithCoder:(NSCoder *)aDecoder { self = [super init]; return [self yy_modelInitWithCoder:aDecoder]; }
 
 /**
  描述对象

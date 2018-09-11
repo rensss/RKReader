@@ -24,25 +24,6 @@
 	return self;
 }
 
-#pragma mark - 编码/解码
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-	[aCoder encodeObject:self.content forKey:@"content"];
-	[aCoder encodeObject:self.title forKey:@"title"];
-	[aCoder encodeObject:@(self.pageCount) forKey:@"pageCount"];
-	[aCoder encodeObject:self.pageArray forKey:@"pageArray"];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	self = [super init];
-	if (self) {
-		self.content = [aDecoder decodeObjectForKey:@"content"];
-		self.title = [aDecoder decodeObjectForKey:@"title"];
-		self.pageCount = [[aDecoder decodeObjectForKey:@"pageCount"] integerValue];
-		self.pageArray = [aDecoder decodeObjectForKey:@"pageArray"];
-	}
-	return self;
-}
-
 #pragma mark - setting
 - (void)setContent:(NSString *)content {
 	_content = content;

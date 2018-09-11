@@ -64,8 +64,6 @@
         file.fileName = fileName;
         file.filePath = [NSString stringWithFormat:@"%@/%@",kBookSavePath,fileName];
         file.fileType = [[fileName componentsSeparatedByString:@"."] lastObject];
-        file.fileSize = [self getFileSize:file.filePath];
-
         [array addObject:file];
     }
     
@@ -74,10 +72,13 @@
 
 /// 计算文件的大小，单位为 M
 - (CGFloat)getFileSize:(NSString *)path {
+    // 转码
+    NSString *filePath = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    RKLog(@"转码/n%@/n%@",path,filePath);
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     float filesize = -1.0;
     if ([fileManager fileExistsAtPath:path]) {
-        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:path error:nil];//获取文件的属性
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:filePath error:nil];//获取文件的属性
         unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
         filesize = size/1000.0/1000.0;
     }
@@ -99,7 +100,7 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	
 	NSDictionary *dic = [userDefaults dictionaryRepresentation];
-	for (id  key in dic) {
+	for (id key in dic) {
 		[userDefaults removeObjectForKey:key];
 	}
 	[userDefaults synchronize];

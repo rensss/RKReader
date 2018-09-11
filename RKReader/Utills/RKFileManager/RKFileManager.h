@@ -31,7 +31,6 @@
  */
 - (CGFloat)getFileSize:(NSString *)path;
 
-
 /**
  删除全部书籍
  */
@@ -66,4 +65,5 @@
  @return CTFrameRef
  */
 + (CTFrameRef)parserContent:(NSString *)content;
+
 @end
