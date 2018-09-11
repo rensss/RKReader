@@ -7,6 +7,7 @@
 //
 
 #import "RKBookChapter.h"
+#import <CoreText/CoreText.h>
 
 @interface RKBookChapter ()
 

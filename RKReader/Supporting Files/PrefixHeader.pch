@@ -37,7 +37,7 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #pragma mark - 模型
 #import "RKFile.h"// 文件模型
 #import "RKBook.h"// 书籍模型
-
+#import "RKHomeListBooks.h"// 首页列表数据模型
 
 #pragma mark - 宏
 // 屏幕宽高
@@ -49,10 +49,12 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define VIEWSAFEAREAINSETS(view) ({UIEdgeInsets i; if(@available(iOS 11.0, *)) {i = view.safeAreaInsets;} else {i = UIEdgeInsetsZero;} i;})
 #define kSafeAreaBottom ({CGFloat i; if(@available(iOS 11.0, *)) {i = 34.0f;} else {i = 0.0f;} i;})
 
-
 // 首页封面图原宽高
 #define kCoverImageWidth 236
 #define kCoverImageHeight 337
+
+#pragma mark - 线程名
+#define kMyConcurrentQueue "RKReaderQueue"
 
 #pragma mark -- 用户配置
 // 首页封面宽度

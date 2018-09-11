@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RKHomeListBooks.h"
 
 @interface RKHomeListTableViewCell : UITableViewCell
 

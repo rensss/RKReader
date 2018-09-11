@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreText/CoreText.h>
 
+@class RKBook;
 @interface RKFileManager : NSObject
 
 #pragma mark - init
@@ -23,19 +23,26 @@
  */
 + (BOOL)createDir;
 
-#pragma mark - 函数
+#pragma mark - 首页数据
 /**
  返回书籍列表
  @return 书籍数组
  */
 + (NSArray *)getBookList;
 
+#pragma mark - 文件操作/缓存相关
+
 /**
- 计算文件的大小，单位为 M
- @param path 文件路径
- @return 文件大小
+ 删除单个文件
+ @param filePath 文件路径
  */
-+ (CGFloat)getFileSize:(NSString *)path;
++ (void)deleteFileWithFilePath:(NSString *)filePath;
+
+/**
+ 删除单个缓存文件
+ @param filePath 文件路径
+ */
++ (void)deleteUserDefaultsDataWithFilePath:(NSString *)filePath;
 
 /**
  删除全部书籍
@@ -47,6 +54,21 @@
  */
 + (void)clearAllUserDefaultsData;
 
+#pragma mark - 数据解析
+
+/**
+ 根据文件地址分配任务
+ @param filePath 文件路径
+ */
++ (void)threadedTaskAllocationWithFile:(NSString *)filePath;
+
+/**
+ 更新首页列表数据
+ @param isAdd 是否添加
+ @param filePath 文件路径
+ */
++ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath;
+
 /**
  给书籍分出章节
  @param chapters 章节数组
@@ -56,17 +78,24 @@
 
 /**
  根据地址解码
- @param url 地址
- @return 内容
+
+ @param path 文件地址
+ @return 文件内容
  */
-+ (NSString *)encodeWithURL:(NSURL *)url;
++ (NSString *)encodeWithFilePath:(NSString *)path;
 
 /**
- 根据内容返回CTFrameRef
-
- @param content 内容
- @return CTFrameRef
+ 保存book信息
+ @param book 书籍数据
  */
-+ (CTFrameRef)parserContent:(NSString *)content;
++ (void)archiverBookData:(RKBook *)book;
+
+#pragma mark - 工具
+/**
+ 计算文件的大小，单位为 M
+ @param path 文件路径
+ @return 文件大小
+ */
++ (CGFloat)getFileSize:(NSString *)path;
 
 @end

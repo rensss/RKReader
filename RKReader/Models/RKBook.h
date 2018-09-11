@@ -36,10 +36,4 @@
  */
 + (instancetype)getLocalModelWithFileInfo:(RKFile *)file;
 
-/**
- 保存book信息
- @param book 书籍数据
- */
-+ (void)archiverBookData:(RKBook *)book;
-
 @end

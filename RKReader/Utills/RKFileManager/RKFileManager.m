@@ -15,7 +15,7 @@
     if (!isSuccess) {
         RKLog(@"文件创建失败!  path=%@",kBookSavePath);
     }else {
-        RKLog(@"文件创建成功!  path=%@",kBookSavePath);
+        RKLog(@"文件创建成功或已存在!  path=%@",kBookSavePath);
     }
 }
 
@@ -34,6 +34,8 @@
         return YES;
     }
 }
+
+#pragma mark - 首页数据
 
 + (NSArray *)getBookList {
     NSMutableArray *array = [NSMutableArray array];
@@ -54,19 +56,35 @@
     return array;
 }
 
-/// 计算文件的大小，单位为 M
-+ (CGFloat)getFileSize:(NSString *)path {
-    // 转码
-    NSString *filePath = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    RKLog(@"转码/n%@/n%@",path,filePath);
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    float filesize = -1.0;
-    if ([fileManager fileExistsAtPath:path]) {
-        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:filePath error:nil];//获取文件的属性
-        unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
-        filesize = size/1000.0/1000.0;
-    }
-    return filesize;
+#pragma mark - 文件操作/缓存相关
+
+/**
+ 删除单个文件
+ @param filePath 文件路径
+ */
++ (void)deleteFileWithFilePath:(NSString *)filePath {
+    
+    // 清除缓存
+    [RKFileManager deleteUserDefaultsDataWithFilePath:filePath];
+    
+    // 删除文件
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL res = [fileManager removeItemAtPath:filePath error:nil];
+    NSLog(@"文件是否存在: %@ -- res:%@",[fileManager isExecutableFileAtPath:filePath]?@"YES":@"NO",res?@"YES":@"NO");
+}
+
+/**
+ 删除单个缓存文件
+ @param filePath 文件路径
+ */
++ (void)deleteUserDefaultsDataWithFilePath:(NSString *)filePath {
+    
+    NSString *fileURL = [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *key = [fileURL lastPathComponent];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:key];
+    
+    [userDefaults synchronize];
 }
 
 /**
@@ -90,7 +108,32 @@
 	[userDefaults synchronize];
 }
 
-#pragma mark -- 类函数
+#pragma mark - 数据解析
+
+/**
+ 根据文件地址分配任务
+ @param filePath 文件路径
+ */
++ (void)threadedTaskAllocationWithFile:(NSString *)filePath {
+    dispatch_queue_t myQueue = dispatch_queue_create(kMyConcurrentQueue, DISPATCH_QUEUE_CONCURRENT);
+    dispatch_async(myQueue, ^{
+        // 更新首页数据
+        [RKFileManager updateHomeListData:YES filePath:filePath];
+        
+        // 解析书籍
+        RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:filePath]];
+        [RKFileManager archiverBookData:book];
+    });
+}
+
++ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath {
+    if (isAdd) {
+        
+    }else {
+        
+    }
+}
+
 + (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content {
 	[*chapters removeAllObjects];
 	
@@ -142,13 +185,10 @@
 	}
 }
 
-+ (NSString *)encodeWithURL:(NSURL *)url {
-	if (!url) {
-		return @"";
-	}
++ (NSString *)encodeWithFilePath:(NSString *)path {
 	
 	NSError *error = NULL;
-	NSString *content = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+	NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
 	if (!content) {
 		if (error) {
 			RKLog(@"NSUTF8StringEncoding -- 解码错误 -- %@",error.domain);
@@ -157,7 +197,7 @@
 		}
 	}
 	if (!content) {
-		content = [NSString stringWithContentsOfURL:url encoding:0x80000632 error:&error];
+		content = [NSString stringWithContentsOfFile:path encoding:0x80000632 error:&error];
 		if (error) {
 			RKLog(@"GBK -- 解码错误 -- %@",error.domain);
 			content = nil;
@@ -167,7 +207,7 @@
 	if (!content) {
 		NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
 		//文件内容转换成字符串类型
-		content = [[NSString alloc] initWithContentsOfFile:url.path encoding:enc error:&error];
+		content = [NSString stringWithContentsOfFile:path encoding:enc error:&error];
 		if (error) {
 			RKLog(@"kCFStringEncodingGB_18030_2000 -- 解码错误 -- %@",error.domain);
 			content = nil;
@@ -180,16 +220,37 @@
 	return content;
 }
 
-+ (CTFrameRef)parserContent:(NSString *)content {
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:content];
-	NSDictionary *attribute = [[RKUserConfiguration sharedInstance] parserAttribute];
-	[attributedString setAttributes:attribute range:NSMakeRange(0, content.length)];
-	CTFramesetterRef setterRef = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attributedString);
-	CGPathRef pathRef = CGPathCreateWithRect([RKUserConfiguration sharedInstance].readViewFrame, NULL);
-	CTFrameRef frameRef = CTFramesetterCreateFrame(setterRef, CFRangeMake(0, 0), pathRef, NULL);
-	CFRelease(setterRef);
-	CFRelease(pathRef);
-	return frameRef;
++ (void)archiverBookData:(RKBook *)book {
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *fileURL = [book.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *key = [fileURL lastPathComponent];
+        NSMutableData *data = [[NSMutableData alloc] init];
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [archiver encodeObject:book forKey:key];
+        [archiver finishEncoding];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
+    });
+}
+
+#pragma mark - 工具
+/**
+ 计算文件的大小，单位为 M
+ @param path 文件路径
+ @return 大小(M)
+ */
++ (CGFloat)getFileSize:(NSString *)path {
+    // 转码
+    NSString *filePath = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    RKLog(@"转码/n%@/n%@",path,filePath);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    float filesize = -1.0;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:filePath error:nil];//获取文件的属性
+        unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
+        filesize = size/1000.0/1000.0;
+    }
+    return filesize;
 }
 
 @end

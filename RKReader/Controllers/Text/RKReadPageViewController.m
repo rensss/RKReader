@@ -188,7 +188,7 @@
 	self.book.readProgress.page = self.currentPage;
 	self.book.readProgress.progress = self.currentChapter*1.0f/self.book.chapters.count;
 	self.book.readProgress.title = self.book.chapters[self.currentChapter].title;
-	[RKBook archiverBookData:self.book];
+	[RKFileManager archiverBookData:self.book];
 }
 
 #pragma mark - 手势事件

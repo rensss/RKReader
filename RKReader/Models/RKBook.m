@@ -57,7 +57,7 @@
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	
 	if (!data) {
-		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithURL:[NSURL URLWithString:fileURL]]];
+		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:fileURL]];
 		
 		book.name = file.fileName;
 		RKReadProgress *readProgress = [RKReadProgress new];
@@ -68,26 +68,13 @@
 		book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
 		book.fileInfo = file;
 		// 保存到本地
-		[RKBook archiverBookData:book];
+		[RKFileManager archiverBookData:book];
 		return book;
 	}
 	NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
 	//主线程操作
 	RKBook *model = [unarchive decodeObjectForKey:key];
 	return model;
-}
-
-+ (void)archiverBookData:(RKBook *)book {
-	
-	dispatch_async(dispatch_get_global_queue(0, 0), ^{
-		NSString *fileURL = [book.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		NSString *key = [fileURL lastPathComponent];
-		NSMutableData *data = [[NSMutableData alloc] init];
-		NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-		[archiver encodeObject:book forKey:key];
-		[archiver finishEncoding];
-		[[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
-	});
 }
 
 @end
