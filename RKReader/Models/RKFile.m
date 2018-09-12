@@ -11,13 +11,14 @@
 @implementation RKFile
 
 #pragma mark - setting
+- (void)setFileName:(NSString *)fileName {
+    _fileName = fileName;
+    
+    self.fileType = [[self.fileName componentsSeparatedByString:@"."] lastObject];
+}
+
 - (void)setFilePath:(NSString *)filePath {
 	_filePath = filePath;
-    
-    // 子线程获取文件大小
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        self.fileSize = [RKFileManager getFileSize:filePath];
-    });
 }
 
 @end

@@ -53,15 +53,6 @@
 }
 
 #pragma mark - setting
-- (void)setBook:(RKBook *)book {
-    _book = book;
-    
-    self.nameLabel.text = book.name;
-    self.coverImage.image = [UIImage imageNamed:book.coverName];
-    self.progressLabel.text = [NSString stringWithFormat:@"进度: %0.2f%%",book.readProgress.progress];
-    self.sizeLabel.text = [NSString stringWithFormat:@"大小: %0.2f M",book.fileInfo.fileSize];
-}
-
 - (void)setBookInfo:(RKHomeListBooks *)bookInfo {
     _bookInfo = bookInfo;
     

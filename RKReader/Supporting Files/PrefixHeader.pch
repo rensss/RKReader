@@ -92,6 +92,9 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 // 书籍存放文件夹路径
 #define kBookSavePath [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"/Books"]
 
+// 首页列表上数据
+#define kHomeBookListsPath [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"/BookLists.data"]
+
 // 用户配置信息存放路径
 #define kUserConfigutationPATH [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"/userConfig.data"]
 

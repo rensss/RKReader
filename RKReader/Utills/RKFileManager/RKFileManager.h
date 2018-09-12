@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKBook;
+@class RKBook,RKHomeListBooks;
 @interface RKFileManager : NSObject
 
 #pragma mark - init
@@ -23,15 +23,28 @@
  */
 + (BOOL)createDir;
 
-#pragma mark - 首页数据
-/**
- 返回书籍列表
- @return 书籍数组
- */
-+ (NSArray *)getBookList;
-
 #pragma mark - 文件操作/缓存相关
+#pragma mark -- 增
+/**
+ 根据路径生成model,然后保存
+ @param filePath 文件路径
+ */
++ (void)addFileWithFilePath:(NSString *)filePath;
 
+/**
+ 添加首页列表数据
+ @param book 列表书籍数据
+ */
++ (void)saveHomeListWithListBook:(RKHomeListBooks *)book;
+
+/**
+ 保存首页列表
+ @param homeList 列表数据
+ */
++ (void)saveHomeList:(NSMutableArray *)homeList;
+
+
+#pragma mark -- 删
 /**
  删除单个文件
  @param filePath 文件路径
@@ -39,11 +52,37 @@
 + (void)deleteFileWithFilePath:(NSString *)filePath;
 
 /**
+ 删除单个书籍
+ @param book 书籍数据
+ */
++ (void)deleteHomeListWithHomeList:(RKHomeListBooks *)book;
+
+/**
+ 删除全部首页列表数据
+ */
++ (void)deleteAllHomeList;
+
+/**
  删除单个缓存文件
  @param filePath 文件路径
  */
 + (void)deleteUserDefaultsDataWithFilePath:(NSString *)filePath;
 
+#pragma mark -- 改
+/**
+ 更新首页列表数据
+ @param isAdd 是否添加
+ @param filePath 文件路径
+ */
++ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath;
+
+#pragma mark -- 查
+/**
+ 获取首页列表书籍数据
+ */
++ (NSMutableArray <RKHomeListBooks *> *)getHomeListBooks;
+
+#pragma mark -- 缓存管理
 /**
  删除全部书籍
  */
@@ -61,13 +100,6 @@
  @param filePath 文件路径
  */
 + (void)threadedTaskAllocationWithFile:(NSString *)filePath;
-
-/**
- 更新首页列表数据
- @param isAdd 是否添加
- @param filePath 文件路径
- */
-+ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath;
 
 /**
  给书籍分出章节

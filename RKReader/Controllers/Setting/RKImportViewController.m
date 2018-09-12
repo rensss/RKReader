@@ -80,7 +80,7 @@
  */
 - (void)webUploader:(GCDWebUploader*)uploader didUploadFileAtPath:(NSString*)path {
     RKLog(@"didUploadFileAtPath---->\n");
-    
+    // 保存
     [RKFileManager threadedTaskAllocationWithFile:path];
     
     NSString *title = [path stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@/",uploader.uploadDirectory]  withString:@""];
@@ -105,6 +105,9 @@
  */
 - (void)webUploader:(GCDWebUploader*)uploader didDeleteItemAtPath:(NSString*)path {
     RKLog(@"didDeleteItemAtPath---->\n");
+    // 更新首页数据
+    [RKFileManager updateHomeListData:NO filePath:path];
+    
     [self reloadTableView];
 }
 

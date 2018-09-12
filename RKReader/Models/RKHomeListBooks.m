@@ -10,4 +10,11 @@
 
 @implementation RKHomeListBooks
 
+- (RKFile *)fileInfo {
+    if (!_fileInfo) {
+        _fileInfo = [RKFile new];
+    }
+    return _fileInfo;
+}
+
 @end

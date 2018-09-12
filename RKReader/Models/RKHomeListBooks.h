@@ -11,6 +11,7 @@
 
 @interface RKHomeListBooks : RKModel
 
+@property (nonatomic, assign) NSString *key; /**< 保存的key|书名生成的MD5加密值*/
 @property (nonatomic, copy) NSString *coverName; /**< 封面图名称*/
 @property (nonatomic, assign) CGFloat progress; /**< 阅读进度*/
 @property (nonatomic, strong) RKFile *fileInfo; /**< 书籍基本信息*/

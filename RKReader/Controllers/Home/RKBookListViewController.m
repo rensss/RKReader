@@ -36,7 +36,7 @@
 	[super viewWillAppear:animated];
 	
 	// 更新列表
-	if (self.dataArray.count != [RKFileManager getBookList].count) {
+	if (self.dataArray.count != [RKFileManager getHomeListBooks].count) {
 		self.dataArray = nil;
 	}
 	[self.tableView reloadData];
@@ -71,7 +71,7 @@
 	RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
 	RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
 
-	NSString *fileURL = [cellBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *fileURL = [cellBook.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *key = [fileURL lastPathComponent];
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	
@@ -88,17 +88,17 @@
 		[indicator startAnimating];
 		__weak typeof(self) weakSelf = self;
 		dispatch_async(dispatch_get_global_queue(0, 0), ^{
-			RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
-			readPageVC.book = book;
-			weakSelf.dataArray[indexPath.row] = book;
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[indicator stopAnimating];
-				if ([readPageVC.book.content isEqualToString:@""]) {
-					RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
-					return ;
-				}
-				[weakSelf presentViewController:nav animated:YES completion:nil];
-			});
+//            RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
+//            readPageVC.book = book;
+//            weakSelf.dataArray[indexPath.row] = book;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [indicator stopAnimating];
+//                if ([readPageVC.book.content isEqualToString:@""]) {
+//                    RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
+//                    return ;
+//                }
+//                [weakSelf presentViewController:nav animated:YES completion:nil];
+//            });
 		});
 	}
 }
@@ -117,8 +117,8 @@
 		cell.accessoryView = indicator;
     }
     
-    RKBook *book = self.dataArray[indexPath.row];
-    cell.book = book;
+    RKHomeListBooks *book = self.dataArray[indexPath.row];
+    cell.bookInfo = book;
     
     return cell;
 }
@@ -145,33 +145,15 @@
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
-        NSArray *array = [RKFileManager getBookList];
-		//计算代码运行时间
-		CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
 
-        for (RKFile *file in array) {
-			RKBook *book = [RKBook new];
-			
-			NSString *fileURL = [file.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			NSString *key = [fileURL lastPathComponent];
-			NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-			
-			CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
-			// 打印运行时间
-			RKLog(@"Linked in %f ms", linkTime *1000.0);
-			
-			if (data) {
-				NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-				book = [unarchive decodeObjectForKey:key];
-				[_dataArray addObject:book];
-			}else {
-				book.name = file.fileName;
-				book.readProgress = [RKReadProgress new];
-				book.coverName = [NSString stringWithFormat:@"cover%u",arc4random()%10+1];
-				book.fileInfo = file;
-				[_dataArray addObject:book];
-			}
-        }
+        //计算代码运行时间
+		CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+        
+        _dataArray = [RKFileManager getHomeListBooks];
+        
+        CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
+        // 打印运行时间
+        RKLog(@"Linked in %f ms", linkTime *1000.0);
 		
     }
     return _dataArray;

@@ -14,8 +14,6 @@
 
 @implementation RKBook
 
-@synthesize fileInfo = _fileInfo;
-
 #pragma mark - 初始化
 - (instancetype)initWithContent:(NSString *)content {
 	self = [super init];
@@ -30,23 +28,12 @@
 
 
 #pragma mark - getting
-- (RKFile *)fileInfo {
-    if (!_fileInfo) {
-        _fileInfo = [RKFile new];
-    }
-    return _fileInfo;
-}
 
 - (RKReadProgress *)readProgress {
 	if (!_readProgress) {
 		_readProgress = [RKReadProgress new];
 	}
 	return _readProgress;
-}
-
-#pragma mark - setting
-- (void)setFileInfo:(RKFile *)fileInfo {
-	_fileInfo = fileInfo;
 }
 
 #pragma mark - 类方法
@@ -66,7 +53,7 @@
 		readProgress.page = 0;
 		book.readProgress = readProgress;
 		book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
-		book.fileInfo = file;
+		book.filePath = file.filePath;
 		// 保存到本地
 		[RKFileManager archiverBookData:book];
 		return book;

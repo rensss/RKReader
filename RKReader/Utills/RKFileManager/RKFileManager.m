@@ -35,29 +35,52 @@
     }
 }
 
-#pragma mark - 首页数据
-
-+ (NSArray *)getBookList {
-    NSMutableArray *array = [NSMutableArray array];
+#pragma mark - 文件操作/缓存相关
+#pragma mark -- 增
+/**
+ 根据路径生成model,然后保存
+ @param filePath 文件路径
+ */
++ (void)addFileWithFilePath:(NSString *)filePath {
+    RKHomeListBooks *book = [RKHomeListBooks new];
+    RKFile *fileInfo = [RKFile new];
+    fileInfo.fileName = [filePath componentsSeparatedByString:@"/"].lastObject;
+    fileInfo.filePath = filePath;
+    fileInfo.fileSize = [RKFileManager getFileSize:filePath];
     
-    NSFileManager *manager = [NSFileManager defaultManager];
-    //获取数据
-    //①只获取文件名
-    NSArray *fileNameArray = [NSMutableArray arrayWithArray:[manager contentsOfDirectoryAtPath:kBookSavePath error:nil]];
-    
-    for (NSString *fileName in fileNameArray) {
-        RKFile *file = [RKFile new];
-        file.fileName = fileName;
-        file.filePath = [NSString stringWithFormat:@"%@/%@",kBookSavePath,fileName];
-        file.fileType = [[fileName componentsSeparatedByString:@"."] lastObject];
-        [array addObject:file];
-    }
-    
-    return array;
+    book.key = [fileInfo.fileName md5Encrypt];
+    book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
+    book.fileInfo = fileInfo;
+    // 保存
+    [RKFileManager saveHomeListWithListBook:book];
 }
 
-#pragma mark - 文件操作/缓存相关
+/**
+ 添加首页列表数据
+ @param book 列表书籍数据
+ */
++ (void)saveHomeListWithListBook:(RKHomeListBooks *)book {
+    
+    NSMutableArray *array =  [RKFileManager getHomeListBooks];
+    
+    [array addObject:[book yy_modelToJSONObject]];
+    
+    [RKFileManager saveHomeList:array];
+}
 
+/**
+ 保存首页列表
+ @param homeList 列表数据
+ */
++ (void)saveHomeList:(NSMutableArray *)homeList {
+    
+    [[NSFileManager defaultManager] removeItemAtPath:kHomeBookListsPath error:nil];
+    
+    [NSKeyedArchiver archiveRootObject:homeList toFile:kHomeBookListsPath];
+}
+
+
+#pragma mark -- 删
 /**
  删除单个文件
  @param filePath 文件路径
@@ -70,7 +93,33 @@
     // 删除文件
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL res = [fileManager removeItemAtPath:filePath error:nil];
-    NSLog(@"文件是否存在: %@ -- res:%@",[fileManager isExecutableFileAtPath:filePath]?@"YES":@"NO",res?@"YES":@"NO");
+    RKLog(@"文件是否存在: %@ -- res:%@",[fileManager isExecutableFileAtPath:filePath]?@"YES":@"NO",res?@"YES":@"NO");
+}
+
+/**
+ 删除单个书籍
+ @param book 书籍数据
+ */
++ (void)deleteHomeListWithHomeList:(RKHomeListBooks *)book {
+    
+    [RKFileManager deleteFileWithFilePath:book.fileInfo.filePath];
+    
+    NSMutableArray *array = [RKFileManager getHomeListBooks];
+    for (int i = 0; i < array.count; i++) {
+        RKHomeListBooks *bookList = array[i];
+        if ([book.key isEqualToString:bookList.key]) {
+            [array removeObjectAtIndex:i];
+            [RKFileManager saveHomeList:array];
+            return;
+        }
+    }
+}
+
+/**
+ 删除全部首页列表数据
+ */
++ (void)deleteAllHomeList {
+    [[NSFileManager defaultManager] removeItemAtPath:kHomeBookListsPath error:nil];
 }
 
 /**
@@ -87,10 +136,48 @@
     [userDefaults synchronize];
 }
 
+#pragma mark -- 改
+/**
+ 更新首页列表数据
+ @param isAdd 是否添加
+ @param filePath 文件路径
+ */
++ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath {
+    if (isAdd) {
+        [RKFileManager addFileWithFilePath:filePath];
+    }else {
+        // 删除文件
+        [RKFileManager deleteFileWithFilePath:filePath];
+    }
+}
+
+#pragma mark -- 查
+/**
+ 获取首页列表书籍数据
+ */
++ (NSMutableArray <RKHomeListBooks *> *)getHomeListBooks {
+    
+    NSData *data = [[NSData alloc] initWithContentsOfFile:kHomeBookListsPath];
+    
+    NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    NSMutableArray *list = [NSMutableArray array];
+    for (NSDictionary *dict in array) {
+        RKHomeListBooks *book = [RKHomeListBooks yy_modelWithDictionary:dict];
+        if (book) {
+            [list addObject:book];
+        }
+    }
+    
+    return list;
+}
+
+#pragma mark -- 缓存管理
 /**
  删除全部书籍
  */
 + (void)clearAllBooks {
+    [RKFileManager deleteAllHomeList];
 	[[NSFileManager defaultManager] removeItemAtPath:kBookSavePath error:nil];
 	[self clearAllUserDefaultsData];
 }
@@ -122,17 +209,9 @@
         
         // 解析书籍
         RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:filePath]];
+        book.filePath = filePath;
         [RKFileManager archiverBookData:book];
     });
-}
-
-+ (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath {
-    if (isAdd) {
-        
-    }else {
-        // 删除文件
-        [RKFileManager deleteFileWithFilePath:filePath];
-    }
 }
 
 + (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content {
@@ -224,7 +303,7 @@
 + (void)archiverBookData:(RKBook *)book {
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *fileURL = [book.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *fileURL = [book.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *key = [fileURL lastPathComponent];
         NSMutableData *data = [[NSMutableData alloc] init];
         NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -243,14 +322,22 @@
 + (CGFloat)getFileSize:(NSString *)path {
     // 转码
     NSString *filePath = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    RKLog(@"转码/n%@/n%@",path,filePath);
+    RKLog(@"转码\npath:%@\nfilePath:%@",path,filePath);
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    float filesize = -1.0;
+    float filesize = -1.0f;
     if ([fileManager fileExistsAtPath:path]) {
-        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:filePath error:nil];//获取文件的属性
+        NSDictionary *fileDic = [fileManager attributesOfItemAtPath:path error:nil];//获取文件的属性
         unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
         filesize = size/1000.0/1000.0;
     }
+    if (filesize == -1.0f) {
+        if ([fileManager fileExistsAtPath:filePath]) {
+            NSDictionary *fileDic = [fileManager attributesOfItemAtPath:filePath error:nil];//获取文件的属性
+            unsigned long long size = [[fileDic objectForKey:NSFileSize] longLongValue];
+            filesize = size/1000.0/1000.0;
+        }
+    }
+    RKLog(@"文件大小 -- %f",filesize);
     return filesize;
 }
 
