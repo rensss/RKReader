@@ -55,14 +55,19 @@
  */
 + (void)addFileWithFilePath:(NSString *)filePath {
     RKHomeListBooks *listBook = [RKHomeListBooks new];
+	
     RKFile *fileInfo = [RKFile new];
     fileInfo.fileName = [filePath componentsSeparatedByString:@"/"].lastObject;
     fileInfo.filePath = filePath;
     fileInfo.fileSize = [RKFileManager getFileSize:filePath];
-    
-    listBook.key = [fileInfo.fileName md5Encrypt];
-    listBook.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
-    listBook.fileInfo = fileInfo;
+	
+	listBook.key = [fileInfo.fileName md5Encrypt];
+	listBook.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
+	listBook.fileInfo = fileInfo;
+	
+	RKReadProgress *readProgress = [RKReadProgress new];
+	readProgress.title = @"开始";
+	listBook.readProgress = readProgress;
     // 保存到首页列表
     [RKFileManager saveHomeListWithListBook:listBook];
 	
@@ -79,11 +84,13 @@
  */
 + (void)saveHomeListWithListBook:(RKHomeListBooks *)book {
     
-    NSMutableArray *array =  [RKFileManager getHomeListBooks];
-    
-    [array addObject:book];
-    
-    [RKFileManager saveHomeList:array];
+	NSMutableArray *array = [RKFileManager getHomeListBooks];
+	if (array.count > 0) {
+		[array addObject:book];
+	}else {
+		array = [NSMutableArray arrayWithObject:book];
+	}
+	[RKFileManager saveHomeList:array];
 }
 
 /**
