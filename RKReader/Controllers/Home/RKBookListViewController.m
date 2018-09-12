@@ -67,40 +67,36 @@
 #pragma mark -- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-	RKHomeListBooks *cellBook = self.dataArray[indexPath.row];
-	RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
-	RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
 
-	NSString *fileURL = [cellBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *key = [fileURL lastPathComponent];
-	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-	
-	if (data) {
-		readPageVC.book = self.dataArray[indexPath.row];
-		if ([readPageVC.book.content isEqualToString:@""]) {
-			RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
-			return ;
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
+	[indicator startAnimating];
+	// 子线程读取数据
+	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
+		RKHomeListBooks *cellBook = self.dataArray[indexPath.row];
+		readPageVC.listBook = cellBook;
+		RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
+		NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:cellBook.key];
+		if (data) {
+			readPageVC.book = [RKBook getLocalModelWithHomeBook:cellBook];
+			// 主线程更新UI
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[indicator stopAnimating];
+				if ([readPageVC.book.content isEqualToString:@""]) {
+					RKAlertMessageShowInWindow(@"书籍解析失败!请删除该书籍重试!");
+					return ;
+				}
+				[self presentViewController:nav animated:YES completion:nil];
+			});
+		}else {
+			// 主线程更新UI
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[indicator stopAnimating];
+				RKAlertMessage(@"打开失败!请删除该书籍重试!", self.view);
+			});
 		}
-		[self presentViewController:nav animated:YES completion:nil];
-	}else {
-		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-		UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
-		[indicator startAnimating];
-		__weak typeof(self) weakSelf = self;
-		dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            RKBook *book = [RKBook getLocalModelWithHomeBook:cellBook];
-            readPageVC.book = book;
-            weakSelf.dataArray[indexPath.row] = book;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [indicator stopAnimating];
-                if ([readPageVC.book.content isEqualToString:@""]) {
-                    RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
-                    return ;
-                }
-                [weakSelf presentViewController:nav animated:YES completion:nil];
-            });
-		});
-	}
+	});
 }
 
 #pragma mark -- UITableViewDataSource

@@ -10,6 +10,7 @@
 
 @interface RKReadPageViewController : RKViewController
 
+@property (nonatomic, strong) RKHomeListBooks *listBook; /**< 首页书籍对象*/
 @property (nonatomic, strong) RKBook *book; /**< 当前书籍*/
 
 @end

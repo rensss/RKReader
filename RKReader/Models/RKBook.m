@@ -26,16 +26,6 @@
 	return self;
 }
 
-
-#pragma mark - getting
-
-- (RKReadProgress *)readProgress {
-	if (!_readProgress) {
-		_readProgress = [RKReadProgress new];
-	}
-	return _readProgress;
-}
-
 #pragma mark - 类方法
 /**
  根据初始化
@@ -44,28 +34,27 @@
  */
 + (instancetype)getLocalModelWithHomeBook:(RKHomeListBooks *)listBook {
 	
-	NSString *fileURL = [listBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *key = [fileURL lastPathComponent];
-	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+//	NSString *fileURL = [listBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//	NSString *key = [fileURL lastPathComponent];
+	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:listBook.key];
 	
-	if (!data) {
-		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:fileURL]];
-		
-		book.name = listBook.fileInfo.fileName;
-		RKReadProgress *readProgress = [RKReadProgress new];
-		readProgress.progress = 0.0f;
-		readProgress.chapter = 0;
-		readProgress.page = 0;
-		book.readProgress = readProgress;
-		book.filePath = listBook.fileInfo.filePath;
-		// 保存到本地
-		[RKFileManager archiverBookData:book];
-		return book;
-	}
+//	if (!data) {
+//		RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:fileURL]];
+//
+//		book.name = listBook.fileInfo.fileName;
+//		RKReadProgress *readProgress = [RKReadProgress new];
+//		readProgress.progress = 0.0f;
+//		readProgress.chapter = 0;
+//		readProgress.page = 0;
+//		book.readProgress = readProgress;
+//		book.filePath = listBook.fileInfo.filePath;
+//		// 保存到本地
+//		[RKFileManager archiverBookData:book withKey:listBook.key];
+//		return book;
+//	}
 	NSKeyedUnarchiver *unarchive = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
 	//主线程操作
-	RKBook *model = [unarchive decodeObjectForKey:key];
-	return model;
+	return [unarchive decodeObjectForKey:listBook.key];
 }
 
 @end

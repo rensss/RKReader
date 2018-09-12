@@ -297,7 +297,6 @@
 				109C98B7213CE8DE0018DB5F /* Frameworks */,
 				109C98B8213CE8DE0018DB5F /* Resources */,
 				50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */,
-				1136D6D0178E4C6460798DE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -354,21 +353,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1136D6D0178E4C6460798DE1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

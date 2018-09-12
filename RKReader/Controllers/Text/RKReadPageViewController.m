@@ -54,7 +54,7 @@
     // 设置UIPageViewController初始化数据, 将数据放在NSArray里面
     // 如果 options 设置了 UIPageViewControllerSpineLocationMid,注意viewControllers至少包含两个数据,且 doubleSided = YES
     
-    RKReadViewController *readVC = [self viewControllerChapter:self.book.readProgress.chapter andPage:self.book.readProgress.page];// 得到第一页
+    RKReadViewController *readVC = [self viewControllerChapter:self.listBook.readProgress.chapter andPage:self.listBook.readProgress.page];// 得到第一页
     NSArray *viewControllers = [NSArray arrayWithObject:readVC];
 
     [_pageViewController setViewControllers:viewControllers
@@ -90,8 +90,8 @@
 - (void)setBook:(RKBook *)book {
 	_book = book;
 	
-	self.currentChapter = self.book.readProgress.chapter;
-	self.currentPage = self.book.readProgress.page;
+	self.currentChapter = self.listBook.readProgress.chapter;
+	self.currentPage = self.listBook.readProgress.page;
 }
 
 #pragma mark - 代理
@@ -184,11 +184,13 @@
 
 - (void)updateLocalBookData {
 	
-	self.book.readProgress.chapter = self.currentChapter;
-	self.book.readProgress.page = self.currentPage;
-	self.book.readProgress.progress = self.currentChapter*1.0f/self.book.chapters.count;
-	self.book.readProgress.title = self.book.chapters[self.currentChapter].title;
-	[RKFileManager archiverBookData:self.book];
+	self.listBook.readProgress.chapter = self.currentChapter;
+	self.listBook.readProgress.page = self.currentPage;
+	self.listBook.readProgress.progress = self.currentChapter*1.0f/self.book.chapters.count;
+	self.listBook.readProgress.title = self.book.chapters[self.currentChapter].title;
+	
+	[RKFileManager updateHomeListDataWithListBook:self.listBook];
+
 }
 
 #pragma mark - 手势事件

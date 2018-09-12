@@ -11,7 +11,7 @@
 @interface RKReadProgress : RKModel
 
 @property (nonatomic, assign) CGFloat progress; /**< 阅读进度 百分比*/
-@property (nonatomic, copy) NSString *title; /**< 章节名*/
+@property (nonatomic, copy) NSString *title; /**< 当前章节名*/
 @property (nonatomic, assign) NSInteger chapter; /**< 章节*/
 @property (nonatomic, assign) NSInteger page; /**< 页码*/
 

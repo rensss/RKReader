@@ -38,21 +38,39 @@
 #pragma mark - 文件操作/缓存相关
 #pragma mark -- 增
 /**
+ 根据文件地址分配任务
+ @param filePath 文件路径
+ */
++ (void)threadedTaskAllocationWithFile:(NSString *)filePath {
+	dispatch_queue_t myQueue = dispatch_queue_create(kMyConcurrentQueue, DISPATCH_QUEUE_CONCURRENT);
+	dispatch_async(myQueue, ^{
+		// 更新首页数据
+		[RKFileManager updateHomeListData:YES filePath:filePath];
+	});
+}
+
+/**
  根据路径生成model,然后保存
  @param filePath 文件路径
  */
 + (void)addFileWithFilePath:(NSString *)filePath {
-    RKHomeListBooks *book = [RKHomeListBooks new];
+    RKHomeListBooks *listBook = [RKHomeListBooks new];
     RKFile *fileInfo = [RKFile new];
     fileInfo.fileName = [filePath componentsSeparatedByString:@"/"].lastObject;
     fileInfo.filePath = filePath;
     fileInfo.fileSize = [RKFileManager getFileSize:filePath];
     
-    book.key = [fileInfo.fileName md5Encrypt];
-    book.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
-    book.fileInfo = fileInfo;
-    // 保存
-    [RKFileManager saveHomeListWithListBook:book];
+    listBook.key = [fileInfo.fileName md5Encrypt];
+    listBook.coverName = [NSString stringWithFormat:@"cover%d",arc4random()%10+1];
+    listBook.fileInfo = fileInfo;
+    // 保存到首页列表
+    [RKFileManager saveHomeListWithListBook:listBook];
+	
+	// 解析书籍
+	RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:filePath]];
+	book.name = fileInfo.fileName;
+	book.filePath = filePath;
+	[RKFileManager archiverBookData:book withKey:listBook.key];
 }
 
 /**
@@ -63,7 +81,7 @@
     
     NSMutableArray *array =  [RKFileManager getHomeListBooks];
     
-    [array addObject:[book yy_modelToJSONObject]];
+    [array addObject:book];
     
     [RKFileManager saveHomeList:array];
 }
@@ -76,7 +94,8 @@
     
     [[NSFileManager defaultManager] removeItemAtPath:kHomeBookListsPath error:nil];
     
-    [NSKeyedArchiver archiveRootObject:homeList toFile:kHomeBookListsPath];
+    BOOL res = [NSKeyedArchiver archiveRootObject:homeList toFile:kHomeBookListsPath];
+	RKLog(@"保存结果 -- %@",res?@YES:@NO);
 }
 
 
@@ -151,6 +170,21 @@
     }
 }
 
+/**
+ 更新书籍悦动进度
+ @param book 首页列表书籍对象
+ */
++ (void)updateHomeListDataWithListBook:(RKHomeListBooks *)book {
+	NSMutableArray *array = [RKFileManager getHomeListBooks];
+	for (int i = 0; i < array.count; i++) {
+		RKHomeListBooks *bookList = array[i];
+		if ([book.key isEqualToString:bookList.key]) {
+			bookList.readProgress = book.readProgress;
+		}
+	}
+	[RKFileManager saveHomeList:array];
+}
+
 #pragma mark -- 查
 /**
  获取首页列表书籍数据
@@ -161,15 +195,7 @@
     
     NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    NSMutableArray *list = [NSMutableArray array];
-    for (NSDictionary *dict in array) {
-        RKHomeListBooks *book = [RKHomeListBooks yy_modelWithDictionary:dict];
-        if (book) {
-            [list addObject:book];
-        }
-    }
-    
-    return list;
+    return array;
 }
 
 #pragma mark -- 缓存管理
@@ -177,9 +203,16 @@
  删除全部书籍
  */
 + (void)clearAllBooks {
+	// 删除首页列表数据
     [RKFileManager deleteAllHomeList];
-	[[NSFileManager defaultManager] removeItemAtPath:kBookSavePath error:nil];
-	[self clearAllUserDefaultsData];
+	// 删除所有书籍缓存
+	[RKFileManager clearAllUserDefaultsData];
+	// 删除books下所有数据
+	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:kBookSavePath];
+	NSString *fileName;
+	while (fileName = [dirEnum nextObject]) {
+		[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@",kBookSavePath,fileName] error:nil];
+	}
 }
 
 /**
@@ -196,24 +229,6 @@
 }
 
 #pragma mark - 数据解析
-
-/**
- 根据文件地址分配任务
- @param filePath 文件路径
- */
-+ (void)threadedTaskAllocationWithFile:(NSString *)filePath {
-    dispatch_queue_t myQueue = dispatch_queue_create(kMyConcurrentQueue, DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(myQueue, ^{
-        // 更新首页数据
-        [RKFileManager updateHomeListData:YES filePath:filePath];
-        
-        // 解析书籍
-        RKBook *book = [[RKBook alloc] initWithContent:[RKFileManager encodeWithFilePath:filePath]];
-        book.filePath = filePath;
-        [RKFileManager archiverBookData:book];
-    });
-}
-
 + (void)separateChapter:(NSMutableArray * __autoreleasing *)chapters content:(NSString *)content {
 	[*chapters removeAllObjects];
 	
@@ -300,11 +315,11 @@
 	return content;
 }
 
-+ (void)archiverBookData:(RKBook *)book {
-    
++ (void)archiverBookData:(RKBook *)book withKey:(NSString *)key {
+	if (!key) {
+		key = [book.name md5Encrypt];
+	}
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *fileURL = [book.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *key = [fileURL lastPathComponent];
         NSMutableData *data = [[NSMutableData alloc] init];
         NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
         [archiver encodeObject:book forKey:key];

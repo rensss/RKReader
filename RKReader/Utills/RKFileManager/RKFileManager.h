@@ -76,6 +76,12 @@
  */
 + (void)updateHomeListData:(BOOL)isAdd filePath:(NSString *)filePath;
 
+/**
+ 更新书籍悦动进度
+ @param book 首页列表书籍对象
+ */
++ (void)updateHomeListDataWithListBook:(RKHomeListBooks *)book;
+
 #pragma mark -- 查
 /**
  获取首页列表书籍数据
@@ -119,8 +125,9 @@
 /**
  保存book信息
  @param book 书籍数据
+ @param key 书名的MD5加密key
  */
-+ (void)archiverBookData:(RKBook *)book;
++ (void)archiverBookData:(RKBook *)book withKey:(NSString *)key;
 
 #pragma mark - 工具
 /**

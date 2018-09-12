@@ -10,11 +10,19 @@
 
 @implementation RKHomeListBooks
 
+#pragma mark - getting
 - (RKFile *)fileInfo {
     if (!_fileInfo) {
         _fileInfo = [RKFile new];
     }
     return _fileInfo;
+}
+
+- (RKReadProgress *)readProgress {
+	if (!_readProgress) {
+		_readProgress = [RKReadProgress new];
+	}
+	return _readProgress;
 }
 
 @end
