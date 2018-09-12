@@ -128,6 +128,8 @@
 			_tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 		}
 		
+		_tableView.contentInset = UIEdgeInsetsMake(0, 0, self.safeAreaInsets.bottom, 0);
+		
         _tableView.delegate = self;
         _tableView.dataSource = self;
         

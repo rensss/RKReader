@@ -171,7 +171,7 @@
 }
 
 /**
- 更新书籍悦动进度
+ 更新书籍阅读进度
  @param book 首页列表书籍对象
  */
 + (void)updateHomeListDataWithListBook:(RKHomeListBooks *)book {
