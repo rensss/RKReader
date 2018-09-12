@@ -67,11 +67,11 @@
 #pragma mark -- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-	RKBook *cellBook = self.dataArray[indexPath.row];
+	RKHomeListBooks *cellBook = self.dataArray[indexPath.row];
 	RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
 	RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
 
-	NSString *fileURL = [cellBook.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *fileURL = [cellBook.fileInfo.filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *key = [fileURL lastPathComponent];
 	NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	
@@ -88,17 +88,17 @@
 		[indicator startAnimating];
 		__weak typeof(self) weakSelf = self;
 		dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            RKBook *book = [RKBook getLocalModelWithFileInfo:cellBook.fileInfo];
-//            readPageVC.book = book;
-//            weakSelf.dataArray[indexPath.row] = book;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [indicator stopAnimating];
-//                if ([readPageVC.book.content isEqualToString:@""]) {
-//                    RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
-//                    return ;
-//                }
-//                [weakSelf presentViewController:nav animated:YES completion:nil];
-//            });
+            RKBook *book = [RKBook getLocalModelWithHomeBook:cellBook];
+            readPageVC.book = book;
+            weakSelf.dataArray[indexPath.row] = book;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [indicator stopAnimating];
+                if ([readPageVC.book.content isEqualToString:@""]) {
+                    RKAlertMessageShowInWindow(@"书籍解析失败 请检查格式!");
+                    return ;
+                }
+                [weakSelf presentViewController:nav animated:YES completion:nil];
+            });
 		});
 	}
 }

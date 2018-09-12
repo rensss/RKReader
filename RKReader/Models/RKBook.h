@@ -14,7 +14,6 @@
 
 @property (nonatomic, copy) NSString *name; /**< 书名*/
 @property (nonatomic, copy) NSString *content; /**< 内容*/
-@property (nonatomic, copy) NSString *coverName; /**< 封面图*/
 @property (nonatomic, copy) NSString *filePath; /**< 文件路径*/
 @property (nonatomic, strong) RKReadProgress *readProgress; /**< 阅读进度*/
 @property (nonatomic, strong) NSMutableArray <RKBookChapter *>*chapters; /**< 章节数据*/
@@ -31,9 +30,9 @@
 
 /**
  根据初始化
- @param file 文件信息
+ @param listBook 文件信息
  @return 书籍对象
  */
-+ (instancetype)getLocalModelWithFileInfo:(RKFile *)file;
++ (instancetype)getLocalModelWithHomeBook:(RKHomeListBooks *)listBook;
 
 @end
