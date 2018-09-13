@@ -74,6 +74,8 @@
     [super viewWillAppear:animated];
     
     self.navigationController.delegate = self;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -96,7 +98,6 @@
 
 #pragma mark - 代理
 #pragma mark -- UIGestureRecognizerDelegate
-#pragma mark -  UIGestureRecognizer Delegate
 //解决TabView与Tap手势冲突
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -106,7 +107,7 @@
 	return  YES;
 }
 
-#pragma mark -- UIPageViewControllerDataSource And UIPageViewControllerDelegate
+#pragma mark - UIPageViewControllerDataSource And UIPageViewControllerDelegate
 #pragma mark -- 返回上一个ViewController对象
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
 	
@@ -178,6 +179,7 @@
 	readVC.content = [self.book.chapters[chapter] stringOfPage:page];
 	readVC.chapter = self.currentPage;
 	readVC.page = self.currentPage;
+    readVC.listBook = self.listBook;
 	
     return readVC;
 }

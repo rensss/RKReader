@@ -53,6 +53,8 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define kCoverImageWidth 236
 #define kCoverImageHeight 337
 
+#define kReadViewBottomTintColor [UIColor colorWithHexString:@"707070"]
+
 #pragma mark - 线程名
 #define kMyConcurrentQueue "RKReaderQueue"
 

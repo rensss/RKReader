@@ -8,8 +8,11 @@
 
 #import "RKReadViewController.h"
 #import "RKReadView.h"
+#import "RKBottomStatusBar.h"
 
 @interface RKReadViewController ()
+
+@property (nonatomic, strong) RKBottomStatusBar *bottomBar; /**< 底部状态栏*/
 
 @property (nonatomic, strong) RKReadView *readView; /**< 文字内容view*/
 @property (nonatomic, strong) UIImageView *bgImageView; /**< 背景底图*/
@@ -23,6 +26,8 @@
 
 	[self.view addSubview:self.bgImageView];
     [self.view addSubview:self.readView];
+    // 底部状态栏
+    [self.view addSubview:self.bottomBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,7 +38,7 @@
 
 #pragma mark - 代理
 
-#pragma mark - 函数
+#pragma mark - getting
 - (UIImageView *)bgImageView {
 	if (!_bgImageView) {
 		_bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -50,4 +55,10 @@
     return _readView;
 }
 
+- (RKBottomStatusBar *)bottomBar {
+    if (!_bottomBar) {
+        _bottomBar = [[RKBottomStatusBar alloc] initWithFrame:CGRectMake(0, self.view.height - 20, self.view.width, 20) and:self.listBook and:self.bookChapter];
+    }
+    return _bottomBar;
+}
 @end
