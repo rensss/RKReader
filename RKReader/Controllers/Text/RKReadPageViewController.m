@@ -180,6 +180,7 @@
 	readVC.chapter = self.currentPage;
 	readVC.page = self.currentPage;
     readVC.listBook = self.listBook;
+    readVC.bookChapter = self.book.chapters[chapter];
 	
     return readVC;
 }
