@@ -33,7 +33,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationController.delegate = self;
 }
 
 #pragma mark - 代理

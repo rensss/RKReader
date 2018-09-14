@@ -35,6 +35,10 @@
 @property (nonatomic, copy) NSString *theme; /**< 主题*/
 @property (nonatomic, assign) NSInteger bgIndex; /**< 背景图索引*/
 
+// 系统相关参数
+@property (nonatomic, assign) CGFloat viewControllerStatusBarHeight; /**< 电池条高度*/
+@property (nonatomic, assign) CGFloat viewControllerSafeAreaBottomHeight; /**< 底部安全区域高度*/
+
 /**
  用户配置
  @return 单例

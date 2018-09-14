@@ -8,9 +8,11 @@
 
 #import "RKReadPageViewController.h"
 #import "RKReadViewController.h"
+#import "RKReadMenuView.h"
 
 @interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource,UIGestureRecognizerDelegate>
 
+@property (nonatomic, strong) RKReadMenuView *readMenuView; /**< 菜单view*/
 @property (nonatomic, strong) UIPageViewController *pageViewController; /**< 显示内容的VC*/
 
 @property (nonatomic, assign) NSInteger currentChapter; /**< 当前章节*/
@@ -68,14 +70,17 @@
     // 在页面上，显示UIPageViewController对象的View
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
+    
+    // 菜单view
+    [self.view addSubview:self.readMenuView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    // 隐藏导航栏
     self.navigationController.delegate = self;
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+    // 隐藏电池条
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -84,16 +89,20 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
-- (void)dealloc {
-    // 侧滑返回
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-}
-
+#pragma mark - setting
 - (void)setBook:(RKBook *)book {
 	_book = book;
 	
 	self.currentChapter = self.listBook.readProgress.chapter;
 	self.currentPage = self.listBook.readProgress.page;
+}
+
+#pragma mark - getting
+- (RKReadMenuView *)readMenuView {
+    if (!_readMenuView) {
+        _readMenuView = [[RKReadMenuView alloc] initWithFrame:self.view.bounds];
+    }
+    return _readMenuView;
 }
 
 #pragma mark - 代理
@@ -185,6 +194,7 @@
     return readVC;
 }
 
+/// 保存阅读进度
 - (void)updateLocalBookData {
 	
 	self.listBook.readProgress.chapter = self.currentChapter;
@@ -193,15 +203,26 @@
 	self.listBook.readProgress.title = self.book.chapters[self.currentChapter].title;
 	
 	[RKFileManager updateHomeListDataWithListBook:self.listBook];
+}
 
+/// 关闭页面
+- (void)dissmiss {
+    // 侧滑返回
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    // 显示电池条
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+    // 关闭
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - 手势事件
 - (void)showToolMenu {
 	RKLog(@"点击屏幕");
 	
-//	[self.navigationController popViewControllerAnimated:YES];
-	[self dismissViewControllerAnimated:YES completion:nil];
+    [self.readMenuView showAnimation:YES];
+    
+    // 关闭页面
+    [self dissmiss];
 }
 
 

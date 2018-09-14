@@ -47,7 +47,7 @@
         if ([[dict allKeys] containsObject:kUserConfigBottomStatusHeight]) {
             self.bottomStatusHeight = [dict[kUserConfigBottomStatusHeight] floatValue];
         }else {
-            self.bottomStatusHeight = 10.0f;
+            self.bottomStatusHeight = 20.0f;
         }
 		// 上左下右
         if ([[dict allKeys] containsObject:kUserConfigTopPadding]) {
@@ -107,6 +107,16 @@
         [self saveUserConfig];
     }
     return self;
+}
+
+#pragma mark - setting
+- (void)setViewControllerStatusBarHeight:(CGFloat)viewControllerStatusBarHeight {
+    _viewControllerStatusBarHeight = viewControllerStatusBarHeight;
+}
+
+- (void)setViewControllerSafeAreaBottomHeight:(CGFloat)viewControllerSafeAreaBottomHeight {
+    _viewControllerSafeAreaBottomHeight = viewControllerSafeAreaBottomHeight;
+    self.viewControllerStatusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
 }
 
 #pragma mark - 函数

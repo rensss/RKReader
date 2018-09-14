@@ -55,6 +55,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"设置"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
     
     [self.view addSubview:self.tableView];
+    
+    // 赋值底部安全区域高度
+    [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight = self.safeAreaInsets.bottom;
 }
 
 #pragma mark - 点击事件
