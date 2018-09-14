@@ -12,11 +12,20 @@
 
 @property (nonatomic, assign) BOOL isShowMenu; /**< 菜单是否显示*/
 
+
+/**
+ 初始化菜单view
+ @param frame 大小
+ @param book 书籍信息
+ @return 菜单
+ */
+- (instancetype)initWithFrame:(CGRect)frame withBook:(RKHomeListBooks *)book;
+
 #pragma mark - 函数
 /**
  显示
- @param isShow 是否显示
+ @param superView 父view
  */
-- (void)showAnimation:(BOOL)isShow;
+- (void)showToView:(UIView *)superView;
 
 @end

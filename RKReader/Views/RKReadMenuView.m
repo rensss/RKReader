@@ -42,34 +42,28 @@
 }
 
 #pragma mark - 点击事件
+/**
+ 消失
+ */
 -  (void)bgClick {
-    if (self.isShowMenu) {
-        [self showAnimation:NO];
-        self.bgButton.hidden = YES;
-    }
+    [UIView animateWithDuration:0.25f animations:^{
+        self.upBar.maxY = 0;
+        self.bottomBar.y = self.height;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 #pragma mark - 函数
 /**
  显示
- @param isShow 是否显示
+ @param superView 父view
  */
-- (void)showAnimation:(BOOL)isShow {
-    self.isShowMenu = isShow;
-    self.bgButton.hidden = NO;
+- (void)showToView:(UIView *)superView {
 
-    CGFloat upBarMoveDistance = 0.0f;
-    CGFloat bottomMoveDistance = 0.0f;
-    if (isShow) {
-        upBarMoveDistance = self.upBar.height;
-        bottomMoveDistance = self.bottomBar.height + [RKUserConfiguration sharedInstance].bottomStatusHeight;
-    }else {
-        upBarMoveDistance = -self.upBar.height;
-        bottomMoveDistance = -(self.bottomBar.height + [RKUserConfiguration sharedInstance].bottomStatusHeight);
-    }
     [UIView animateWithDuration:0.25f animations:^{
-        self.upBar.y += upBarMoveDistance;
-        self.bottomBar.y += bottomMoveDistance;
+        self.upBar.x = 0;
+        self.bottomBar.maxY = self.height - [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight;
     }];
 }
 

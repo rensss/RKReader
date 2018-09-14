@@ -12,7 +12,6 @@
 
 @interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource,UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) RKReadMenuView *readMenuView; /**< 菜单view*/
 @property (nonatomic, strong) UIPageViewController *pageViewController; /**< 显示内容的VC*/
 
 @property (nonatomic, assign) NSInteger currentChapter; /**< 当前章节*/
@@ -70,9 +69,6 @@
     // 在页面上，显示UIPageViewController对象的View
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
-    
-    // 菜单view
-    [self.view addSubview:self.readMenuView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,14 +91,6 @@
 	
 	self.currentChapter = self.listBook.readProgress.chapter;
 	self.currentPage = self.listBook.readProgress.page;
-}
-
-#pragma mark - getting
-- (RKReadMenuView *)readMenuView {
-    if (!_readMenuView) {
-        _readMenuView = [[RKReadMenuView alloc] initWithFrame:self.view.bounds];
-    }
-    return _readMenuView;
 }
 
 #pragma mark - 代理
@@ -219,7 +207,8 @@
 - (void)showToolMenu {
 	RKLog(@"点击屏幕");
 	
-    [self.readMenuView showAnimation:YES];
+    // 菜单view
+    [self.view addSubview:self.readMenuView];
     
     // 关闭页面
     [self dissmiss];
