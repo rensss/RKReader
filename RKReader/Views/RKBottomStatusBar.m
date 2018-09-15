@@ -11,7 +11,6 @@
 @interface RKBottomStatusBar ()
 
 @property (nonatomic, strong) RKBookChapter *chapter; /**< 当前章节*/
-@property (nonatomic, strong) RKHomeListBooks *book; /**< 当前书籍对象*/
 
 @property (nonatomic, strong) UIImageView *batteryImage; /**< 电池*/
 @property (nonatomic, strong) UILabel *batteryNum; /**< 电量*/
@@ -22,11 +21,10 @@
 
 @implementation RKBottomStatusBar
 
-- (instancetype)initWithFrame:(CGRect)frame and:(RKHomeListBooks *)book and:(RKBookChapter *)chapter
+- (instancetype)initWithFrame:(CGRect)frame and:(RKBookChapter *)chapter
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _book = book;
         _chapter = chapter;
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2f];
         
@@ -38,40 +36,44 @@
     return self;
 }
 
-- (void)layoutSubviews {
-    [self.batteryNum sizeToFit];
-    self.batteryNum.centerY = self.batteryImage.centerY = self.height/2;
-    self.batteryNum.x = self.batteryImage.maxX + 2;
-    self.bookName.centerX = self.width/2;
-}
+//- (void)layoutSubviews {
+//	[super layoutSubviews];
+//
+//
+//}
 
 - (void)drawRect:(CGRect)rect {
-    
-    NSInteger batteryLevel = [self getCurrentBatteryLevel];
-    self.batteryNum.text = [NSString stringWithFormat:@"%ld",batteryLevel];
-    
-    NSString *batteryName = @"battery";
-    if (batteryLevel < 10) {
-        batteryName = [batteryName stringByAppendingString:@"0"];
-    }
-    if (batteryLevel <= 20) {
-        batteryName = [batteryName stringByAppendingString:@"1"];
-    }
-    if (batteryLevel <= 40) {
-        batteryName = [batteryName stringByAppendingString:@"2"];
-    }
-    if (batteryLevel <= 60) {
-        batteryName = [batteryName stringByAppendingString:@"3"];
-    }
-    if (batteryLevel <= 80) {
-        batteryName = [batteryName stringByAppendingString:@"4"];
-    }
-    if (batteryLevel > 80) {
-        batteryName = [batteryName stringByAppendingString:@"5"];
-    }
-    
-    // 电池
-    self.batteryImage.image = [UIImage imageNamed:batteryName];
+	
+	NSInteger batteryLevel = [self getCurrentBatteryLevel];
+	self.batteryNum.text = [NSString stringWithFormat:@"%ld%%",batteryLevel];
+	
+	[self.batteryNum sizeToFit];
+	self.batteryNum.centerY = self.batteryImage.centerY = self.height/2;
+	self.batteryNum.x = self.batteryImage.maxX + 2;
+	self.bookName.centerX = self.width/2;
+	
+	NSString *batteryName = @"battery";
+	if (batteryLevel < 10) {
+		batteryName = [batteryName stringByAppendingString:@"0"];
+	}
+	if (batteryLevel <= 20) {
+		batteryName = [batteryName stringByAppendingString:@"1"];
+	}
+	if (batteryLevel <= 40) {
+		batteryName = [batteryName stringByAppendingString:@"2"];
+	}
+	if (batteryLevel <= 60) {
+		batteryName = [batteryName stringByAppendingString:@"3"];
+	}
+	if (batteryLevel <= 80) {
+		batteryName = [batteryName stringByAppendingString:@"4"];
+	}
+	if (batteryLevel > 80) {
+		batteryName = [batteryName stringByAppendingString:@"5"];
+	}
+	
+	// 电池
+	self.batteryImage.image = [UIImage imageNamed:batteryName];
 }
 
 #pragma mark - 函数
@@ -108,6 +110,20 @@
     return 0;
 }
 
+#pragma mark - setting
+- (void)setBook:(RKHomeListBooks *)book {
+	_book = book;
+
+	self.bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,self.book.readProgress.page+1,self.chapter.pageCount+1];
+	if (self.chapters == 1) {
+		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.page*1.0f/self.chapter.pageCount];
+	}else if (self.chapters == 0) {
+		self.progress.text = @"0.00%";
+	} else {
+		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.chapter*1.0f/self.chapters];
+	}
+}
+
 #pragma mark - getting
 - (UIImageView *)batteryImage {
     if (!_batteryImage) {
@@ -119,7 +135,7 @@
 
 - (UILabel *)batteryNum {
     if (!_batteryNum) {
-        _batteryNum = [[UILabel alloc] initWithFrame:CGRectMake(self.batteryImage.maxX + 2, 0, 30, 10)];
+        _batteryNum = [[UILabel alloc] initWithFrame:CGRectMake(self.batteryImage.maxX + 2, 0, 50, 10)];
         _batteryNum.text = @"100";
         _batteryNum.font = [UIFont systemFontOfSize:10];
         _batteryNum.textColor = kReadViewBottomTintColor;
@@ -133,7 +149,7 @@
         _bookName.font = [UIFont systemFontOfSize:10];
         _bookName.textColor = kReadViewBottomTintColor;
         _bookName.textAlignment = NSTextAlignmentCenter;
-        _bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,self.book.readProgress.chapter,self.chapter.pageCount];
+		_bookName.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
     return _bookName;
 }

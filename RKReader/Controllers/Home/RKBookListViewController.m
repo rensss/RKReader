@@ -71,6 +71,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+	//计算代码运行时间
+	CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+	
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
 	[indicator startAnimating];
@@ -88,9 +91,17 @@
 				[indicator stopAnimating];
 				if ([readPageVC.book.content isEqualToString:@""]) {
 					RKAlertMessageShowInWindow(@"书籍解析失败!请删除该书籍重试!");
+					
+					CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
+					// 打印运行时间
+					RKLog(@"Linked in %f ms", linkTime * 1000.0);
 					return ;
 				}
 				[self presentViewController:nav animated:YES completion:nil];
+				
+				CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
+				// 打印运行时间
+				RKLog(@"Linked in %f ms", linkTime * 1000.0);
 			});
 		}else {
 			// 主线程更新UI
@@ -147,15 +158,7 @@
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
 
-        //计算代码运行时间
-		CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
-        
-        _dataArray = [RKFileManager getHomeListBooks];
-        
-        CFAbsoluteTime linkTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        // 打印运行时间
-        RKLog(@"Linked in %f ms", linkTime *1000.0);
-		
+		_dataArray = [RKFileManager getHomeListBooks];
     }
     return _dataArray;
 }

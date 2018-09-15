@@ -10,7 +10,13 @@
 #import "RKReadViewController.h"
 #import "RKReadMenuView.h"
 
-@interface RKReadPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource,UIGestureRecognizerDelegate>
+@interface RKReadPageViewController ()
+<
+UIPageViewControllerDelegate,
+UIPageViewControllerDataSource,
+UIGestureRecognizerDelegate,
+RKReadMenuViewDelegate
+>
 
 @property (nonatomic, strong) UIPageViewController *pageViewController; /**< 显示内容的VC*/
 
@@ -19,6 +25,8 @@
 
 @property (nonatomic, assign) NSInteger chapterNext; /**< 上/下 一章节*/
 @property (nonatomic, assign) NSInteger pageNext; /**< 上/下 一页*/
+
+@property (nonatomic, assign) BOOL isShowMenu; /**< 是否正在显示菜单*/
 
 @end
 
@@ -85,12 +93,30 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
-#pragma mark - setting
-- (void)setBook:(RKBook *)book {
-	_book = book;
+#pragma mark - 手势事件
+- (void)showToolMenu {
+
+	// 若已显示菜单则忽略
+	if (self.isShowMenu) {
+		return ;
+	}
 	
-	self.currentChapter = self.listBook.readProgress.chapter;
-	self.currentPage = self.listBook.readProgress.page;
+	self.isShowMenu = YES;
+	// 菜单view
+	RKReadMenuView *menu = [[RKReadMenuView alloc] initWithFrame:self.view.bounds withBook:self.book];
+	menu.delegate = self;
+	[menu showToView:self.view];
+	
+	__weak typeof(self) weakSelf = self;
+	// 菜单消失
+	[menu dismissBlock:^{
+		weakSelf.isShowMenu = NO;
+	}];
+	
+	// 退出阅读
+	[menu closeBlock:^{
+		[weakSelf dissmiss];
+	}];
 }
 
 #pragma mark - 代理
@@ -167,6 +193,47 @@
 	RKLog(@"%ld -|- %ld",self.currentChapter,self.currentPage);
 }
 
+#pragma mark - RKReadMenuViewDelegate
+- (void)changeFontSize {
+	RKLog(@"修改字号 -- %f",[RKUserConfiguration sharedInstance].fontSize);
+	
+}
+
+- (void)changeLineSpace {
+	RKLog(@"修改行间距 -- %f",[RKUserConfiguration sharedInstance].lineSpace);
+}
+
+- (void)forwardOrRewind:(BOOL)yesOrNo {
+	RKLog(@"切换章节 -- %@",yesOrNo?@"YES":@"NO");
+	
+	if (yesOrNo) {
+		// 最后一章
+		if (self.currentChapter == self.book.chapters.count - 1) {
+			RKAlertMessage(@"没有下一章了~", self.view);
+			return;
+		}
+		// 直接返回下一章
+		self.pageNext = 0;
+		self.chapterNext = self.currentChapter + 1;
+		
+	}else {
+		// 第一章的最后一页
+		if (self.currentChapter == 0) {
+			RKAlertMessage(@"没有上一章了~", self.view);
+			return;
+		}
+		self.pageNext = 0;
+		self.chapterNext = self.currentChapter - 1;
+	}
+	// 设置当前显示的readVC
+	[_pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+	
+	// 更新阅读记录
+	self.currentPage = 0;
+	self.currentChapter = self.chapterNext;
+	[self updateLocalBookData];
+}
+
 #pragma mark - 函数
 #pragma mark -- 根据index得到对应的UIViewController
 - (RKReadViewController *)viewControllerChapter:(NSInteger)chapter andPage:(NSInteger)page {
@@ -174,14 +241,16 @@
     // 创建一个新的控制器类，并且分配给相应的数据
     RKReadViewController *readVC = [[RKReadViewController alloc] init];
 	readVC.content = [self.book.chapters[chapter] stringOfPage:page];
-	readVC.chapter = self.currentPage;
-	readVC.page = self.currentPage;
-    readVC.listBook = self.listBook;
-    readVC.bookChapter = self.book.chapters[chapter];
-	
+	readVC.chapter = chapter;
+	readVC.page = page;
+	readVC.bookChapter = self.book.chapters[chapter];
+	readVC.chapters = self.book.chapters.count;
+	readVC.listBook = self.listBook;
+
     return readVC;
 }
 
+#pragma mark -- 保存阅读进度
 /// 保存阅读进度
 - (void)updateLocalBookData {
 	
@@ -190,9 +259,13 @@
 	self.listBook.readProgress.progress = self.currentChapter*1.0f/self.book.chapters.count;
 	self.listBook.readProgress.title = self.book.chapters[self.currentChapter].title;
 	
+	RKReadViewController *readVC = (RKReadViewController *)self.pageViewController.viewControllers.firstObject;
+	readVC.listBook = self.listBook;
+	
 	[RKFileManager updateHomeListDataWithListBook:self.listBook];
 }
 
+#pragma mark -- 退出阅读
 /// 关闭页面
 - (void)dissmiss {
     // 侧滑返回
@@ -203,28 +276,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - 手势事件
-- (void)showToolMenu {
-	RKLog(@"点击屏幕");
+#pragma mark - setting
+- (void)setBook:(RKBook *)book {
+	_book = book;
 	
-	
-    // 菜单view
-	RKReadMenuView *menu = [[RKReadMenuView alloc] initWithFrame:self.view.bounds withBook:self.book];
-	[menu showToView:self.view];
-	// 显示电池条
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-	
-	__weak typeof(self) weakSelf = self;
-	// 菜单消失
-	[menu dismissBlock:^{
-		// 显示电池条
-		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
-	}];
-	// 关闭页面
-	[menu closeBlock:^{
-		[weakSelf dissmiss];
-	}];
+	self.currentChapter = self.listBook.readProgress.chapter;
+	self.currentPage = self.listBook.readProgress.page;
 }
-
 
 @end

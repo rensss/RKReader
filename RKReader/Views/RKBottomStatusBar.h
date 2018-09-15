@@ -12,13 +12,14 @@
 
 @property (nonatomic, assign) NSInteger chapters; /**< 总章节数*/
 
+@property (nonatomic, strong) RKHomeListBooks *book; /**< 书籍对象*/
+
 /**
  初始化
  @param frame 大小
- @param book 书籍对象
  @param chapter 当前章节
  @return 底部状态栏
  */
-- (instancetype)initWithFrame:(CGRect)frame and:(RKHomeListBooks *)book and:(RKBookChapter *)chapter;
+- (instancetype)initWithFrame:(CGRect)frame and:(RKBookChapter *)chapter;
 
 @end

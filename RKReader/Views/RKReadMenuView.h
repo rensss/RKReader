@@ -8,7 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RKReadMenuViewDelegate <NSObject>
+
+@required
+
+/**
+ 更新字体大小
+ */
+- (void)changeFontSize;
+
+/**
+ 下一章/上一章
+ @param yesOrNo yes:下一章 no:上一章
+ */
+- (void)forwardOrRewind:(BOOL)yesOrNo;
+
+/**
+ 改变行间距
+ */
+- (void)changeLineSpace;
+
+@end
+
 @interface RKReadMenuView : UIView
+
+@property (nonatomic, weak) id<RKReadMenuViewDelegate> delegate; /**< 代理*/
 
 /**
  初始化菜单view

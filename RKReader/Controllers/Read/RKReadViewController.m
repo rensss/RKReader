@@ -7,15 +7,12 @@
 //
 
 #import "RKReadViewController.h"
-#import "RKReadView.h"
 #import "RKBottomStatusBar.h"
 
 @interface RKReadViewController ()
 
-@property (nonatomic, strong) RKBottomStatusBar *bottomBar; /**< 底部状态栏*/
-
-@property (nonatomic, strong) RKReadView *readView; /**< 文字内容view*/
 @property (nonatomic, strong) UIImageView *bgImageView; /**< 背景底图*/
+@property (nonatomic, strong) RKBottomStatusBar *bottomBar; /**< 底部状态栏*/
 
 @end
 
@@ -33,16 +30,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	//设置状态栏的颜色
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 	//设置状态栏的颜色
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 #pragma mark - 代理
+
+#pragma mark - setting
+- (void)setListBook:(RKHomeListBooks *)listBook {
+	_listBook = listBook;
+	if (_bottomBar) {
+		self.bottomBar.book = listBook;
+	}
+}
 
 #pragma mark - getting
 - (UIImageView *)bgImageView {
@@ -63,7 +68,9 @@
 
 - (RKBottomStatusBar *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[RKBottomStatusBar alloc] initWithFrame:CGRectMake(0, self.view.height - 20 - [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight/2, self.view.width, 20) and:self.listBook and:self.bookChapter];
+        _bottomBar = [[RKBottomStatusBar alloc] initWithFrame:CGRectMake(0, self.view.height - 20 - [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight/2, self.view.width, 20) and:self.bookChapter];
+		_bottomBar.chapters = self.chapters;
+		_bottomBar.book = self.listBook;
     }
     return _bottomBar;
 }
