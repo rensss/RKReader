@@ -156,7 +156,7 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		103A68E72140F94200F008C3 /* Text */ = {
+		103A68E72140F94200F008C3 /* Read */ = {
 			isa = PBXGroup;
 			children = (
 				103A68E82140F98600F008C3 /* RKReadPageViewController.h */,
@@ -164,7 +164,7 @@
 				103A68EB2140FDC900F008C3 /* RKReadViewController.h */,
 				103A68EC2140FDC900F008C3 /* RKReadViewController.m */,
 			);
-			path = Text;
+			path = Read;
 			sourceTree = "<group>";
 		};
 		109C98B1213CE8DE0018DB5F = {
@@ -236,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				103A68E52140F92300F008C3 /* Home */,
-				103A68E72140F94200F008C3 /* Text */,
+				103A68E72140F94200F008C3 /* Read */,
 				103A68E62140F93500F008C3 /* Setting */,
 			);
 			path = Controllers;
