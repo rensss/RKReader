@@ -208,10 +208,14 @@
 	RKLog(@"点击屏幕");
 	
     // 菜单view
-    [self.view addSubview:self.readMenuView];
+	RKReadMenuView *menu = [[RKReadMenuView alloc] initWithFrame:self.view.bounds withBook:self.book];
+	[menu showToView:self.view];
+	
+	__weak typeof(self) weakSelf = self;
+	[menu dismissBlock:^{
+		[weakSelf dissmiss];
+	}];
     
-    // 关闭页面
-    [self dissmiss];
 }
 
 
