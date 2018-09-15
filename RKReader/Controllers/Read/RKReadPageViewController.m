@@ -207,15 +207,23 @@
 - (void)showToolMenu {
 	RKLog(@"点击屏幕");
 	
+	
     // 菜单view
 	RKReadMenuView *menu = [[RKReadMenuView alloc] initWithFrame:self.view.bounds withBook:self.book];
 	[menu showToView:self.view];
+	// 显示电池条
+	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
 	
 	__weak typeof(self) weakSelf = self;
+	// 菜单消失
 	[menu dismissBlock:^{
+		// 显示电池条
+		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+	}];
+	// 关闭页面
+	[menu closeBlock:^{
 		[weakSelf dissmiss];
 	}];
-    
 }
 
 

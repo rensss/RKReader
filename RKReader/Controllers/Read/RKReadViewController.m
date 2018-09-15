@@ -32,7 +32,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+	//设置状态栏的颜色
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	//设置状态栏的颜色
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 #pragma mark - 代理
@@ -56,7 +63,7 @@
 
 - (RKBottomStatusBar *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[RKBottomStatusBar alloc] initWithFrame:CGRectMake(0, self.view.height - 20, self.view.width, 20) and:self.listBook and:self.bookChapter];
+        _bottomBar = [[RKBottomStatusBar alloc] initWithFrame:CGRectMake(0, self.view.height - 20 - [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight/2, self.view.width, 20) and:self.listBook and:self.bookChapter];
     }
     return _bottomBar;
 }

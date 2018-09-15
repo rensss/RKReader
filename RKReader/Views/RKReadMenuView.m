@@ -30,7 +30,8 @@
 @property (nonatomic, strong) UIButton *middleSpace; /**< 中行间距*/
 @property (nonatomic, strong) UIButton *bigSpace; /**< 大行间距*/
 
-@property (nonatomic, strong) void(^closeBlock)(void); /**< 消失回调*/
+@property (nonatomic, strong) void(^dismissBlock)(void); /**< 消失回调*/
+@property (nonatomic, strong) void(^closeBlock)(void); /**< 点击关闭按钮回调*/
 
 @end
 
@@ -61,6 +62,9 @@
         self.bottomBar.y = self.height;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+		if (self.dismissBlock) {
+			self.dismissBlock();
+		}
     }];
 }
 
@@ -90,6 +94,14 @@
  @param handler 回调
  */
 - (void)dismissBlock:(void(^)(void))handler {
+	self.dismissBlock = handler;
+}
+
+/**
+ 点击关闭按钮的回调
+ @param handler 回调
+ */
+- (void)closeBlock:(void(^)(void))handler {
 	self.closeBlock = handler;
 }
 
@@ -115,7 +127,7 @@
 
 - (UIView *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 80 + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
+        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 120 + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
         _bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5f];
     }
     return _bottomBar;
@@ -125,11 +137,18 @@
 	if (!_closeButton) {
 		_closeButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 18, 18)];
 		_closeButton.centerY = [RKUserConfiguration sharedInstance].viewControllerStatusBarHeight + kNavBarHight/2;
-		[_closeButton setImage:[UIImage imageNamed:@"关闭"] forState:UIControlStateNormal];
+		[_closeButton setImage:[UIImage imageNamed:@"关闭白"] forState:UIControlStateNormal];
 		
 		[_closeButton addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	}
 	return _closeButton;
+}
+
+- (UILabel *)titleLabel {
+	if (!_titleLabel) {
+		
+	}
+	return _titleLabel;
 }
 
 @end

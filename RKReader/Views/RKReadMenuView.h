@@ -20,15 +20,21 @@
 
 #pragma mark - 函数
 /**
- 显示
+ 菜单显示
  @param superView 父view
  */
 - (void)showToView:(UIView *)superView;
 
 /**
- 消失的回调
+ 菜单消失的回调
  @param handler 回调
  */
 - (void)dismissBlock:(void(^)(void))handler;
+
+/**
+ 点击关闭按钮的回调
+ @param handler 回调
+ */
+- (void)closeBlock:(void(^)(void))handler;
 
 @end
