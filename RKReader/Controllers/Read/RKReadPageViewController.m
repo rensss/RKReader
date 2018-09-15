@@ -197,6 +197,20 @@ RKReadMenuViewDelegate
 - (void)changeFontSize {
 	RKLog(@"修改字号 -- %f",[RKUserConfiguration sharedInstance].fontSize);
 	
+	[self.book.chapters[self.currentChapter] updateFont];
+	
+	if (self.currentPage > self.book.chapters[self.currentChapter].pageCount - 1) {
+		self.currentPage = self.book.chapters[self.currentChapter].pageCount - 1;
+	}
+	
+	// 设置当前显示的readVC
+	[self.pageViewController setViewControllers:@[[self viewControllerChapter:self.currentChapter andPage:self.currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+	
+	// 更新阅读记录
+	self.currentPage = 0;
+	self.currentChapter = self.chapterNext;
+	[self updateLocalBookData];
+	
 }
 
 - (void)changeLineSpace {
@@ -226,7 +240,7 @@ RKReadMenuViewDelegate
 		self.chapterNext = self.currentChapter - 1;
 	}
 	// 设置当前显示的readVC
-	[_pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+	[self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 	
 	// 更新阅读记录
 	self.currentPage = 0;
