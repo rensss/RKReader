@@ -26,10 +26,18 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"首页";
-    
-    [self initUI];
-    
+	
+	// 设置按钮
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"设置"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
+
+	// 添加列表
+	[self.view addSubview:self.tableView];
+	
+    // 文件操作初始化
     [RKFileManager fileManagerInit];
+	
+	// 赋值底部安全区域高度
+	[RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight = self.safeAreaInsets.bottom;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,16 +57,6 @@
 }
 
 #pragma mark - 函数
-/// 布局UI
-- (void)initUI {
-    // 设置按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"设置"] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick)];
-    
-    [self.view addSubview:self.tableView];
-    
-    // 赋值底部安全区域高度
-    [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight = self.safeAreaInsets.bottom;
-}
 
 #pragma mark - 点击事件
 - (void)settingClick {
@@ -70,13 +68,14 @@
 #pragma mark -- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+	
 	//计算代码运行时间
 	CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
 	
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)cell.accessoryView;
 	[indicator startAnimating];
+	
 	// 子线程读取数据
 	dispatch_async(dispatch_get_global_queue(0, 0), ^{
 		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
@@ -84,10 +83,12 @@
 		readPageVC.listBook = cellBook;
 		RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
 		NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:cellBook.key];
+		
 		if (data) {
 			readPageVC.book = [RKBook getLocalModelWithHomeBook:cellBook];
 			// 主线程更新UI
 			dispatch_async(dispatch_get_main_queue(), ^{
+				
 				[indicator stopAnimating];
 				if ([readPageVC.book.content isEqualToString:@""]) {
 					RKAlertMessageShowInWindow(@"书籍解析失败!请删除该书籍重试!");
