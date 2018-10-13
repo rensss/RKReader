@@ -7,5 +7,5 @@ target 'RKReader' do
     pod 'YYModel'
     pod 'GCDWebServer/WebUploader'
     pod 'MBProgressHUD', '~> 1.1.0'
-    pod 'MMKV'
+    
 end

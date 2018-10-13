@@ -232,7 +232,7 @@
 
 - (UIButton *)closeButton {
 	if (!_closeButton) {
-		_closeButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 28, 28)];
+		_closeButton = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 18, 18)];
 		_closeButton.centerY = [RKUserConfiguration sharedInstance].viewControllerStatusBarHeight + kNavBarHight/2;
 		[_closeButton setImage:[UIImage imageNamed:@"关闭白"] forState:UIControlStateNormal];
 		

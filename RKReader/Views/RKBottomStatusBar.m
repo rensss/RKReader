@@ -45,27 +45,30 @@
 - (void)drawRect:(CGRect)rect {
 	
 	NSInteger batteryLevel = [self getCurrentBatteryLevel];
-	self.batteryNum.text = [NSString stringWithFormat:@"%ld%%",(long)batteryLevel];
+	self.batteryNum.text = [NSString stringWithFormat:@"%ld%%",batteryLevel];
 	
 	[self.batteryNum sizeToFit];
 	self.batteryNum.centerY = self.batteryImage.centerY = self.height/2;
 	self.batteryNum.x = self.batteryImage.maxX + 2;
-	
-	self.bookName.x = self.batteryNum.maxX + 5;
-	self.bookName.width = self.progress.x - self.batteryNum.maxX - 5 - 5;
+	self.bookName.centerX = self.width/2;
 	
 	NSString *batteryName = @"battery";
-	if (batteryLevel < 15) {
+	if (batteryLevel < 10) {
 		batteryName = [batteryName stringByAppendingString:@"0"];
-	} else if (batteryLevel <= 30) {
+	}
+	if (batteryLevel <= 20) {
 		batteryName = [batteryName stringByAppendingString:@"1"];
-	} else if (batteryLevel <= 50) {
+	}
+	if (batteryLevel <= 40) {
 		batteryName = [batteryName stringByAppendingString:@"2"];
-	} else if (batteryLevel <= 70) {
+	}
+	if (batteryLevel <= 60) {
 		batteryName = [batteryName stringByAppendingString:@"3"];
-	} else if (batteryLevel < 90) {
+	}
+	if (batteryLevel <= 80) {
 		batteryName = [batteryName stringByAppendingString:@"4"];
-	} else {
+	}
+	if (batteryLevel > 80) {
 		batteryName = [batteryName stringByAppendingString:@"5"];
 	}
 	
@@ -111,7 +114,7 @@
 - (void)setBook:(RKHomeListBooks *)book {
 	_book = book;
 
-	self.bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,(long)self.book.readProgress.page+1,(long)self.chapter.pageCount];
+	self.bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,self.book.readProgress.page+1,self.chapter.pageCount+1];
 	if (self.chapters == 1) {
 		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.page*1.0f/self.chapter.pageCount];
 	}else if (self.chapters == 0) {
