@@ -124,9 +124,9 @@ RKReadMenuViewDelegate
 //解决TabView与Tap手势冲突
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-//	if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-//		return NO;
-//	}
+	if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+		return NO;
+	}
 	return  YES;
 }
 
