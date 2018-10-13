@@ -34,6 +34,7 @@
 		109C98E7213D256F0018DB5F /* RKSetttingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98E6213D256F0018DB5F /* RKSetttingViewController.m */; };
 		1A2D86532143AD230006421D /* RKBookChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D86522143AD230006421D /* RKBookChapter.m */; };
 		1A2D86562144FC690006421D /* RKReadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D86552144FC690006421D /* RKReadProgress.m */; };
+		1A9F0C042172394E00F18FF4 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A9F0C032172394E00F18FF4 /* Launch Screen.storyboard */; };
 		810C9F6A9B719B7FDB95FC3C /* libPods-RKReader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		1A2D86522143AD230006421D /* RKBookChapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookChapter.m; sourceTree = "<group>"; };
 		1A2D86542144FC690006421D /* RKReadProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadProgress.h; sourceTree = "<group>"; };
 		1A2D86552144FC690006421D /* RKReadProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadProgress.m; sourceTree = "<group>"; };
+		1A9F0C032172394E00F18FF4 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.release.xcconfig"; sourceTree = "<group>"; };
 		AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RKReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RKReader/Pods-RKReader.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C014EFFB5D7B1EA037773A /* libPods-RKReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RKReader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +256,7 @@
 				109C98D9213CF4390018DB5F /* PrefixHeader.pch */,
 				109C98BD213CE8DE0018DB5F /* AppDelegate.h */,
 				109C98BE213CE8DE0018DB5F /* AppDelegate.m */,
+				1A9F0C032172394E00F18FF4 /* Launch Screen.storyboard */,
 				109C98CB213CE8E00018DB5F /* Info.plist */,
 				109C98CC213CE8E00018DB5F /* main.m */,
 			);
@@ -362,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9F0C042172394E00F18FF4 /* Launch Screen.storyboard in Resources */,
 				1037E459213E65DA00B5CF0E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,7 +576,6 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -602,7 +605,6 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
