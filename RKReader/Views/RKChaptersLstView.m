@@ -86,7 +86,7 @@
     
     __weak typeof(self) weakSelf = self;
     [book.chapters enumerateObjectsUsingBlock:^(RKBookChapter * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [weakSelf.dataArray addObject:obj.title];
+        [weakSelf.dataArray addObject:[obj.title stringByTrimmingWhitespaceAndAllNewLine]];
     }];
     [self.tableView reloadData];
 }
