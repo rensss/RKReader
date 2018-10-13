@@ -13,9 +13,9 @@
 + (void)fileManagerInit {
     BOOL isSuccess = [RKFileManager createDir];
     if (!isSuccess) {
-        RKLog(@"文件创建失败!  path=%@",kBookSavePath);
+        RKLog(@"文件创建失败!\nBookSavePath=%@\nAnalysisPath=%@",kBookSavePath,kBookAnalysisSavePath);
     }else {
-        RKLog(@"文件创建成功或已存在!  path=%@",kBookSavePath);
+        RKLog(@"文件创建成功或已存在!\nBookSavePath=%@\nAnalysisPath=%@",kBookSavePath,kBookAnalysisSavePath);
     }
 }
 
@@ -26,8 +26,15 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir;
     // 先判断目录是否存在，不存在才创建
-    if  (![fileManager fileExistsAtPath:kBookSavePath isDirectory:&isDir]) {
+    if  (![fileManager fileExistsAtPath:kBookSavePath isDirectory:&isDir] && ![fileManager fileExistsAtPath:kBookAnalysisSavePath isDirectory:&isDir]) {
         BOOL res = [fileManager createDirectoryAtPath:kBookSavePath withIntermediateDirectories:YES attributes:nil error:nil];
+        
+        if (res) {
+            res = [fileManager createDirectoryAtPath:kBookAnalysisSavePath withIntermediateDirectories:YES attributes:nil error:nil];
+        } else {
+            return NO;
+        }
+        
         return res;
     } else {
         // 文件已存在

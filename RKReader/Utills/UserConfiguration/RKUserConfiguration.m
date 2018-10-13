@@ -140,11 +140,14 @@
 	[dict setValue:self.theme forKey:kUserConfigTheme];
 	[dict setValue:@(self.bgIndex) forKey:kUserConfigBgIndex];
 	
-    // 删除旧版本
+    // 删除旧版本 (如果旧文件存在的话)
     NSError *error;
-    [[NSFileManager defaultManager] removeItemAtPath:kUserConfigutationPATH error:&error];
-    if (error) {
-        RKLog(@"删除用户配置失败 -- %@",error);
+    BOOL isDir;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:kUserConfigutationPATH isDirectory:&isDir]) {
+        [[NSFileManager defaultManager] removeItemAtPath:kUserConfigutationPATH error:&error];
+        if (error) {
+            RKLog(@"删除用户配置失败 -- %@",error);
+        }
     }
     // 保存新版本
     [NSKeyedArchiver archiveRootObject:dict toFile:kUserConfigutationPATH];

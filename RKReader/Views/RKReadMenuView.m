@@ -257,7 +257,7 @@
 - (UIButton *)rewind {
 	if (!_rewind) {
 		_rewind = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 22, 22)];
-		_rewind.hitTestEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+		_rewind.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10);
 		_rewind.tintColor = [UIColor whiteColor];
 		[_rewind setBackgroundImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
 		_rewind.tag = kButtonTag;
@@ -269,7 +269,7 @@
 - (UIButton *)forword {
 	if (!_forword) {
 		_forword = [[UIButton alloc] initWithFrame:self.rewind.frame];
-		_forword.hitTestEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+		_forword.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10);
 		_forword.maxX = self.width - 5;
 		_forword.tintColor = [UIColor whiteColor];
 		[_forword setBackgroundImage:[[UIImage imageNamed:@"下一章"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
