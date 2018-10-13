@@ -25,6 +25,7 @@
 		103A68F42141203700F008C3 /* RKReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68F32141203700F008C3 /* RKReadView.m */; };
 		103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E0BB32147A67A002D2271 /* RKHomeListBooks.m */; };
 		103E0BB7214A0A6B002D2271 /* RKBottomStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */; };
+		108BCB8A2171F0F700D32ADA /* RKChaptersLstView.m in Sources */ = {isa = PBXBuildFile; fileRef = 108BCB892171F0F700D32ADA /* RKChaptersLstView.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -70,6 +71,8 @@
 		103E0BB32147A67A002D2271 /* RKHomeListBooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListBooks.m; sourceTree = "<group>"; };
 		103E0BB5214A0A6B002D2271 /* RKBottomStatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBottomStatusBar.h; sourceTree = "<group>"; };
 		103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBottomStatusBar.m; sourceTree = "<group>"; };
+		108BCB882171F0F700D32ADA /* RKChaptersLstView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKChaptersLstView.h; sourceTree = "<group>"; };
+		108BCB892171F0F700D32ADA /* RKChaptersLstView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKChaptersLstView.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -228,6 +231,8 @@
 				103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */,
 				102C032A214B6AC100262929 /* RKReadMenuView.h */,
 				102C032B214B6AC100262929 /* RKReadMenuView.m */,
+				108BCB882171F0F700D32ADA /* RKChaptersLstView.h */,
+				108BCB892171F0F700D32ADA /* RKChaptersLstView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				1037E451213E39A200B5CF0E /* RKModel.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				1A2D86562144FC690006421D /* RKReadProgress.m in Sources */,
+				108BCB8A2171F0F700D32ADA /* RKChaptersLstView.m in Sources */,
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
 				103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,

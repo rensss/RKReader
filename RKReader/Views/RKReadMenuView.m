@@ -7,6 +7,7 @@
 //
 
 #import "RKReadMenuView.h"
+#import "RKChaptersLstView.h"
 
 #define kNavBarHight 44.0f
 #define kButtonTag 2000
@@ -34,6 +35,8 @@
 @property (nonatomic, strong) UIButton *bigSpace; /**< 大行间距*/
 @property (nonatomic, strong) UIButton *middleSpace; /**< 中行间距*/
 @property (nonatomic, strong) UIButton *smallSpace; /**< 小行间距*/
+
+@property (nonatomic, strong) UIButton *chaptersButton; /**< 目录*/
 
 @property (nonatomic, strong) void(^dismissBlock)(void); /**< 消失回调*/
 @property (nonatomic, strong) void(^closeBlock)(void); /**< 点击关闭按钮回调*/
@@ -142,6 +145,15 @@
 			[self changeLineSpace];
 		}
 			break;
+        case 7:// 目录
+        {
+            RKChaptersLstView *listView = [[RKChaptersLstView alloc] initWithFrame:self.bounds];
+            listView.book = self.book;
+            [listView showInView:self and:^(NSInteger selectChapter) {
+                
+            }];
+        }
+            break;
 			
 		default:
 			break;
@@ -214,7 +226,7 @@
 
 - (UIView *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 120 + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
+        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, [RKUserConfiguration sharedInstance].readMenuHeight + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
         _bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
 		
 		[_bottomBar addSubview:self.rewind];
@@ -352,6 +364,19 @@
 		[_smallSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
 	}
 	return _smallSpace;
+}
+
+- (UIButton *)chaptersButton {
+    if (!_chaptersButton) {
+        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 28, 28)];
+        
+        _chaptersButton.tag = kButtonTag + 7;
+        _chaptersButton.tintColor = [UIColor whiteColor];
+        [_chaptersButton setImage:[[UIImage imageNamed:@"详情"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_chaptersButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _chaptersButton;
 }
 
 @end

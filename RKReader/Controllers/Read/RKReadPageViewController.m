@@ -214,7 +214,22 @@ RKReadMenuViewDelegate
 }
 
 - (void)changeLineSpace {
-	RKLog(@"修改行间距 -- %f",[RKUserConfiguration sharedInstance].lineSpace);
+	
+    RKLog(@"修改行间距 -- %f",[RKUserConfiguration sharedInstance].lineSpace);
+    
+    [self.book.chapters[self.currentChapter] updateFont];
+    
+    if (self.currentPage > self.book.chapters[self.currentChapter].pageCount - 1) {
+        self.currentPage = self.book.chapters[self.currentChapter].pageCount - 1;
+    }
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.currentChapter andPage:self.currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // 更新阅读记录
+    self.currentPage = 0;
+    self.currentChapter = self.chapterNext;
+    [self updateLocalBookData];
 }
 
 - (void)forwardOrRewind:(BOOL)yesOrNo {
@@ -246,6 +261,25 @@ RKReadMenuViewDelegate
 	self.currentPage = 0;
 	self.currentChapter = self.chapterNext;
 	[self updateLocalBookData];
+}
+
+/**
+ 跳转到某一章
+ @param index 章节索引
+ */
+- (void)forwardToIndex:(NSInteger)index {
+    
+    // 跳转
+    self.pageNext = 0;
+    self.chapterNext = index;
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // 更新阅读记录
+    self.currentPage = 0;
+    self.currentChapter = self.chapterNext;
+    [self updateLocalBookData];
 }
 
 #pragma mark - 函数

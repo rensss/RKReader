@@ -28,6 +28,12 @@
  */
 - (void)changeLineSpace;
 
+/**
+ 跳转到某一章
+ @param index 章节索引
+ */
+- (void)forwardToIndex:(NSInteger)index;
+
 @end
 
 @interface RKReadMenuView : UIView

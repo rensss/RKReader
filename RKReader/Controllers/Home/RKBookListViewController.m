@@ -113,6 +113,33 @@
 	});
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    RKHomeListBooks *book = self.dataArray[indexPath.row];
+    
+    // 删除首页列表存储的数据
+    [RKFileManager deleteHomeListWithHomeList:book];
+    // 删除该文件
+    [RKFileManager updateHomeListData:NO filePath:book.fileInfo.filePath];
+    
+    // 修改数据源，在刷新 tableView
+    [self.dataArray removeObjectAtIndex:indexPath.row];
+    // 让表视图删除对应的行
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
 #pragma mark -- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;

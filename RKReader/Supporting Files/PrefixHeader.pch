@@ -67,6 +67,7 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define kUserConfigNavigationOrientation @"kUserConfigNavigationOrientation"
 // 底部状态栏高度
 #define kUserConfigBottomStatusHeight @"kUserConfigBottomStatusHeight"
+#define kUserConfigReadMenuHeight @"kUserConfigReadMenuHeight"
 
 #pragma mark -- 上左下右 边距
 #define kUserConfigTopPadding @"kUserConfigTopPadding"
