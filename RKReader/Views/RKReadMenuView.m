@@ -238,6 +238,8 @@
 		[_bottomBar addSubview:self.bigSpace];
 		[_bottomBar addSubview:self.middleSpace];
 		[_bottomBar addSubview:self.smallSpace];
+        
+        [_bottomBar addSubview:self.chaptersButton];
     }
     return _bottomBar;
 }
@@ -268,7 +270,7 @@
 
 - (UIButton *)rewind {
 	if (!_rewind) {
-		_rewind = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 22, 22)];
+		_rewind = [[UIButton alloc] initWithFrame:CGRectMake(5, 15, 22, 22)];
 		_rewind.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10);
 		_rewind.tintColor = [UIColor whiteColor];
 		[_rewind setBackgroundImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -368,11 +370,11 @@
 
 - (UIButton *)chaptersButton {
     if (!_chaptersButton) {
-        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 28, 28)];
+        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 38, 38)];
         
         _chaptersButton.tag = kButtonTag + 7;
         _chaptersButton.tintColor = [UIColor whiteColor];
-        [_chaptersButton setImage:[[UIImage imageNamed:@"详情"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_chaptersButton setImage:[[UIImage imageNamed:@"目录"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_chaptersButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
     }
