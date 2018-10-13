@@ -87,7 +87,6 @@
             for (id bview in [aview subviews]) {
                 if ([NSStringFromClass([bview class]) caseInsensitiveCompare:@"UIStatusBarBatteryItemView"] == NSOrderedSame&&[[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0)
                 {
-                    
                     Ivar ivar=  class_getInstanceVariable([bview class],"_capacity");
                     if (ivar) {
                         batteryLevel = ((int (*)(id, Ivar))object_getIvar)(bview, ivar);
