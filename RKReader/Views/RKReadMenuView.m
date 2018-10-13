@@ -149,8 +149,11 @@
         {
             RKChaptersLstView *listView = [[RKChaptersLstView alloc] initWithFrame:self.bounds];
             listView.book = self.book;
+			__weak typeof(self) weakSelf = self;
             [listView showInView:self and:^(NSInteger selectChapter) {
-                
+				if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(forwardToIndex:)]) {
+					[weakSelf.delegate forwardToIndex:selectChapter];
+				}
             }];
         }
             break;

@@ -24,9 +24,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.bgButton];
-        [self addSubview:self.tableView];
     }
     return self;
+}
+
+- (void)dealloc {
+	RKLog(@"%@ 销毁了~",[self class]);
 }
 
 #pragma mark - 函数
@@ -97,6 +100,8 @@
         _bgButton = [[UIButton alloc] initWithFrame:self.bounds];
         
         [_bgButton addTarget:self action:@selector(bgClick) forControlEvents:UIControlEventTouchUpInside];
+		
+		[_bgButton addSubview:self.tableView];
     }
     return _bgButton;
 }
@@ -107,11 +112,13 @@
         
         RKUserConfiguration *config = [RKUserConfiguration sharedInstance];
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, config.viewControllerStatusBarHeight + 44, self.width*4/5, self.height - config.viewControllerStatusBarHeight - config.viewControllerSafeAreaBottomHeight - config.readMenuHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width*4/5, self.height) style:UITableViewStylePlain];
         
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+		
+		_tableView.contentInset = UIEdgeInsetsMake(config.viewControllerStatusBarHeight, 0, config.viewControllerSafeAreaBottomHeight, 0);
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
