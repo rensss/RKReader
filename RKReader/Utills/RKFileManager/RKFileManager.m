@@ -171,6 +171,26 @@
 
 #pragma mark -- 改
 /**
+ 最后阅读置顶
+ @param book 首页数据
+ */
++ (void)setTopping:(RKHomeListBooks *)book {
+	NSMutableArray *list = [RKFileManager getHomeListBooks];
+	
+	RKHomeListBooks *topBook;
+	for (NSInteger i = 0; i < list.count; i++) {
+		RKHomeListBooks *homeBook = list[i];
+		if ([homeBook.key isEqualToString:book.key]) {
+			topBook = homeBook;
+			[list removeObject:homeBook];
+			break;
+		}
+	}
+	[list insertObject:topBook atIndex:0];
+	[RKFileManager saveHomeList:list];
+}
+
+/**
  更新首页列表数据
  @param isAdd 是否添加
  @param filePath 文件路径

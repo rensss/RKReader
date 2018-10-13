@@ -79,10 +79,16 @@
 	[indicator startAnimating];
 	// 子线程读取数据
 	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		// 创建阅读页面
 		RKReadPageViewController *readPageVC = [[RKReadPageViewController alloc] init];
 		RKHomeListBooks *cellBook = self.dataArray[indexPath.row];
 		readPageVC.listBook = cellBook;
 		RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:readPageVC];
+		
+		// 更新首页列表
+		[RKFileManager setTopping:cellBook];
+		
+		// 解析数据
 		NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:cellBook.key];
 		if (data) {
 			readPageVC.book = [RKBook getLocalModelWithHomeBook:cellBook];
