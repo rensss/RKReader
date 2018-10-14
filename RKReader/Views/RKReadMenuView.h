@@ -29,10 +29,9 @@
 - (void)changeLineSpace;
 
 /**
- 跳转到某一章
- @param index 章节索引
+ 弹出章节列表
  */
-- (void)forwardToIndex:(NSInteger)index;
+- (void)showChaptersList;
 
 @end
 

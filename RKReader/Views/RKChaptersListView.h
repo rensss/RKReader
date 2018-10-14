@@ -1,5 +1,5 @@
 //
-//  RKChaptersLstView.h
+//  RKChaptersListView.h
 //  RKReader
 //
 //  Created by MBP on 2018/10/13.
@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RKChaptersLstView : UIView
+@interface RKChaptersListView : UIView
 
 @property (nonatomic, strong) RKBook *book; /**< 书籍*/
-
+@property (nonatomic, assign) NSInteger currentChapter; /**< 当前章节索引*/
 
 /**
  显示
