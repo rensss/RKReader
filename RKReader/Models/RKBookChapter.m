@@ -40,6 +40,9 @@
 }
 
 - (NSString *)stringOfPage:(NSUInteger)index {
+	if (index >= self.pageArray.count) {
+		index = self.pageArray.count - 1;
+	}
 	NSUInteger local = [self.pageArray[index] integerValue];
 	NSUInteger length;
 	if (index < self.pageCount - 1 ) {

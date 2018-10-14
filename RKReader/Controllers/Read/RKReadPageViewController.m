@@ -295,6 +295,12 @@ RKReadMenuViewDelegate
 	
     // 创建一个新的控制器类，并且分配给相应的数据
     RKReadViewController *readVC = [[RKReadViewController alloc] init];
+	
+	// 切换章节时 可能需要重新规划字体显示内容
+	if (self.currentChapter != chapter) {
+		[self.book.chapters[chapter] updateFont];
+	}
+	// 内容
 	readVC.content = [self.book.chapters[chapter] stringOfPage:page];
 	readVC.chapter = chapter;
 	readVC.page = page;

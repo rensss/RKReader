@@ -102,8 +102,9 @@
 			break;
 		case 2:// 减小字体
 		{
-			if ([RKUserConfiguration sharedInstance].fontSize < 14) {
+			if ([RKUserConfiguration sharedInstance].fontSize <= 14) {
 				RKAlertMessageShowInWindow(@"不能再小了!");
+				return;
 			}
 			[RKUserConfiguration sharedInstance].fontSize -= 1.0f;
 			self.fontSize.text = [NSString stringWithFormat:@"%.0f",[RKUserConfiguration sharedInstance].fontSize];
@@ -115,8 +116,9 @@
 			break;
 		case 3:// 增大字体
 		{
-			if ([RKUserConfiguration sharedInstance].fontSize > 22) {
+			if ([RKUserConfiguration sharedInstance].fontSize >= 24) {
 				RKAlertMessageShowInWindow(@"不能再大了!");
+				return;
 			}
 			[RKUserConfiguration sharedInstance].fontSize += 1.0f;
 			self.fontSize.text = [NSString stringWithFormat:@"%.0f",[RKUserConfiguration sharedInstance].fontSize];
