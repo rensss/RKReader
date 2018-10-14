@@ -9,6 +9,7 @@
 #import "RKReadPageViewController.h"
 #import "RKReadViewController.h"
 #import "RKReadMenuView.h"
+#import "RKChaptersListView.h"
 
 @interface RKReadPageViewController ()
 <
@@ -124,9 +125,9 @@ RKReadMenuViewDelegate
 //解决TabView与Tap手势冲突
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-//	if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-//		return NO;
-//	}
+	if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+		return NO;
+	}
 	return  YES;
 }
 
@@ -214,7 +215,22 @@ RKReadMenuViewDelegate
 }
 
 - (void)changeLineSpace {
-	RKLog(@"修改行间距 -- %f",[RKUserConfiguration sharedInstance].lineSpace);
+	
+    RKLog(@"修改行间距 -- %f",[RKUserConfiguration sharedInstance].lineSpace);
+    
+    [self.book.chapters[self.currentChapter] updateFont];
+    
+    if (self.currentPage > self.book.chapters[self.currentChapter].pageCount - 1) {
+        self.currentPage = self.book.chapters[self.currentChapter].pageCount - 1;
+    }
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.currentChapter andPage:self.currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // 更新阅读记录
+    self.currentPage = 0;
+    self.currentChapter = self.chapterNext;
+    [self updateLocalBookData];
 }
 
 - (void)forwardOrRewind:(BOOL)yesOrNo {
@@ -246,6 +262,31 @@ RKReadMenuViewDelegate
 	self.currentPage = 0;
 	self.currentChapter = self.chapterNext;
 	[self updateLocalBookData];
+}
+
+/**
+ 弹出章节列表
+ */
+- (void)showChaptersList {
+	
+	RKChaptersListView *listView = [[RKChaptersListView alloc] initWithFrame:self.view.bounds];
+	listView.currentChapter = self.currentChapter;
+	listView.book = self.book;
+	
+	[listView showInView:self.view and:^(NSInteger selectChapter) {
+		// 跳转
+		self.pageNext = 0;
+		self.chapterNext = selectChapter;
+		
+		// 设置当前显示的readVC
+		[self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+		
+		// 更新阅读记录
+		self.currentPage = 0;
+		self.currentChapter = self.chapterNext;
+		[self updateLocalBookData];
+	}];
+	
 }
 
 #pragma mark - 函数

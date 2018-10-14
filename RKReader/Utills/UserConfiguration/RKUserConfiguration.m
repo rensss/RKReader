@@ -49,6 +49,11 @@
         }else {
             self.bottomStatusHeight = 20.0f;
         }
+        if ([[dict allKeys] containsObject:kUserConfigReadMenuHeight]) {
+            self.readMenuHeight = [dict[kUserConfigReadMenuHeight] floatValue];
+        }else {
+            self.readMenuHeight = 140.0f;
+        }
 		// 上左下右
         if ([[dict allKeys] containsObject:kUserConfigTopPadding]) {
             self.topPadding = [dict[kUserConfigTopPadding] floatValue];
@@ -129,6 +134,7 @@
     [dict setValue:@(self.transitionStyle) forKey:kUserConfigTransitionStyle];
     [dict setValue:@(self.navigationOrientation) forKey:kUserConfigNavigationOrientation];
 	[dict setValue:@(self.bottomStatusHeight) forKey:kUserConfigBottomStatusHeight];
+    [dict setValue:@(self.readMenuHeight) forKey:kUserConfigReadMenuHeight];
 	[dict setValue:@(self.topPadding) forKey:kUserConfigTopPadding];
 	[dict setValue:@(self.leftPadding) forKey:kUserConfigLeftPadding];
 	[dict setValue:@(self.bottomPadding) forKey:kUserConfigBottomPadding];
@@ -140,11 +146,14 @@
 	[dict setValue:self.theme forKey:kUserConfigTheme];
 	[dict setValue:@(self.bgIndex) forKey:kUserConfigBgIndex];
 	
-    // 删除旧版本
+    // 删除旧版本 (如果旧文件存在的话)
     NSError *error;
-    [[NSFileManager defaultManager] removeItemAtPath:kUserConfigutationPATH error:&error];
-    if (error) {
-        RKLog(@"删除用户配置失败 -- %@",error);
+    BOOL isDir;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:kUserConfigutationPATH isDirectory:&isDir]) {
+        [[NSFileManager defaultManager] removeItemAtPath:kUserConfigutationPATH error:&error];
+        if (error) {
+            RKLog(@"删除用户配置失败 -- %@",error);
+        }
     }
     // 保存新版本
     [NSKeyedArchiver archiveRootObject:dict toFile:kUserConfigutationPATH];

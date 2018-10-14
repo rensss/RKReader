@@ -113,13 +113,13 @@
 - (void)setBook:(RKHomeListBooks *)book {
 	_book = book;
 
-	self.bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,self.book.readProgress.page+1,self.chapter.pageCount+1];
+	self.bookName.text = [NSString stringWithFormat:@"%@(%ld/%ld)",self.book.fileInfo.fileName,self.book.readProgress.page+1,self.chapter.pageCount];
 	if (self.chapters == 1) {
 		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.page*1.0f/self.chapter.pageCount];
 	}else if (self.chapters == 0) {
 		self.progress.text = @"0.00%";
 	} else {
-		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.chapter*1.0f/self.chapters];
+		self.progress.text = [NSString stringWithFormat:@"%.2f%%",self.book.readProgress.chapter*100.0f/self.chapters];
 	}
 }
 

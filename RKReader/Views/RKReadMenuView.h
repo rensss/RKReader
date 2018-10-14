@@ -28,6 +28,11 @@
  */
 - (void)changeLineSpace;
 
+/**
+ 弹出章节列表
+ */
+- (void)showChaptersList;
+
 @end
 
 @interface RKReadMenuView : UIView

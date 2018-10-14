@@ -70,6 +70,12 @@
 
 #pragma mark -- 改
 /**
+ 最后阅读置顶
+ @param book 首页数据
+ */
++ (void)setTopping:(RKHomeListBooks *)book;
+
+/**
  更新首页列表数据
  @param isAdd 是否添加
  @param filePath 文件路径

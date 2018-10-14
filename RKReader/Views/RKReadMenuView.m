@@ -35,6 +35,8 @@
 @property (nonatomic, strong) UIButton *middleSpace; /**< 中行间距*/
 @property (nonatomic, strong) UIButton *smallSpace; /**< 小行间距*/
 
+@property (nonatomic, strong) UIButton *chaptersButton; /**< 目录*/
+
 @property (nonatomic, strong) void(^dismissBlock)(void); /**< 消失回调*/
 @property (nonatomic, strong) void(^closeBlock)(void); /**< 点击关闭按钮回调*/
 
@@ -142,6 +144,15 @@
 			[self changeLineSpace];
 		}
 			break;
+        case 7:// 目录
+        {
+			if (self.delegate && [self.delegate respondsToSelector:@selector(showChaptersList)]) {
+				[self.delegate showChaptersList];
+			}
+			// 消失
+			[self bgClick];
+        }
+            break;
 			
 		default:
 			break;
@@ -214,7 +225,7 @@
 
 - (UIView *)bottomBar {
     if (!_bottomBar) {
-        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 120 + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
+        _bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, [RKUserConfiguration sharedInstance].readMenuHeight + [RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight)];
         _bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
 		
 		[_bottomBar addSubview:self.rewind];
@@ -226,6 +237,8 @@
 		[_bottomBar addSubview:self.bigSpace];
 		[_bottomBar addSubview:self.middleSpace];
 		[_bottomBar addSubview:self.smallSpace];
+        
+        [_bottomBar addSubview:self.chaptersButton];
     }
     return _bottomBar;
 }
@@ -256,8 +269,8 @@
 
 - (UIButton *)rewind {
 	if (!_rewind) {
-		_rewind = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 22, 22)];
-		_rewind.hitTestEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+		_rewind = [[UIButton alloc] initWithFrame:CGRectMake(5, 15, 22, 22)];
+		_rewind.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10);
 		_rewind.tintColor = [UIColor whiteColor];
 		[_rewind setBackgroundImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
 		_rewind.tag = kButtonTag;
@@ -269,7 +282,7 @@
 - (UIButton *)forword {
 	if (!_forword) {
 		_forword = [[UIButton alloc] initWithFrame:self.rewind.frame];
-		_forword.hitTestEdgeInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+		_forword.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10);
 		_forword.maxX = self.width - 5;
 		_forword.tintColor = [UIColor whiteColor];
 		[_forword setBackgroundImage:[[UIImage imageNamed:@"下一章"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -352,6 +365,19 @@
 		[_smallSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
 	}
 	return _smallSpace;
+}
+
+- (UIButton *)chaptersButton {
+    if (!_chaptersButton) {
+        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 38, 38)];
+        
+        _chaptersButton.tag = kButtonTag + 7;
+        _chaptersButton.tintColor = [UIColor whiteColor];
+        [_chaptersButton setImage:[[UIImage imageNamed:@"目录"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_chaptersButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _chaptersButton;
 }
 
 @end

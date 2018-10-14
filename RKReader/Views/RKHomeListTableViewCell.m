@@ -58,7 +58,7 @@
     
     self.nameLabel.text = bookInfo.fileInfo.fileName;
     self.coverImage.image = [UIImage imageNamed:bookInfo.coverName];
-    self.progressLabel.text = [NSString stringWithFormat:@"%0.2f%%",bookInfo.readProgress.progress];
+    self.progressLabel.text = [NSString stringWithFormat:@"%0.2f%%",bookInfo.readProgress.progress*100];
     self.sizeLabel.text = [NSString stringWithFormat:@"大小: %0.2f M",bookInfo.fileInfo.fileSize];
 }
 
