@@ -371,11 +371,11 @@
 
 - (UIButton *)chaptersButton {
     if (!_chaptersButton) {
-        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 38, 38)];
-        
+        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 20, 20)];
+		
         _chaptersButton.tag = kButtonTag + 7;
         _chaptersButton.tintColor = [UIColor whiteColor];
-        [_chaptersButton setImage:[[UIImage imageNamed:@"目录"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_chaptersButton setBackgroundImage:[[UIImage imageNamed:@"目录"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_chaptersButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
     }

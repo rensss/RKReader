@@ -45,7 +45,7 @@
 - (void)drawRect:(CGRect)rect {
 	
 	NSInteger batteryLevel = [self getCurrentBatteryLevel];
-	self.batteryNum.text = [NSString stringWithFormat:@"%ld%%",batteryLevel];
+	self.batteryNum.text = [NSString stringWithFormat:@"%ld%%",(long)batteryLevel];
 	
 	[self.batteryNum sizeToFit];
 	self.batteryNum.centerY = self.batteryImage.centerY = self.height/2;
@@ -67,6 +67,7 @@
 		batteryName = [batteryName stringByAppendingString:@"5"];
 	}
 	
+	RKLog(@"%ld -- %@",(long)batteryLevel,batteryName);
 	// 电池
 	self.batteryImage.image = [UIImage imageNamed:batteryName];
 }
@@ -80,16 +81,18 @@
         for (id aview in [status subviews]) {
             int batteryLevel = 0;
             for (id bview in [aview subviews]) {
-                if ([NSStringFromClass([bview class]) caseInsensitiveCompare:@"UIStatusBarBatteryItemView"] == NSOrderedSame&&[[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0)
-                {
+                if ([NSStringFromClass([bview class]) caseInsensitiveCompare:@"UIStatusBarBatteryItemView"] == NSOrderedSame && [[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+					
                     Ivar ivar=  class_getInstanceVariable([bview class],"_capacity");
                     if (ivar) {
-                        batteryLevel = ((int (*)(id, Ivar))object_getIvar)(bview, ivar);
-                        //这种方式也可以
-                        /*ptrdiff_t offset = ivar_getOffset(ivar);
-                         unsigned char *stuffBytes = (unsigned char *)(__bridge void *)bview;
-                         batteryLevel = * ((int *)(stuffBytes + offset));*/
+//                        batteryLevel = ((int (*)(id, Ivar))object_getIvar)(bview, ivar);
+                        // 这种方式也可以
+						ptrdiff_t offset = ivar_getOffset(ivar);
+						unsigned char *stuffBytes = (unsigned char *)(__bridge void *)bview;
+						batteryLevel = * ((int *)(stuffBytes + offset));
+						
                         RKLog(@"电池电量 -- %d%%",batteryLevel);
+						
                         if (batteryLevel > 0 && batteryLevel <= 100) {
                             return batteryLevel;
                         } else {
