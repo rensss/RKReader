@@ -1,14 +1,14 @@
 //
-//  RKChaptersListView.m
+//  RKChaptersLstView.m
 //  RKReader
 //
 //  Created by MBP on 2018/10/13.
 //  Copyright © 2018年 Rzk. All rights reserved.
 //
 
-#import "RKChaptersListView.h"
+#import "RKChaptersLstView.h"
 
-@interface RKChaptersListView () <UITableViewDelegate,UITableViewDataSource>
+@interface RKChaptersLstView () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *bgButton; /**< 背景按钮*/
 @property (nonatomic, strong) NSMutableArray *dataArray; /**< 数据源*/
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation RKChaptersListView
+@implementation RKChaptersLstView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -26,16 +26,6 @@
         [self addSubview:self.bgButton];
     }
     return self;
-}
-
-- (void)didMoveToSuperview {
-	if (self.superview) {
-		
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.currentChapter inSection:0];
-		
-		// 跳转到当前章节
-		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-	}
 }
 
 - (void)dealloc {

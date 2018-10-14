@@ -9,7 +9,6 @@
 #import "RKReadPageViewController.h"
 #import "RKReadViewController.h"
 #import "RKReadMenuView.h"
-#import "RKChaptersListView.h"
 
 @interface RKReadPageViewController ()
 <
@@ -265,28 +264,22 @@ RKReadMenuViewDelegate
 }
 
 /**
- 弹出章节列表
+ 跳转到某一章
+ @param index 章节索引
  */
-- (void)showChaptersList {
-	
-	RKChaptersListView *listView = [[RKChaptersListView alloc] initWithFrame:self.view.bounds];
-	listView.currentChapter = self.currentChapter;
-	listView.book = self.book;
-	
-	[listView showInView:self.view and:^(NSInteger selectChapter) {
-		// 跳转
-		self.pageNext = 0;
-		self.chapterNext = selectChapter;
-		
-		// 设置当前显示的readVC
-		[self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-		
-		// 更新阅读记录
-		self.currentPage = 0;
-		self.currentChapter = self.chapterNext;
-		[self updateLocalBookData];
-	}];
-	
+- (void)forwardToIndex:(NSInteger)index {
+    
+    // 跳转
+    self.pageNext = 0;
+    self.chapterNext = index;
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // 更新阅读记录
+    self.currentPage = 0;
+    self.currentChapter = self.chapterNext;
+    [self updateLocalBookData];
 }
 
 #pragma mark - 函数
