@@ -147,7 +147,7 @@ RKReadMenuViewDelegate
 		self.pageNext--;
 	}
 	
-	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+	RKLog(@"chapter:%ld -- page:%ld",(long)self.chapterNext,(long)self.pageNext);
     return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
@@ -165,7 +165,7 @@ RKReadMenuViewDelegate
 	}else {
 		self.pageNext ++;
 	}
-	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+	RKLog(@"chapter:%ld -- page:%ld",(long)self.chapterNext,(long)self.pageNext);
 	return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
@@ -190,7 +190,7 @@ RKReadMenuViewDelegate
     RKLog(@"willTransitionToViewControllers");
 //	self.currentChapter = self.chapterNext;
 //	self.currentPage = self.pageNext;
-	RKLog(@"%ld -|- %ld",self.currentChapter,self.currentPage);
+	RKLog(@"%ld -|- %ld",(long)self.currentChapter,(long)self.currentPage);
 }
 
 #pragma mark - RKReadMenuViewDelegate
