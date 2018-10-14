@@ -576,6 +576,10 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+<<<<<<< HEAD
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+=======
+>>>>>>> NewIdeas
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -605,6 +609,10 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+<<<<<<< HEAD
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+=======
+>>>>>>> NewIdeas
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
