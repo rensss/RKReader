@@ -158,7 +158,7 @@
 #pragma mark - getting
 - (UIImageView *)batteryImage {
     if (!_batteryImage) {
-        _batteryImage = [[UIImageView alloc] initWithFrame:CGRectMake(3, 0, 18, 10)];
+        _batteryImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 18, 10)];
         _batteryImage.image = [UIImage imageNamed:@"battery5"];
     }
     return _batteryImage;
@@ -188,7 +188,7 @@
 - (UILabel *)progress {
     if (!_progress) {
         _progress = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, self.height)];
-        _progress.maxX = self.width - 3;
+        _progress.maxX = self.width - 5;
         _progress.font = [UIFont systemFontOfSize:10];
         _progress.textColor = kReadViewBottomTintColor;
         _progress.textAlignment = NSTextAlignmentRight;
