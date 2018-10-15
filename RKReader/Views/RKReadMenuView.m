@@ -198,6 +198,18 @@
 #pragma mark -- 私有函数
 /// 修改行间距(1.保存用户配置2.修改页面)
 - (void)changeLineSpace {
+    CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+    if (space == 4.0f) {
+        self.smallSpace.selected = YES;
+        self.middleSpace.selected = self.bigSpace.selected = NO;
+    }else if (space == 8.0f) {
+        self.middleSpace.selected = YES;
+        self.smallSpace.selected = self.bigSpace.selected = NO;
+    }else if (space == 16.0f) {
+        self.bigSpace.selected = YES;
+        self.middleSpace.selected = self.smallSpace.selected = NO;
+    }
+    
 	[[RKUserConfiguration sharedInstance] saveUserConfig];
 	if (self.delegate && [self.delegate respondsToSelector:@selector(changeLineSpace)]) {
 		[self.delegate changeLineSpace];
@@ -338,7 +350,14 @@
 		_bigSpace.tag = kButtonTag + 4;
 		_bigSpace.tintColor = [UIColor whiteColor];
 		[_bigSpace setImage:[[UIImage imageNamed:@"lineSpace_big"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_bigSpace setImage:[[UIImage imageNamed:@"lineSpace_big"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_bigSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 16.0f) {
+            _bigSpace.selected = YES;
+        }
 	}
 	return _bigSpace;
 }
@@ -351,7 +370,14 @@
 		_middleSpace.tag = kButtonTag + 5;
 		_middleSpace.tintColor = [UIColor whiteColor];
 		[_middleSpace setImage:[[UIImage imageNamed:@"lineSpace_mid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_middleSpace setImage:[[UIImage imageNamed:@"lineSpace_mid"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_middleSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 8.0f) {
+            _middleSpace.selected = YES;
+        }
 	}
 	return _middleSpace;
 }
@@ -364,7 +390,14 @@
 		_smallSpace.tag = kButtonTag + 6;
 		_smallSpace.tintColor = [UIColor whiteColor];
 		[_smallSpace setImage:[[UIImage imageNamed:@"lineSpace_small"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_smallSpace setImage:[[UIImage imageNamed:@"lineSpace_small"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_smallSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 4.0f) {
+            _smallSpace.selected = YES;
+        }
 	}
 	return _smallSpace;
 }

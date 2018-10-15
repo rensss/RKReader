@@ -7,6 +7,7 @@
 //
 
 #import "RKBottomStatusBar.h"
+#import <dlfcn.h>
 
 @interface RKBottomStatusBar ()
 
@@ -74,6 +75,7 @@
 
 #pragma mark - 函数
 - (int)getCurrentBatteryLevel {
+    
     UIApplication *app = [UIApplication sharedApplication];
     if (app.applicationState == UIApplicationStateActive || app.applicationState == UIApplicationStateInactive) {
         Ivar ivar = class_getInstanceVariable([app class],"_statusBar");
@@ -83,7 +85,7 @@
             for (id bview in [aview subviews]) {
                 if ([NSStringFromClass([bview class]) caseInsensitiveCompare:@"UIStatusBarBatteryItemView"] == NSOrderedSame && [[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
 					
-                    Ivar ivar=  class_getInstanceVariable([bview class],"_capacity");
+                    Ivar ivar = class_getInstanceVariable([bview class],"_capacity");
                     if (ivar) {
 //                        batteryLevel = ((int (*)(id, Ivar))object_getIvar)(bview, ivar);
                         // 这种方式也可以
@@ -105,6 +107,38 @@
     }
     
     return 0;
+}
+
+- (NSDictionary *)FCPrivateBatteryStatus {
+    static mach_port_t *s_kIOMasterPortDefault;
+    static kern_return_t (*s_IORegistryEntryCreateCFProperties)(mach_port_t entry, CFMutableDictionaryRef *properties, CFAllocatorRef allocator, UInt32 options);
+    static mach_port_t (*s_IOServiceGetMatchingService)(mach_port_t masterPort, CFDictionaryRef matching CF_RELEASES_ARGUMENT);
+    static CFMutableDictionaryRef (*s_IOServiceMatching)(const char *name);
+    
+    static CFMutableDictionaryRef g_powerSourceService;
+    static mach_port_t g_platformExpertDevice;
+    
+    static BOOL foundSymbols = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        void* handle = dlopen("/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit", RTLD_LAZY);
+        s_IORegistryEntryCreateCFProperties = dlsym(handle, "IORegistryEntryCreateCFProperties");
+        s_kIOMasterPortDefault = dlsym(handle, "kIOMasterPortDefault");
+        s_IOServiceMatching = dlsym(handle, "IOServiceMatching");
+        s_IOServiceGetMatchingService = dlsym(handle, "IOServiceGetMatchingService");
+        
+        if (s_IORegistryEntryCreateCFProperties && s_IOServiceMatching && s_IOServiceGetMatchingService) {
+            g_powerSourceService = s_IOServiceMatching("IOPMPowerSource");
+            g_platformExpertDevice = s_IOServiceGetMatchingService(*s_kIOMasterPortDefault, g_powerSourceService);
+            foundSymbols = (g_powerSourceService && g_platformExpertDevice);
+        }
+    });
+    
+    if (! foundSymbols) return nil;
+    
+    CFMutableDictionaryRef prop = NULL;
+    s_IORegistryEntryCreateCFProperties(g_platformExpertDevice, &prop, 0, 0);
+    return prop ? ((NSDictionary *) CFBridgingRelease(prop)) : nil;
 }
 
 #pragma mark - setting
