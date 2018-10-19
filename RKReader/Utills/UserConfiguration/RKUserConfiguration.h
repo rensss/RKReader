@@ -26,20 +26,23 @@
 // 底部 电池/章节/书名/页数...
 @property (nonatomic, assign) CGFloat bottomStatusHeight; /**< 底部状态栏高度*/
 @property (nonatomic, assign) CGFloat readMenuHeight; /**< 阅读页底部菜单高度*/
+
 // 阅读页大小
 @property (nonatomic, assign) CGRect readViewFrame; /**< 阅读页大小*/
 
+// 阅读页背景图
+@property (nonatomic, copy) NSString *bgImageName; /**< 背景图*/
 
-// 内容展示相关配置  字号/行间距/字体颜色/主题(背景图...)...
+// 内容展示相关配置  字号/行间距/字体颜色
 @property (nonatomic, assign) CGFloat fontSize; /**< 字号*/
 @property (nonatomic, assign) CGFloat lineSpace; /**< 行间距*/
 @property (nonatomic, copy) NSString *fontColor; /**< 字体颜色*/
-@property (nonatomic, copy) NSString *theme; /**< 主题*/
-@property (nonatomic, assign) NSInteger bgIndex; /**< 背景图索引*/
 
 // 系统相关参数
 @property (nonatomic, assign) CGFloat viewControllerStatusBarHeight; /**< 电池条高度*/
 @property (nonatomic, assign) CGFloat viewControllerSafeAreaBottomHeight; /**< 底部安全区域高度*/
+
+
 
 /**
  用户配置

@@ -53,7 +53,7 @@
 - (UIImageView *)bgImageView {
 	if (!_bgImageView) {
 		_bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-		_bgImageView.image = [UIImage imageWithColor:[UIColor colorWithHexString:@"bcf2cc"]];
+		_bgImageView.image = [UIImage imageNamed:[RKUserConfiguration sharedInstance].bgImageName];
 	}
 	return _bgImageView;
 }

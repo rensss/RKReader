@@ -8,8 +8,10 @@
 
 #import "RKReadPageViewController.h"
 #import "RKReadViewController.h"
+#import "RKReadViewSettingViewController.h"
 #import "RKReadMenuView.h"
 #import "RKChaptersListView.h"
+
 
 @interface RKReadPageViewController ()
 <
@@ -35,7 +37,7 @@ RKReadMenuViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+	    
 	// 添加点击手势
 	[self.view addGestureRecognizer:({
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showToolMenu)];
@@ -86,12 +88,18 @@ RKReadMenuViewDelegate
     self.navigationController.delegate = self;
     // 隐藏电池条
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+    
+    // 屏幕常亮
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // 禁止侧滑返回
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    // 关闭屏幕常亮
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 #pragma mark - 手势事件
@@ -273,20 +281,39 @@ RKReadMenuViewDelegate
 	listView.currentChapter = self.currentChapter;
 	listView.book = self.book;
 	
+    __weak typeof(self) weakSelf = self;
 	[listView showInView:self.view and:^(NSInteger selectChapter) {
 		// 跳转
-		self.pageNext = 0;
-		self.chapterNext = selectChapter;
+		weakSelf.pageNext = 0;
+		weakSelf.chapterNext = selectChapter;
 		
 		// 设置当前显示的readVC
-		[self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+		[weakSelf.pageViewController setViewControllers:@[[weakSelf viewControllerChapter:weakSelf.chapterNext andPage:weakSelf.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 		
 		// 更新阅读记录
-		self.currentPage = 0;
-		self.currentChapter = self.chapterNext;
-		[self updateLocalBookData];
+		weakSelf.currentPage = 0;
+		weakSelf.currentChapter = self.chapterNext;
+		[weakSelf updateLocalBookData];
 	}];
 	
+}
+
+
+/// 夜间模式
+- (void)nightModel {
+    
+}
+
+/// 跳转设置
+- (void)clickSettting {
+    RKReadViewSettingViewController *settingVC = [[RKReadViewSettingViewController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    __weak typeof(self) weakSelf = self;
+    [settingVC didNeedUpdateUI:^{
+        // 设置当前显示的readVC
+        [weakSelf.pageViewController setViewControllers:@[[weakSelf viewControllerChapter:weakSelf.currentChapter andPage:weakSelf.currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    }];
 }
 
 #pragma mark - 函数
