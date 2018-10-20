@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RKBgImageCollectionViewDelegate <NSObject>
+
+/**
+ 选中背景图
+ */
+- (void)didSelectBgImage;
+
+@end
+
 @interface RKBgImageCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, copy) NSString *imageName; /**< 图片名*/
 
 @end
 
 @interface RKBgImageCollectionView : UIView
+
+@property (nonatomic, weak) id<RKBgImageCollectionViewDelegate> delegate; /**< 代理*/
 
 @end
