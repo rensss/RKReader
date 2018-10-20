@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		102C032C214B6AC100262929 /* RKReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 102C032B214B6AC100262929 /* RKReadMenuView.m */; };
+		103451682179D55800F29051 /* RKReadViewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103451672179D55800F29051 /* RKReadViewSettingViewController.m */; };
+		1034516B2179DA3400F29051 /* RKBgImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1034516A2179DA3400F29051 /* RKBgImageCollectionView.m */; };
 		1037E448213E2A3100B5CF0E /* RKAlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E447213E2A3100B5CF0E /* RKAlertMessage.m */; };
 		1037E44B213E2A4200B5CF0E /* RKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E44A213E2A4200B5CF0E /* RKLoadingView.m */; };
 		1037E44E213E2E8D00B5CF0E /* RKFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1037E44D213E2E8D00B5CF0E /* RKFileManager.m */; };
@@ -41,6 +43,10 @@
 /* Begin PBXFileReference section */
 		102C032A214B6AC100262929 /* RKReadMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadMenuView.h; sourceTree = "<group>"; };
 		102C032B214B6AC100262929 /* RKReadMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadMenuView.m; sourceTree = "<group>"; };
+		103451662179D55800F29051 /* RKReadViewSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKReadViewSettingViewController.h; sourceTree = "<group>"; };
+		103451672179D55800F29051 /* RKReadViewSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKReadViewSettingViewController.m; sourceTree = "<group>"; };
+		103451692179DA3400F29051 /* RKBgImageCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBgImageCollectionView.h; sourceTree = "<group>"; };
+		1034516A2179DA3400F29051 /* RKBgImageCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBgImageCollectionView.m; sourceTree = "<group>"; };
 		1037E446213E2A3100B5CF0E /* RKAlertMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKAlertMessage.h; sourceTree = "<group>"; };
 		1037E447213E2A3100B5CF0E /* RKAlertMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKAlertMessage.m; sourceTree = "<group>"; };
 		1037E449213E2A4200B5CF0E /* RKLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKLoadingView.h; sourceTree = "<group>"; };
@@ -168,6 +174,8 @@
 				103A68E92140F98600F008C3 /* RKReadPageViewController.m */,
 				103A68EB2140FDC900F008C3 /* RKReadViewController.h */,
 				103A68EC2140FDC900F008C3 /* RKReadViewController.m */,
+				103451662179D55800F29051 /* RKReadViewSettingViewController.h */,
+				103451672179D55800F29051 /* RKReadViewSettingViewController.m */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -233,8 +241,10 @@
 				103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */,
 				102C032A214B6AC100262929 /* RKReadMenuView.h */,
 				102C032B214B6AC100262929 /* RKReadMenuView.m */,
-				108BCB882171F0F700D32ADA /* RKChaptersLstView.h */,
-				108BCB892171F0F700D32ADA /* RKChaptersLstView.m */,
+				108BCB882171F0F700D32ADA /* RKChaptersListView.h */,
+				108BCB892171F0F700D32ADA /* RKChaptersListView.m */,
+				103451692179DA3400F29051 /* RKBgImageCollectionView.h */,
+				1034516A2179DA3400F29051 /* RKBgImageCollectionView.m */
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,7 +348,7 @@
 				TargetAttributes = {
 					109C98B9213CE8DE0018DB5F = {
 						CreatedOnToolsVersion = 9.4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -442,8 +452,10 @@
 				1037E451213E39A200B5CF0E /* RKModel.m in Sources */,
 				109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */,
 				1A2D86562144FC690006421D /* RKReadProgress.m in Sources */,
-				108BCB8A2171F0F700D32ADA /* RKChaptersLstView.m in Sources */,
+				108BCB8A2171F0F700D32ADA /* RKChaptersListView.m in Sources */,
+				103451682179D55800F29051 /* RKReadViewSettingViewController.m in Sources */,
 				1037E454213E39D400B5CF0E /* RKBook.m in Sources */,
+				1034516B2179DA3400F29051 /* RKBgImageCollectionView.m in Sources */,
 				103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */,
 				109C98E1213D0CD30018DB5F /* RKNavigationViewController.m in Sources */,
 				103A68EA2140F98600F008C3 /* RKReadPageViewController.m in Sources */,
@@ -576,14 +588,11 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-=======
->>>>>>> NewIdeas
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2MC8B96QW9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +608,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -609,14 +618,11 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-=======
->>>>>>> NewIdeas
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2MC8B96QW9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K6F6N22E77;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -632,7 +638,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = micsoft.RKReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = THCommon;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -37,6 +37,8 @@
 @property (nonatomic, strong) UIButton *smallSpace; /**< 小行间距*/
 
 @property (nonatomic, strong) UIButton *chaptersButton; /**< 目录*/
+@property (nonatomic, strong) UIButton *nightButton; /**< 夜间模式*/
+@property (nonatomic, strong) UIButton *settingButton; /**< 设置*/
 
 @property (nonatomic, strong) void(^dismissBlock)(void); /**< 消失回调*/
 @property (nonatomic, strong) void(^closeBlock)(void); /**< 点击关闭按钮回调*/
@@ -159,6 +161,22 @@
             }];
         }
             break;
+        case 8:// 夜间模式
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(showChaptersList)]) {
+                [self.delegate nightModel];
+            }
+        }
+            break;
+        case 9:// 设置
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(showChaptersList)]) {
+                [self.delegate clickSettting];
+            }
+            // 消失
+            [self bgClick];
+        }
+            break;
 			
 		default:
 			break;
@@ -202,6 +220,18 @@
 #pragma mark -- 私有函数
 /// 修改行间距(1.保存用户配置2.修改页面)
 - (void)changeLineSpace {
+    CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+    if (space == 4.0f) {
+        self.smallSpace.selected = YES;
+        self.middleSpace.selected = self.bigSpace.selected = NO;
+    }else if (space == 8.0f) {
+        self.middleSpace.selected = YES;
+        self.smallSpace.selected = self.bigSpace.selected = NO;
+    }else if (space == 16.0f) {
+        self.bigSpace.selected = YES;
+        self.middleSpace.selected = self.smallSpace.selected = NO;
+    }
+    
 	[[RKUserConfiguration sharedInstance] saveUserConfig];
 	if (self.delegate && [self.delegate respondsToSelector:@selector(changeLineSpace)]) {
 		[self.delegate changeLineSpace];
@@ -245,6 +275,8 @@
 		[_bottomBar addSubview:self.smallSpace];
         
         [_bottomBar addSubview:self.chaptersButton];
+        [_bottomBar addSubview:self.nightButton];
+        [_bottomBar addSubview:self.settingButton];
     }
     return _bottomBar;
 }
@@ -338,11 +370,18 @@
 - (UIButton *)bigSpace {
 	if (!_bigSpace) {
 		_bigSpace = [[UIButton alloc] initWithFrame:CGRectMake(kSpacePadding, self.fontSize.maxY + 20, kSpaceWidth, 32)];
-		
+
 		_bigSpace.tag = kButtonTag + 4;
 		_bigSpace.tintColor = [UIColor whiteColor];
 		[_bigSpace setImage:[[UIImage imageNamed:@"lineSpace_big"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_bigSpace setImage:[[UIImage imageNamed:@"lineSpace_big"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_bigSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 16.0f) {
+            _bigSpace.selected = YES;
+        }
 	}
 	return _bigSpace;
 }
@@ -355,7 +394,14 @@
 		_middleSpace.tag = kButtonTag + 5;
 		_middleSpace.tintColor = [UIColor whiteColor];
 		[_middleSpace setImage:[[UIImage imageNamed:@"lineSpace_mid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_middleSpace setImage:[[UIImage imageNamed:@"lineSpace_mid"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_middleSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 8.0f) {
+            _middleSpace.selected = YES;
+        }
 	}
 	return _middleSpace;
 }
@@ -368,22 +414,52 @@
 		_smallSpace.tag = kButtonTag + 6;
 		_smallSpace.tintColor = [UIColor whiteColor];
 		[_smallSpace setImage:[[UIImage imageNamed:@"lineSpace_small"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_smallSpace setImage:[[UIImage imageNamed:@"lineSpace_small"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+
 		[_smallSpace addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGFloat space = [RKUserConfiguration sharedInstance].lineSpace;
+        if (space == 4.0f) {
+            _smallSpace.selected = YES;
+        }
 	}
 	return _smallSpace;
 }
 
 - (UIButton *)chaptersButton {
     if (!_chaptersButton) {
-        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(15, self.bigSpace.maxY + 10, 20, 20)];
-		
+        _chaptersButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bigSpace.x, self.bigSpace.maxY + 20, 25, 25)];
+        
         _chaptersButton.tag = kButtonTag + 7;
         _chaptersButton.tintColor = [UIColor whiteColor];
-        [_chaptersButton setBackgroundImage:[[UIImage imageNamed:@"目录"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_chaptersButton setBackgroundImage:[[UIImage imageNamed:@"详情"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_chaptersButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return _chaptersButton;
+}
+
+- (UIButton *)nightButton {
+    if (!_nightButton) {
+        _nightButton = [[UIButton alloc] initWithFrame:CGRectMake(self.chaptersButton.maxX + 15, self.chaptersButton.y, 25, 25)];
+        
+        _nightButton.tag = kButtonTag + 8;
+        _nightButton.tintColor = [UIColor whiteColor];
+        [_nightButton setBackgroundImage:[[UIImage imageNamed:@"夜间模式"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_nightButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _nightButton;
+}
+
+- (UIButton *)settingButton {
+    if (!_settingButton) {
+        _settingButton = [[UIButton alloc] initWithFrame:CGRectMake(self.nightButton.maxX + 15, self.chaptersButton.y, 25, 25)];
+        
+        _settingButton.tag = kButtonTag + 9;
+        _settingButton.tintColor = [UIColor whiteColor];
+        [_settingButton setBackgroundImage:[[UIImage imageNamed:@"设置"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_settingButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _settingButton;
 }
 
 @end

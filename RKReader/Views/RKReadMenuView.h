@@ -34,6 +34,16 @@
  */
 - (void)forwardToIndex:(NSInteger)index;
 
+/**
+ 夜间模式
+ */
+- (void)nightModel;
+
+/**
+ 点击设置
+ */
+- (void)clickSettting;
+
 @end
 
 @interface RKReadMenuView : UIView

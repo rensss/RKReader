@@ -53,7 +53,11 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define kCoverImageWidth 236
 #define kCoverImageHeight 337
 
+// 阅读页底部bar默认字体颜色
 #define kReadViewBottomTintColor [UIColor colorWithHexString:@"707070"]
+
+// 阅读页默认背景颜色
+#define kReadViewBackgroudColor [UIColor colorWithHexString:@"bcf2cc"]
 
 #pragma mark - 线程名
 #define kMyConcurrentQueue "RKReaderQueue"
@@ -82,10 +86,9 @@ NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
 #define kUserConfigLineSpace @"kUserConfigLineSpace"
 // 字体颜色
 #define kUserConfigFontColor @"kUserConfigFontColor"
-// 主题
-#define kUserConfigTheme @"kUserConfigTheme"
-// 背景图索引
-#define kUserConfigBgIndex @"kUserConfigBgIndex"
+
+// 阅读页背景图
+#define kUserConfigBgImageName @"kUserConfigBgImageName"
 
 #pragma mark -- 阅读页大小
 // 阅读页大小

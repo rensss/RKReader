@@ -91,15 +91,10 @@
 		}else {
 			self.fontColor = @"000000";
 		}
-		if ([[dict allKeys] containsObject:kUserConfigTheme]) {
-			self.theme = dict[kUserConfigTheme];
+		if ([[dict allKeys] containsObject:kUserConfigBgImageName]) {
+			self.bgImageName = dict[kUserConfigBgImageName];
 		}else {
-			self.theme = @"Normal";
-		}
-		if ([[dict allKeys] containsObject:kUserConfigBgIndex]) {
-			self.bgIndex = [dict[kUserConfigBgIndex] integerValue];
-		}else {
-			self.bgIndex = 0;
+			self.bgImageName = @"reader_bg_3";
 		}
 		// 阅读页大小
 		if ([[dict allKeys] containsObject:kUserConfigReadViewFrame]) {
@@ -143,8 +138,7 @@
 	[dict setValue:@(self.fontSize) forKey:kUserConfigFontSize];
 	[dict setValue:@(self.lineSpace) forKey:kUserConfigLineSpace];
 	[dict setValue:self.fontColor forKey:kUserConfigFontColor];
-	[dict setValue:self.theme forKey:kUserConfigTheme];
-	[dict setValue:@(self.bgIndex) forKey:kUserConfigBgIndex];
+	[dict setValue:self.bgImageName forKey:kUserConfigBgImageName];
 	
     // 删除旧版本 (如果旧文件存在的话)
     NSError *error;
