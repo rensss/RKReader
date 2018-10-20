@@ -87,6 +87,8 @@
         }else {
             config.fontColor = @"000000";
         }
+        // 保存
+        [config saveUserConfig];
         [self.delegate didSelectBgImage];
     }
 }
@@ -111,7 +113,7 @@
     
     cell.imageName = self.dataArray[indexPath.item];
     if ([cell.imageName isEqualToString:[RKUserConfiguration sharedInstance].bgImageName]) {
-        cell.selected = YES;
+//        cell.selected = YES;
     }
     
     return cell;
