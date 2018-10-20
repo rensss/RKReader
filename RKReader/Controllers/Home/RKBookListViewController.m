@@ -36,7 +36,9 @@
 	[super viewWillAppear:animated];
 	
 	// 更新列表
-	self.dataArray = nil;
+	if (self.dataArray.count != [RKFileManager getHomeListBooks].count) {
+		self.dataArray = nil;
+	}
 	[self.tableView reloadData];
 }
 

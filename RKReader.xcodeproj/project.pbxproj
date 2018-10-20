@@ -27,7 +27,7 @@
 		103A68F42141203700F008C3 /* RKReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103A68F32141203700F008C3 /* RKReadView.m */; };
 		103E0BB42147A67A002D2271 /* RKHomeListBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E0BB32147A67A002D2271 /* RKHomeListBooks.m */; };
 		103E0BB7214A0A6B002D2271 /* RKBottomStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */; };
-		108BCB8A2171F0F700D32ADA /* RKChaptersListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 108BCB892171F0F700D32ADA /* RKChaptersListView.m */; };
+		108BCB8A2171F0F700D32ADA /* RKChaptersLstView.m in Sources */ = {isa = PBXBuildFile; fileRef = 108BCB892171F0F700D32ADA /* RKChaptersLstView.m */; };
 		109C98BF213CE8DE0018DB5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98BE213CE8DE0018DB5F /* AppDelegate.m */; };
 		109C98CD213CE8E00018DB5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98CC213CE8E00018DB5F /* main.m */; };
 		109C98DE213D0C840018DB5F /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109C98DD213D0C840018DB5F /* RKViewController.m */; };
@@ -78,8 +78,8 @@
 		103E0BB32147A67A002D2271 /* RKHomeListBooks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKHomeListBooks.m; sourceTree = "<group>"; };
 		103E0BB5214A0A6B002D2271 /* RKBottomStatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBottomStatusBar.h; sourceTree = "<group>"; };
 		103E0BB6214A0A6B002D2271 /* RKBottomStatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBottomStatusBar.m; sourceTree = "<group>"; };
-		108BCB882171F0F700D32ADA /* RKChaptersListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKChaptersListView.h; sourceTree = "<group>"; };
-		108BCB892171F0F700D32ADA /* RKChaptersListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKChaptersListView.m; sourceTree = "<group>"; };
+		108BCB882171F0F700D32ADA /* RKChaptersLstView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKChaptersLstView.h; sourceTree = "<group>"; };
+		108BCB892171F0F700D32ADA /* RKChaptersLstView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKChaptersLstView.m; sourceTree = "<group>"; };
 		109C98BA213CE8DE0018DB5F /* RKReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		109C98BD213CE8DE0018DB5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		109C98BE213CE8DE0018DB5F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 				108BCB882171F0F700D32ADA /* RKChaptersListView.h */,
 				108BCB892171F0F700D32ADA /* RKChaptersListView.m */,
 				103451692179DA3400F29051 /* RKBgImageCollectionView.h */,
-				1034516A2179DA3400F29051 /* RKBgImageCollectionView.m */,
+				1034516A2179DA3400F29051 /* RKBgImageCollectionView.m */
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -588,6 +588,7 @@
 			baseConfigurationReference = AFB11152EB9BB95938544CE8 /* Pods-RKReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -617,6 +618,7 @@
 			baseConfigurationReference = 584FECB0ADA4C8B9FC6E2A9E /* Pods-RKReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;

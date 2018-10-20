@@ -10,7 +10,6 @@
 #import "RKReadViewController.h"
 #import "RKReadViewSettingViewController.h"
 #import "RKReadMenuView.h"
-#import "RKChaptersListView.h"
 
 
 @interface RKReadPageViewController ()
@@ -156,7 +155,7 @@ RKReadMenuViewDelegate
 		self.pageNext--;
 	}
 	
-	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+	RKLog(@"chapter:%ld -- page:%ld",(long)self.chapterNext,(long)self.pageNext);
     return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
@@ -174,7 +173,7 @@ RKReadMenuViewDelegate
 	}else {
 		self.pageNext ++;
 	}
-	RKLog(@"chapter:%ld -- page:%ld",self.chapterNext,self.pageNext);
+	RKLog(@"chapter:%ld -- page:%ld",(long)self.chapterNext,(long)self.pageNext);
 	return [self viewControllerChapter:self.chapterNext andPage:self.pageNext];
 }
 
@@ -199,7 +198,7 @@ RKReadMenuViewDelegate
     RKLog(@"willTransitionToViewControllers");
 //	self.currentChapter = self.chapterNext;
 //	self.currentPage = self.pageNext;
-	RKLog(@"%ld -|- %ld",self.currentChapter,self.currentPage);
+	RKLog(@"%ld -|- %ld",(long)self.currentChapter,(long)self.currentPage);
 }
 
 #pragma mark - RKReadMenuViewDelegate
@@ -273,7 +272,8 @@ RKReadMenuViewDelegate
 }
 
 /**
- 弹出章节列表
+ 跳转到某一章
+ @param index 章节索引
  */
 - (void)showChaptersList {
 	
@@ -296,6 +296,19 @@ RKReadMenuViewDelegate
 		[weakSelf updateLocalBookData];
 	}];
 	
+- (void)forwardToIndex:(NSInteger)index {
+    
+    // 跳转
+    self.pageNext = 0;
+    self.chapterNext = index;
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.chapterNext andPage:self.pageNext]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // 更新阅读记录
+    self.currentPage = 0;
+    self.currentChapter = self.chapterNext;
+    [self updateLocalBookData];
 }
 
 

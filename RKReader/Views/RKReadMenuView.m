@@ -7,6 +7,7 @@
 //
 
 #import "RKReadMenuView.h"
+#import "RKChaptersLstView.h"
 
 #define kNavBarHight 44.0f
 #define kButtonTag 2000
@@ -150,11 +151,14 @@
 			break;
         case 7:// 目录
         {
-			if (self.delegate && [self.delegate respondsToSelector:@selector(showChaptersList)]) {
-				[self.delegate showChaptersList];
-			}
-			// 消失
-			[self bgClick];
+            RKChaptersLstView *listView = [[RKChaptersLstView alloc] initWithFrame:self.bounds];
+            listView.book = self.book;
+			__weak typeof(self) weakSelf = self;
+            [listView showInView:self and:^(NSInteger selectChapter) {
+				if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(forwardToIndex:)]) {
+					[weakSelf.delegate forwardToIndex:selectChapter];
+				}
+            }];
         }
             break;
         case 8:// 夜间模式
