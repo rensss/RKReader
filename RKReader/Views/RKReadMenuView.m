@@ -66,8 +66,7 @@
 #pragma mark - 点击事件
 /// 消失
 -  (void)bgClick {
-	// 显示电池条
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+	
     [UIView animateWithDuration:0.25f animations:^{
         self.upBar.maxY = 0;
         self.bottomBar.y = self.height;
@@ -159,8 +158,22 @@
             break;
         case 8:// 夜间模式
         {
+            button.selected = !button.selected;
             if (self.delegate && [self.delegate respondsToSelector:@selector(showChaptersList)]) {
+                RKUserConfiguration *config = [RKUserConfiguration sharedInstance];
+                if (button.selected) {
+                    config.bgImageName = @"reader_bg_2";
+                    config.fontColor = @"f0f0f0";
+                }else {
+                    config.bgImageName = @"reader_bg_3";
+                    config.fontColor = @"000000";
+                }
+                // 保存
+                [config saveUserConfig];
+                // 调用代理
                 [self.delegate nightModel];
+                // 消失
+                [self bgClick];
             }
         }
             break;
@@ -185,9 +198,6 @@
  @param superView 父view
  */
 - (void)showToView:(UIView *)superView {
-	
-	// 显示电池条
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 	
 	[superView addSubview:self];
 	
@@ -440,8 +450,17 @@
         
         _nightButton.tag = kButtonTag + 8;
         _nightButton.tintColor = [UIColor whiteColor];
-        [_nightButton setBackgroundImage:[[UIImage imageNamed:@"夜间模式"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_nightButton setBackgroundImage:[[UIImage imageNamed:@"夜间模式选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_nightButton setBackgroundImage:[[UIImage imageNamed:@"夜间模式选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+        
         [_nightButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // 改变默认状态
+        if ([[RKUserConfiguration sharedInstance].bgImageName isEqualToString:@"reader_bg_2"]) {
+            _nightButton.selected = YES;
+        }else {
+            _nightButton.selected = NO;
+        }
     }
     return _nightButton;
 }

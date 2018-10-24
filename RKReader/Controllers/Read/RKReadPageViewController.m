@@ -37,7 +37,16 @@ RKReadMenuViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	    
+    
+    // 改变状态栏的颜色
+    if ([[RKUserConfiguration sharedInstance].bgImageName isEqualToString:@"reader_bg_2"]) {
+        // 设置状态栏的颜色
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    }else {
+        // 设置状态栏的颜色
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    }
+    
 	// 添加点击手势
 	[self.view addGestureRecognizer:({
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showToolMenu)];
@@ -86,8 +95,6 @@ RKReadMenuViewDelegate
     [super viewWillAppear:animated];
     // 隐藏导航栏
     self.navigationController.delegate = self;
-    // 隐藏电池条
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
     
     // 屏幕常亮
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -95,8 +102,13 @@ RKReadMenuViewDelegate
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     // 禁止侧滑返回
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     
     // 关闭屏幕常亮
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -109,6 +121,9 @@ RKReadMenuViewDelegate
 	if (self.isShowMenu) {
 		return ;
 	}
+    
+    // 设置状态栏的颜色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 	
 	self.isShowMenu = YES;
 	// 菜单view
@@ -120,10 +135,25 @@ RKReadMenuViewDelegate
 	// 菜单消失
 	[menu dismissBlock:^{
 		weakSelf.isShowMenu = NO;
+        
+        
+        // 改变状态栏的颜色
+        if ([[RKUserConfiguration sharedInstance].bgImageName isEqualToString:@"reader_bg_2"]) {
+            // 设置状态栏的颜色
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }else {
+            // 设置状态栏的颜色
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        }
+        
+//        // 设置状态栏的颜色
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 	}];
 	
 	// 退出阅读
 	[menu closeBlock:^{
+        // 设置状态栏的颜色
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 		[weakSelf dissmiss];
 	}];
 }
@@ -146,7 +176,7 @@ RKReadMenuViewDelegate
 	self.pageNext = self.currentPage;
 	self.chapterNext = self.currentChapter;
 	
-	if (self.pageNext==0 && self.chapterNext == 0) {
+	if (self.pageNext == 0 && self.chapterNext == 0) {
 		return nil;
 	}
 	if (self.pageNext == 0) {
@@ -302,6 +332,17 @@ RKReadMenuViewDelegate
 /// 夜间模式
 - (void)nightModel {
     
+    // 改变状态栏的颜色
+    if ([[RKUserConfiguration sharedInstance].bgImageName isEqualToString:@"reader_bg_2"]) {
+        // 设置状态栏的颜色
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    }else {
+        // 设置状态栏的颜色
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    }
+    
+    // 设置当前显示的readVC
+    [self.pageViewController setViewControllers:@[[self viewControllerChapter:self.currentChapter andPage:self.currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 
 /// 跳转设置
@@ -358,8 +399,6 @@ RKReadMenuViewDelegate
 - (void)dissmiss {
     // 侧滑返回
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    // 显示电池条
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
     // 关闭
     [self dismissViewControllerAnimated:YES completion:nil];
 }

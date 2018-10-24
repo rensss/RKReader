@@ -36,14 +36,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // 隐藏电池条
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
 
 #pragma mark - 返回
 - (void)THNvigationBarLeftButtonItemClick {
-    // 隐藏电池条
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+    
     // 调用回调
     if (self.needUpdateUICallback) {
         self.needUpdateUICallback();
