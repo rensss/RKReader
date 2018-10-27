@@ -7,6 +7,7 @@
 //
 
 #import "RKViewController.h"
+#import "AppDelegate.h"
 
 @interface RKViewController ()
 
@@ -23,6 +24,31 @@
 
 - (void)dealloc {
     RKLog(@"---> %@ 销毁",[self class])
+}
+
+#pragma mark - 函数
+/**
+ 设置是否强制转屏
+ @param allowRotation 是否强制横屏 yes 横屏 no 竖屏
+ */
+- (void)setOrientation:(BOOL)allowRotation {
+    
+    // 返回手势
+    //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+    //        self.navigationController.interactivePopGestureRecognizer.enabled = !allowRotation;
+    //    }
+    
+    AppDelegate * appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (allowRotation) {//允许转成横屏
+        //调用横屏代码
+        appDelegate.interfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
+        [UIDevice switchNewOrientation:UIInterfaceOrientationLandscapeRight];
+    }else {//关闭横屏仅允许竖屏
+        //切换到竖屏
+        appDelegate.interfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
+        [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
+    }
 }
 
 #pragma mark - 重写系统方法

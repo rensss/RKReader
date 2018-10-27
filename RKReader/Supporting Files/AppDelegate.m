@@ -18,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    self.interfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     RKBookListViewController *listVC = [[RKBookListViewController alloc] init];
     RKNavigationViewController *nav = [[RKNavigationViewController alloc] initWithRootViewController:listVC];
@@ -54,5 +56,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - 转屏代理
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    //    THLog(@"appdelegate : %lu", (unsigned long)self.interfaceOrientationMask);
+    return self.interfaceOrientationMask;
+}
 
 @end

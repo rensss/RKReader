@@ -38,6 +38,9 @@ RKReadMenuViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 强制竖屏
+    [self setOrientation:NO];
+    
     // 改变状态栏的颜色
     if ([[RKUserConfiguration sharedInstance].bgImageName isEqualToString:@"reader_bg_2"]) {
         // 设置状态栏的颜色
