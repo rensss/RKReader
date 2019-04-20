@@ -1,0 +1,30 @@
+//
+//  PrefixHeader.pch
+//  Reader
+//
+//  Created by RZK on 2019/4/20.
+//  Copyright © 2019 RZK. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// 自定义log
+#define NSLog(FORMAT, ...) {\
+NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];\
+[dateFormatter setDateStyle:NSDateFormatterMediumStyle];\
+[dateFormatter setTimeStyle:NSDateFormatterShortStyle];\
+[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS "]; \
+NSString *str = [dateFormatter stringFromDate:[NSDate date]];\
+fprintf(stderr,"%s %s",[str UTF8String], [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
+}
+#define RKLog(...)\
+NSLog(@"%s %d\n%@\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__]);
+
+#pragma mark - 通用类
+#import <R_category/R_categorys.h>
+#import <PureLayout/PureLayout.h>
+#import <YYModel/YYModel.h>
+#import "RKNavigationController.h" // 导航控制
+
+#endif /* PrefixHeader_pch */

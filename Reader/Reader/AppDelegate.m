@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "RKBookListViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +15,14 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	// Override point for customization after application launch.
+	
+	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+	RKBookListViewController *listVC = [[RKBookListViewController alloc] init];
+	RKNavigationController *nav = [[RKNavigationController alloc] initWithRootViewController:listVC];
+	self.window.rootViewController = nav;
+	[self.window makeKeyAndVisible];
+	
 	return YES;
 }
 
