@@ -7,6 +7,7 @@
 //
 
 #import "RKBookListViewController.h"
+#import "RKSettingViewController.h"
 
 @interface RKBookListViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -25,6 +26,12 @@
 	[self initUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	// 刷新界面
+}
+
 #pragma mark - 函数
 /// 布局UI
 - (void)initUI {
@@ -38,13 +45,15 @@
 	tableView.dataSource = self;
 	tableView.rowHeight = 100;
 	tableView.tableFooterView = [UIView new];
+	[tableView autoPinEdgesToSuperviewEdges];
 	
 //	// 赋值底部安全区域高度
 //	[RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight = self.safeAreaInsets.bottom;
 }
 
 - (void)settingClick {
-	
+	RKSettingViewController *settingVC = [RKSettingViewController new];
+	[self.navigationController pushViewController:settingVC animated:YES];
 }
 	
 #pragma mark - delegate

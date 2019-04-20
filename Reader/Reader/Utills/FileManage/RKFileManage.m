@@ -44,4 +44,12 @@ static RKFileManage *_fileManage;
 	return _fileManage;
 }
 
+#pragma mark - func
+#pragma mark - 增
+/// 添加书籍
+- (void)saveBookWithPath:(NSString *)path {
+	
+}
+
+
 @end
