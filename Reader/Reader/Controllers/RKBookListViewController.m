@@ -38,7 +38,6 @@
 	tableView.dataSource = self;
 	tableView.rowHeight = 100;
 	tableView.tableFooterView = [UIView new];
-
 	
 //	// 赋值底部安全区域高度
 //	[RKUserConfiguration sharedInstance].viewControllerSafeAreaBottomHeight = self.safeAreaInsets.bottom;

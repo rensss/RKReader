@@ -14,6 +14,9 @@
 		1A038E3D226B064D00A42CA2 /* RKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A038E3C226B064D00A42CA2 /* RKNavigationController.m */; };
 		1A038E40226B06B300A42CA2 /* RKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A038E3F226B06B300A42CA2 /* RKViewController.m */; };
 		1A038E44226B096B00A42CA2 /* RKBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A038E43226B096B00A42CA2 /* RKBookListViewController.m */; };
+		1A371ED5226B1CA0001E6393 /* RKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A371ED1226B1CA0001E6393 /* RKLoadingView.m */; };
+		1A371ED6226B1CA0001E6393 /* RKAlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A371ED4226B1CA0001E6393 /* RKAlertMessage.m */; };
+		1A371EDA226B1E6B001E6393 /* RKFileManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A371ED9226B1E6B001E6393 /* RKFileManage.m */; };
 		568505276CCC56CBDE1E07A2 /* libPods-Reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98365BC159F8701AF5891D85 /* libPods-Reader.a */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +35,12 @@
 		1A038E41226B070400A42CA2 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		1A038E42226B096B00A42CA2 /* RKBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBookListViewController.h; sourceTree = "<group>"; };
 		1A038E43226B096B00A42CA2 /* RKBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKBookListViewController.m; sourceTree = "<group>"; };
+		1A371ED1226B1CA0001E6393 /* RKLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKLoadingView.m; sourceTree = "<group>"; };
+		1A371ED2226B1CA0001E6393 /* RKAlertMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKAlertMessage.h; sourceTree = "<group>"; };
+		1A371ED3226B1CA0001E6393 /* RKLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKLoadingView.h; sourceTree = "<group>"; };
+		1A371ED4226B1CA0001E6393 /* RKAlertMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKAlertMessage.m; sourceTree = "<group>"; };
+		1A371ED8226B1E6B001E6393 /* RKFileManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKFileManage.h; sourceTree = "<group>"; };
+		1A371ED9226B1E6B001E6393 /* RKFileManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKFileManage.m; sourceTree = "<group>"; };
 		33A1B59BBA1219AE69AF7F54 /* Pods-Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.release.xcconfig"; sourceTree = "<group>"; };
 		98365BC159F8701AF5891D85 /* libPods-Reader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Reader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBBFC15CB9DD9F7F62BD7CF /* Pods-Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +129,8 @@
 		1A038E39226B05E700A42CA2 /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				1A371ED7226B1E53001E6393 /* FileManage */,
+				1A371ED0226B1CA0001E6393 /* RKAlertMeassge */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -133,6 +144,26 @@
 				1A038E3F226B06B300A42CA2 /* RKViewController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		1A371ED0226B1CA0001E6393 /* RKAlertMeassge */ = {
+			isa = PBXGroup;
+			children = (
+				1A371ED3226B1CA0001E6393 /* RKLoadingView.h */,
+				1A371ED1226B1CA0001E6393 /* RKLoadingView.m */,
+				1A371ED2226B1CA0001E6393 /* RKAlertMessage.h */,
+				1A371ED4226B1CA0001E6393 /* RKAlertMessage.m */,
+			);
+			path = RKAlertMeassge;
+			sourceTree = "<group>";
+		};
+		1A371ED7226B1E53001E6393 /* FileManage */ = {
+			isa = PBXGroup;
+			children = (
+				1A371ED8226B1E6B001E6393 /* RKFileManage.h */,
+				1A371ED9226B1E6B001E6393 /* RKFileManage.m */,
+			);
+			path = FileManage;
 			sourceTree = "<group>";
 		};
 		74B4C7E47940AF72C9AF4A70 /* Frameworks */ = {
@@ -265,9 +296,12 @@
 			files = (
 				1A038E44226B096B00A42CA2 /* RKBookListViewController.m in Sources */,
 				1A038E40226B06B300A42CA2 /* RKViewController.m in Sources */,
+				1A371ED6226B1CA0001E6393 /* RKAlertMessage.m in Sources */,
 				1A038E3D226B064D00A42CA2 /* RKNavigationController.m in Sources */,
 				1A038E2E226B047D00A42CA2 /* main.m in Sources */,
+				1A371ED5226B1CA0001E6393 /* RKLoadingView.m in Sources */,
 				1A038E20226B047C00A42CA2 /* AppDelegate.m in Sources */,
+				1A371EDA226B1E6B001E6393 /* RKFileManage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
