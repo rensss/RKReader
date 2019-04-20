@@ -8,7 +8,7 @@
 
 #import "RKNavigationController.h"
 
-@interface RKNavigationController ()
+@interface RKNavigationController () <UIGestureRecognizerDelegate>
 
 @end
 
