@@ -13,6 +13,8 @@
 
 @property (nonatomic, copy) NSString *coverImage; /**< 封面图*/
 @property (nonatomic, copy) NSString *name; /**< 书名*/
+@property (nonatomic, copy) NSString *path; /**< 存放地址*/
+@property (nonatomic, copy) NSString *content; /**< 全书内容*/
 @property (nonatomic, assign) CGFloat progress; /**< 进度*/
 @property (nonatomic, assign) NSInteger allChapters; /**< 总章节数*/
 @property (nonatomic, strong) RKChapter *chapter; /**< 当前章节*/
