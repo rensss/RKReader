@@ -315,7 +315,6 @@
 				109C98B7213CE8DE0018DB5F /* Frameworks */,
 				109C98B8213CE8DE0018DB5F /* Resources */,
 				50AFEC506B717EED2A084318 /* [CP] Copy Pods Resources */,
-				56BA18641DBC376DF829C6FA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -379,7 +378,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RKReader/Pods-RKReader-resources.sh",
 				"${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -388,22 +387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56BA18641DBC376DF829C6FA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RKReader/Pods-RKReader-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RKReader/Pods-RKReader-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		73B5631D4988E5C4624394DA /* [CP] Check Pods Manifest.lock */ = {
